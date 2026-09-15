@@ -12,10 +12,22 @@
     <meta property="og:title" content="Clickzz — Builder de projetos de conversão com IA" />
     <meta property="og:description" content="Crie páginas de venda e quizzes completos a partir de uma simples descrição." />
     <meta property="og:type" content="website" />
-    <script type="module" crossorigin src="/clickzz-site/assets/index-CRZAu4D-.js"></script>
+    <script type="module" crossorigin src="/clickzz-site/assets/index-DaWgoBjX.js"></script>
     <link rel="stylesheet" crossorigin href="/clickzz-site/assets/index-LkVKPHiT.css">
   </head>
   <body>
-    <div id="root"></div>
+    <script>
+      // Recuperação de cache antigo: se o script/CSS principal de um build anterior não existir mais (404),
+      // recarrega uma única vez para buscar o index.html atual. Evita a "tela branca" após um deploy.
+      window.addEventListener('error', function (e) {
+        var t = e.target;
+        if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK') && !sessionStorage.getItem('czz-reloaded')) {
+          sessionStorage.setItem('czz-reloaded', '1');
+          location.reload();
+        }
+      }, true);
+    </script>
+    <div id="root"></div>
+    <noscript><p style="font-family:system-ui;padding:24px">Ative o JavaScript para ver esta página.</p></noscript>
   </body>
 </html>
