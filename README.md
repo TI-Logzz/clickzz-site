@@ -1,6 +1,6 @@
 # Clickzz — página de vendas
 
-Página de vendas da Clickzz (builder de projetos de conversão com IA), construída a partir do `PROMPT-MESTRE — Página de Vendas Clickzz.md` na pasta acima.
+Página de vendas da Clickzz (builder de projetos de conversão com IA), construída a partir do `PROMPT-MESTRE — Página de Vendas Clickzz.md` na pasta acima...
 
 ## Rodar
 
