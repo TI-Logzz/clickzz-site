@@ -6,6 +6,8 @@ import { Hero } from './sections/Hero';
 // Tudo abaixo do hero vem em um único chunk, depois da primeira pintura
 const Below = lazy(() => import('./sections/Below'));
 
+import './sections/sections.css';
+
 const Scene = lazy(() => import('./three/Scene'));
 
 export default function App() {
