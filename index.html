@@ -14,7 +14,19 @@
     <meta property="og:type" content="website" />
   </head>
   <body>
+    <script>
+      // Recuperação de cache antigo: se o script/CSS principal de um build anterior não existir mais (404),
+      // recarrega uma única vez para buscar o index.html atual. Evita a "tela branca" após um deploy.
+      window.addEventListener('error', function (e) {
+        var t = e.target;
+        if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK') && !sessionStorage.getItem('czz-reloaded')) {
+          sessionStorage.setItem('czz-reloaded', '1');
+          location.reload();
+        }
+      }, true);
+    </script>
     <div id="root"></div>
+    <noscript><p style="font-family:system-ui;padding:24px">Ative o JavaScript para ver esta página.</p></noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

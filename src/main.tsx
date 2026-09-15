@@ -17,6 +17,17 @@ useUI.getState().setEnv({ reducedMotion, isTouch, webgl });
 if (!webgl) document.documentElement.classList.add('no-webgl');
 if (reducedMotion) document.documentElement.classList.add('reduced-motion');
 
+// Chunks carregados depois (seções abaixo do hero, cena 3D) podem sumir após um deploy: recarrega uma vez.
+window.addEventListener('vite:preloadError', (e) => {
+  e.preventDefault();
+  if (!sessionStorage.getItem('czz-reloaded')) {
+    sessionStorage.setItem('czz-reloaded', '1');
+    location.reload();
+  }
+});
+// Carregou com sucesso: libera uma futura recuperação.
+window.addEventListener('load', () => sessionStorage.removeItem('czz-reloaded'));
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
