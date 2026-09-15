@@ -68,7 +68,7 @@ export const keys: Record<SectionId, SceneKey> = {
   integrations: {
     crystal: { pos: [-4.4, 2.8, -2], scale: 0.6, spin: 0.5, visible: 0.9 },
     blocks: { center: [0, 0.2, -7], spread: 5.5, layout: 'ring', scale: 0.5 },
-    wires: 1, particles: 0.6, wash: 0.5,
+    wires: 0.45, particles: 0.6, wash: 0.5,
   },
   plans: {
     crystal: { pos: [-4.8, 2.8, -3], scale: 0.45, spin: 0.2, visible: 0.4 },
