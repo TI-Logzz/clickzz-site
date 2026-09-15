@@ -1,23 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { Nav } from './components/Nav';
-import { Footer } from './components/Footer';
-import { useSmoothScroll, usePointer } from './lib/scroll';
+import { useSmoothScroll, usePointer, useIsMobile } from './lib/scroll';
 import { useUI } from './lib/store';
 import { Hero } from './sections/Hero';
-import { Positioning } from './sections/Positioning';
-import { Formats } from './sections/Formats';
-import { AiSection } from './sections/AiSection';
-import { BuilderSection } from './sections/BuilderSection';
-import { QuizSection } from './sections/QuizSection';
-import { PagesSection } from './sections/PagesSection';
-import { PublishSection } from './sections/PublishSection';
-import { AnalyticsSection } from './sections/AnalyticsSection';
-import { CompareSection } from './sections/CompareSection';
-import { IntegrationsSection } from './sections/IntegrationsSection';
-import { PlansSection } from './sections/PlansSection';
-import { AllInOneSection } from './sections/AllInOneSection';
-import { FinalCta } from './sections/FinalCta';
-import './sections/sections.css';
+// Tudo abaixo do hero vem em um único chunk, depois da primeira pintura
+const Below = lazy(() => import('./sections/Below'));
 
 const Scene = lazy(() => import('./three/Scene'));
 
@@ -26,10 +13,12 @@ export default function App() {
   usePointer();
   const webgl = useUI((s) => s.webgl);
   const reduced = useUI((s) => s.reducedMotion);
+  const mobile = useIsMobile();
 
   return (
     <>
-      {webgl && !reduced && (
+      {mobile && <div className="mobile-glow" aria-hidden="true" />}
+      {webgl && !reduced && !mobile && (
         <Suspense fallback={null}>
           <Scene />
         </Suspense>
@@ -38,21 +27,10 @@ export default function App() {
         <Nav />
         <main>
           <Hero />
-          <Positioning />
-          <Formats />
-          <AiSection />
-          <BuilderSection />
-          <QuizSection />
-          <PagesSection />
-          <PublishSection />
-          <AnalyticsSection />
-          <CompareSection />
-          <IntegrationsSection />
-          <PlansSection />
-          <AllInOneSection />
-          <FinalCta />
+          <Suspense fallback={<div style={{ minHeight: 1200 }} aria-hidden="true" />}>
+            <Below />
+          </Suspense>
         </main>
-        <Footer />
       </div>
     </>
   );

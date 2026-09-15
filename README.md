@@ -44,11 +44,13 @@ Fluxo A (Quiz com IA) vive em `sections/AiSection.tsx`; Fluxo B (Página) em `se
 
 A logo oficial (fornecida pelo cliente) está em `public/brand/`: `clickzz-logo.png` (fundo claro), `clickzz-logo-white.png` (fundo escuro), versões `@120` para a interface, `clickzz-mark.png` / `clickzz-mark-256.v2.png` (marca quadrada, usada sozinha nos núcleos das seções) e `favicon.png` / `apple-touch-icon.png`. Os fundos foram removidos por chroma key; cada PNG carrega a origem em metadado tEXt. `components/Logo.tsx` usa esses arquivos.
 
-## Fallbacks
+## Fallbacks e performance
 
 - `prefers-reduced-motion`: sem scrub, sem canvas, telas no estado final, reveals instantâneos.
 - Sem WebGL: `html.no-webgl` esconde o canvas; a página é 100% DOM.
-- ≤ 960 px: seções pinadas viram fluxo normal; as timelines rodam ao longo da altura natural da seção.
+- ≤ 960 px (mobile): a cena 3D não é carregada (um brilho em CSS faz o fundo), os reveals não usam blur, as seções pinadas viram fluxo normal e o plano do builder do hero não é renderizado.
+- Abaixo do hero, tudo vem em um chunk separado (`sections/Below.tsx`) montado em levas depois da primeira pintura (`components/Deferred.tsx`).
+- A fonte principal (Inter latina, variável) é auto-hospedada em `public/fonts` e pré-carregada no `index.html`.
 
 ## Verificação
 

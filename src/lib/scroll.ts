@@ -87,12 +87,13 @@ export function useReveal(ref: RefObject<HTMLElement | null>, deps: unknown[] = 
       return;
     }
     const ctx = gsap.context(() => {
-      gsap.set(items, { opacity: 0, y: 28, filter: 'blur(6px)' });
+      const light = window.matchMedia('(max-width: 960px)').matches;
+      gsap.set(items, light ? { opacity: 0, y: 20 } : { opacity: 0, y: 28, filter: 'blur(6px)' });
       const shown = new Set<HTMLElement>();
       const show = (batch: Element[]) => {
         const fresh = (batch as HTMLElement[]).filter((b) => !shown.has(b));
         fresh.forEach((b) => shown.add(b));
-        if (fresh.length) gsap.to(fresh, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.1, ease: 'expo.out', stagger: 0.09, overwrite: true });
+        if (fresh.length) gsap.to(fresh, light ? { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out', stagger: 0.06, overwrite: true } : { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.1, ease: 'expo.out', stagger: 0.09, overwrite: true });
       };
       ScrollTrigger.batch(items, { start: 'top 88%', end: 'bottom top', onEnter: show, onEnterBack: show });
       // rede de segurança: após um refresh (molduras mudam de altura), revela o que já está na tela
@@ -101,8 +102,9 @@ export function useReveal(ref: RefObject<HTMLElement | null>, deps: unknown[] = 
         show(items.filter((i) => !shown.has(i) && i.getBoundingClientRect().top < vh * 0.95 && i.getBoundingClientRect().bottom > 0));
       };
       ScrollTrigger.addEventListener('refresh', sweep);
+      ScrollTrigger.addEventListener('scrollEnd', sweep);
       const t = window.setTimeout(sweep, 400);
-      return () => { ScrollTrigger.removeEventListener('refresh', sweep); window.clearTimeout(t); };
+      return () => { ScrollTrigger.removeEventListener('refresh', sweep); ScrollTrigger.removeEventListener('scrollEnd', sweep); window.clearTimeout(t); };
     }, el);
     return () => ctx.revert();
     // eslint-disable-next-line react-hooks/exhaustive-deps

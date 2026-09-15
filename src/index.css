@@ -57,7 +57,7 @@
   --space-8: 4rem;
   --space-9: 6rem;
   --space-10: 8rem;
-  --section-y: clamp(5rem, 4rem + 6vw, 9rem);
+  --section-y: clamp(3.5rem, 2rem + 6vw, 9rem);
   --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
   --container: 1200px;
 
@@ -84,9 +84,19 @@
   color-scheme: light;
 }
 
+/* ---------- Fonte principal (latina, variável, auto-hospedada e pré-carregada) ---------- */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: auto; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: auto; overflow-x: clip; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
@@ -254,6 +264,15 @@ html { caret-color: var(--primary); }
 .grain::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.35; mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.35 0 0 0 0 0.6 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Fundo leve para o mobile (substitui a cena 3D) ---------- */
+.mobile-glow {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 40% at 90% 8%, rgba(212, 179, 255, 0.45), transparent 70%),
+    radial-gradient(50% 35% at 5% 55%, rgba(228, 213, 245, 0.55), transparent 70%),
+    radial-gradient(60% 40% at 80% 95%, rgba(212, 179, 255, 0.35), transparent 70%);
 }
 
 /* ---------- Sem WebGL ---------- */

@@ -108,7 +108,7 @@
 
 /* ---------- Moldura de dispositivo ---------- */
 .device { position: relative; width: 100%; }
-.device__viewport { position: relative; width: 100%; overflow: hidden; border-radius: 14px; background: #fff; box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, var(--shadow-lg); border: 1px solid rgba(24,24,27,0.08); }
+.device__viewport { position: relative; width: 100%; overflow: hidden; contain: content; border-radius: 14px; background: #fff; box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, var(--shadow-lg); border: 1px solid rgba(24,24,27,0.08); }
 .device__bar { height: 34px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: linear-gradient(#fbfbfc, #f4f4f6); border-bottom: 1px solid #e6e6ea; }
 .device__dots { display: flex; gap: 6px; }
 .device__dots i { width: 10px; height: 10px; border-radius: 999px; background: #d9d9de; display: block; }

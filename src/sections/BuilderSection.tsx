@@ -131,7 +131,7 @@ function BuilderCards() {
   const ref = useRef<HTMLDivElement>(null);
   useReveal(ref);
   return (
-    <div ref={ref} className="container" style={{ paddingBlock: 'var(--section-y)' }}>
+    <div ref={ref} className="container builder__cards">
       <div className="feature-grid">
         {builder.cards.map((c, i) => {
           const Icon = icons[i];
