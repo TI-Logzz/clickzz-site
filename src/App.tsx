@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Nav } from './components/Nav';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { useSmoothScroll, usePointer, useIsMobile } from './lib/scroll';
 import { useUI } from './lib/store';
 import { Hero } from './sections/Hero';
@@ -21,17 +22,21 @@ export default function App() {
     <>
       {mobile && <div className="mobile-glow" aria-hidden="true" />}
       {webgl && !reduced && !mobile && (
-        <Suspense fallback={null}>
-          <Scene />
-        </Suspense>
+        <ErrorBoundary name="cena 3D">
+          <Suspense fallback={null}>
+            <Scene />
+          </Suspense>
+        </ErrorBoundary>
       )}
       <div className="page-root" id="top">
         <Nav />
         <main>
-          <Hero />
-          <Suspense fallback={<div style={{ minHeight: 1200 }} aria-hidden="true" />}>
-            <Below />
-          </Suspense>
+          <ErrorBoundary name="hero"><Hero /></ErrorBoundary>
+          <ErrorBoundary name="seções">
+            <Suspense fallback={<div style={{ minHeight: 1200 }} aria-hidden="true" />}>
+              <Below />
+            </Suspense>
+          </ErrorBoundary>
         </main>
       </div>
     </>

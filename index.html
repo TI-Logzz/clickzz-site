@@ -19,10 +19,13 @@
       // recarrega uma única vez para buscar o index.html atual. Evita a "tela branca" após um deploy.
       window.addEventListener('error', function (e) {
         var t = e.target;
-        if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK') && !sessionStorage.getItem('czz-reloaded')) {
-          sessionStorage.setItem('czz-reloaded', '1');
-          location.reload();
-        }
+        if (!t || (t.tagName !== 'SCRIPT' && t.tagName !== 'LINK')) return;
+        var flag = null; try { flag = sessionStorage.getItem('czz-reloaded'); } catch (_) {}
+        if (!flag) { try { sessionStorage.setItem('czz-reloaded', '1'); } catch (_) {} location.reload(); return; }
+        var box = document.createElement('div');
+        box.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;background:#fff;color:#7f1d1d;border:1px solid #fecaca;border-radius:12px;padding:12px 14px;font:13px/1.4 system-ui,sans-serif';
+        box.textContent = 'Não foi possível carregar um arquivo da página: ' + (t.src || t.href || '');
+        document.body.appendChild(box);
       }, true);
     </script>
     <div id="root"></div>
