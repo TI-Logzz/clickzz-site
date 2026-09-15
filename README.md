@@ -40,6 +40,12 @@ Cada tela é desenhada em 1440×900 (ou 390×844) com HTML/CSS reais e escalada 
 
 Fluxo A (Quiz com IA) vive em `sections/AiSection.tsx`; Fluxo B (Página) em `sections/BuilderSection.tsx` e `sections/PagesSection.tsx`.
 
+## Deploy
+
+- Caminhos de assets são relativos (`base: './'`), então o mesmo build funciona na raiz (Vercel: https://clickzz-site.vercel.app) e em subpasta (GitHub Pages: https://ti-logzz.github.io/clickzz-site/).
+- Vercel: conectada ao repositório, faz build a cada push na `main` (`vercel.json` define instalação com `--legacy-peer-deps` e cache longo para assets).
+- GitHub Pages: `npm run deploy` publica `dist/` na branch `gh-pages` preservando assets de builds anteriores.
+
 ## Marca
 
 A logo oficial (fornecida pelo cliente) está em `public/brand/`: `clickzz-logo.png` (fundo claro), `clickzz-logo-white.png` (fundo escuro), versões `@120` para a interface, `clickzz-mark.png` / `clickzz-mark-256.v2.png` (marca quadrada, usada sozinha nos núcleos das seções) e `favicon.png` / `apple-touch-icon.png`. Os fundos foram removidos por chroma key; cada PNG carrega a origem em metadado tEXt. `components/Logo.tsx` usa esses arquivos.

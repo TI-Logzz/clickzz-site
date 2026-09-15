@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // GitHub Pages serve o site em /clickzz-site/; troque para '/' ao publicar em domínio próprio
-  base: process.env.VITE_BASE ?? '/clickzz-site/',
+  // Caminhos relativos: o mesmo build funciona na raiz (Vercel, domínio próprio) e em /clickzz-site/ (GitHub Pages)
+  base: './',
   plugins: [react()],
 })
