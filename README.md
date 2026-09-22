@@ -28,8 +28,10 @@ src/
   content/copy.ts        copy literal do docx (única fonte de texto da página)
   lib/store.ts           relógio compartilhado (progresso das seções, preferências)
   lib/scroll.ts          Lenis + ScrollTrigger, useSectionProgress, useReveal, usePinned
-  components/FlowArt.tsx fluxo de quiz ilustrado (cards Quiz e Quizzes interativos), BrandTile.tsx (logos das integrações), Scaled.tsx
-  screens/               "telas vivas": reprodução em HTML/CSS do app Clickzz (dashboard, novo projeto, briefing, builder de quiz, Conexões, builder de página, analytics, publicar), Device (moldura escalada) e GhostCursor
+  components/            ilustrações: FlowArt (fluxo de quiz), AiArt (a IA montando um projeto),
+                         PageArt (página de conversão por seções), BrandTile (logos), Scaled (escala nativa)
+  screens/               "telas vivas" (metade das demonstrações): builder de página, página publicada,
+                         quiz no celular e analytics — Device (moldura escalada, celular em 3D) e GhostCursor
   sections/              as 14 seções da copy + sections.css
   components/            Nav, Footer, Logo, ui (botões, eyebrow, checks)
 ```
@@ -38,7 +40,9 @@ src/
 
 Cada tela é desenhada em 1440×900 (ou 390×844) com HTML/CSS reais e escalada pela moldura `Device` (`transform: scale`). Os elementos carregam `data-*` (por exemplo `data-step`, `data-bsec`, `data-edge`) que as timelines GSAP das seções animam com `scrub`, incluindo um cursor fantasma (`GhostCursor`) que clica, digita e arrasta.
 
-Fluxo A (Quiz com IA) vive em `sections/AiSection.tsx`; Fluxo B (Página) em `sections/BuilderSection.tsx` e `sections/PagesSection.tsx`.
+Metade das demonstrações são **telas reais** (hero, builder visual, publicação e dados: onde ser fiel ao app
+importa) e metade são **ilustrações** (Clickzz AI, Seus projetos e Páginas de conversão: onde o que importa é a
+ideia). As ilustrações usam o mesmo mecanismo de escala (`Scaled`) e os mesmos `data-*` para as timelines.
 
 ## Deploy
 

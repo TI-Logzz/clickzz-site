@@ -1,0 +1,64 @@
+/* PageArt — página de conversão ilustrada, montada por seções */
+.pgart { font-family: var(--font-app); }
+.pgart__canvas {
+  position: relative; padding: 22px 22px 0; overflow: hidden;
+  border-radius: 20px;
+  background-color: #f7f3fd;
+  background-image: linear-gradient(rgba(117, 36, 205, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(117, 36, 205, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: #282c34;
+}
+.pgart__canvas--compact { padding: 16px 16px 0; }
+.pgart__page {
+  height: 100%; background: #fff; border: 1px solid #e6dff3; border-radius: 14px 14px 0 0;
+  box-shadow: 0 1px 2px rgba(24,24,27,0.04), 0 24px 48px -26px rgba(46,16,101,0.4);
+  padding: 14px; display: flex; flex-direction: column; gap: 10px; overflow: hidden;
+}
+
+/* cada seção da página */
+.pgart__sec { position: relative; border-radius: 10px; padding: 10px; }
+
+/* peças reutilizadas */
+.pgart__h1 { height: 15px; width: 84%; border-radius: 5px; background: #282c34; }
+.pgart__h1--2 { width: 62%; margin-top: 6px; background: linear-gradient(90deg, #7524cd, #b48cf5); }
+.pgart__h1--center { width: 56%; margin-inline: auto; }
+.pgart__text { height: 7px; width: 92%; border-radius: 4px; background: #e9e4f2; margin-top: 6px; }
+.pgart__text--short { width: 64%; }
+.pgart__text--mid { width: 46%; }
+.pgart__text--tiny { height: 6px; }
+.pgart__eyebrow { display: inline-block; font-size: 8.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #be185d; background: #fdf2f8; border-radius: 999px; padding: 3px 8px; margin-bottom: 8px; }
+.pgart__cta { display: inline-flex; align-items: center; height: 26px; padding: 0 12px; margin-top: 10px; border-radius: 8px; background: linear-gradient(135deg, #8b3fe0, #7524cd); color: #fff; font-size: 10.5px; font-weight: 600; box-shadow: 0 8px 16px -8px rgba(117,36,205,0.7); }
+.pgart__cta--wide { margin-top: 12px; height: 30px; padding-inline: 20px; font-size: 11.5px; }
+
+/* hero */
+.pgart__hero { display: grid; grid-template-columns: 1fr 34%; gap: 14px; align-items: center; }
+.pgart__art { position: relative; aspect-ratio: 1; border-radius: 12px; background: linear-gradient(145deg, #fce7f3, #f3e8ff); overflow: hidden; }
+.pgart__art-blob { position: absolute; left: 18%; bottom: 14%; width: 64%; height: 46%; border-radius: 14px 14px 26px 26px; background: linear-gradient(160deg, #f9a8d4, #e879f9); }
+.pgart__art-ring { position: absolute; left: 26%; top: 16%; width: 48%; aspect-ratio: 1; border-radius: 999px; border: 4px solid rgba(255,255,255,0.75); }
+.pgart__art-star { position: absolute; right: 12%; top: 14%; color: #a855f7; }
+
+/* oferta */
+.pgart__offer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: 10px; background: #faf7ff; border: 1px solid #ece2fb; }
+.pgart__price { display: flex; align-items: baseline; gap: 7px; margin-top: 7px; }
+.pgart__price b { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
+.pgart__price span { font-size: 9.5px; color: #6b7280; }
+.pgart__badge { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 700; color: #047857; background: #ecfdf5; border-radius: 999px; padding: 5px 10px; white-space: nowrap; }
+
+/* benefícios */
+.pgart__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pgart__mini { padding: 10px; border-radius: 10px; background: #fbf9fe; border: 1px solid #efe9f9; }
+.pgart__mini-icon { display: block; width: 18px; height: 18px; border-radius: 6px; background: #e4d5f5; margin-bottom: 8px; }
+
+/* prova */
+.pgart__proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pgart__quote { position: relative; padding: 10px; border-radius: 10px; background: #fff; border: 1px solid #ece6f7; box-shadow: 0 4px 12px -8px rgba(46,16,101,0.3); }
+.pgart__stars { display: flex; gap: 1px; margin-bottom: 7px; }
+.pgart__avatar { display: block; width: 16px; height: 16px; border-radius: 999px; background: linear-gradient(145deg, #c4b5fd, #7524cd); margin-top: 8px; }
+
+/* faq */
+.pgart__faq { display: flex; flex-direction: column; gap: 6px; }
+.pgart__faq-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 10px; border-radius: 8px; border: 1px solid #ece6f7; color: #9ca3af; }
+.pgart__faq-row .pgart__text { margin-top: 0; width: 70%; }
+
+/* cta final */
+.pgart__final { text-align: center; padding: 6px 0 2px; }

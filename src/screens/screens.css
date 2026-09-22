@@ -67,32 +67,6 @@
 .stitle { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
 .smuted { color: var(--s-muted); }
 
-/* ---------- Cards de escolha (Novo Projeto) ---------- */
-.choice { border: 1.5px solid var(--s-line); border-radius: 12px; padding: 18px; background: #fff; position: relative; }
-.choice--on { border-color: var(--s-primary); background: #faf7ff; }
-.choice__check { position: absolute; top: 12px; right: 12px; width: 22px; height: 22px; border-radius: 999px; background: var(--s-primary); color: #fff; display: grid; place-items: center; }
-.choice__art { background: #f7f7f8; border: 1px solid #ededf0; border-radius: 8px; height: 190px; display: grid; place-items: center; overflow: hidden; }
-.choice__title { display: flex; gap: 12px; align-items: flex-start; margin-top: 16px; }
-.choice__icon { width: 36px; height: 36px; border-radius: 8px; background: var(--s-accent); color: var(--s-primary); display: grid; place-items: center; flex: 0 0 auto; }
-.choice__icon svg { width: 18px; height: 18px; }
-.choice__title b { display: block; font-size: 15px; font-weight: 600; }
-.choice__title span { color: var(--s-muted); font-size: 13px; }
-
-/* miniaturas ilustrativas dos cards (copiadas do app) */
-.mini { width: 268px; background: #fff; border: 1px solid #e6e6ea; border-radius: 8px; padding: 14px 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
-.mini__bar { height: 12px; border-radius: 6px; background: #e4e4e7; }
-.mini__opt { height: 26px; border-radius: 8px; background: #ececef; margin-top: 10px; display: flex; align-items: center; gap: 8px; padding-left: 8px; }
-.mini__opt::before { content: ''; width: 12px; height: 12px; border-radius: 999px; background: #9ca3af; }
-.mini__opt--on { background: #d6bcfa; }
-.mini__opt--on::before { background: #6b26d9; }
-.mini__progress { height: 6px; background: #e4e4e7; border-radius: 3px; margin-top: 14px; overflow: hidden; }
-.mini__progress i { display: block; width: 36%; height: 100%; background: #6b26d9; }
-.mini__btn { height: 14px; width: 60px; background: #6b26d9; border-radius: 4px; margin-top: 12px; }
-.mini__hero { display: grid; grid-template-columns: 1fr 80px; gap: 12px; margin-top: 12px; }
-.mini__img { background: #d6bcfa; border-radius: 8px; height: 60px; }
-.mini__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
-.mini__grid i { height: 36px; background: #e4e4e7; border-radius: 6px; display: block; }
-
 /* ---------- Toast ---------- */
 .stoast { position: absolute; right: 24px; bottom: 24px; background: #fff; border: 1px solid var(--s-line); border-radius: 10px; padding: 12px 16px; box-shadow: 0 8px 24px -8px rgba(0,0,0,0.18); display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; }
 .stoast svg { color: #16a34a; }
@@ -165,13 +139,6 @@
 .bld__search { margin: 12px 12px 8px; height: 36px; border: 1px solid var(--s-line); border-radius: 6px; display: flex; align-items: center; gap: 8px; padding: 0 10px; color: var(--s-muted); font-size: 13px; }
 .bld__search svg { width: 14px; height: 14px; }
 
-/* Etapas (quiz) na lateral */
-.step { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; margin: 4px 8px; border: 1px solid transparent; font-size: 13px; }
-.step__num { width: 24px; height: 24px; border-radius: 6px; background: #f4f4f5; display: grid; place-items: center; font-size: 12px; font-weight: 600; color: var(--s-ink-2); }
-.step--active { background: var(--s-accent); border-color: #e2d4fb; }
-.step--active .step__num { background: var(--s-primary); color: #fff; }
-.step__meta { margin-left: auto; font-size: 11px; color: var(--s-muted); }
-
 /* Paleta de elementos */
 .elgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 8px 12px; }
 .el { border: 1px solid var(--s-line); border-radius: 8px; padding: 10px 6px; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; color: var(--s-ink-2); background: #fff; }
@@ -196,21 +163,6 @@
 .pgsec__tools { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; z-index: 2; }
 .pgsec__tools i { width: 24px; height: 24px; border-radius: 6px; background: #fff; border: 1px solid var(--s-line); display: grid; place-items: center; }
 .pgsec__tools svg { width: 12px; height: 12px; color: var(--s-ink-2); }
-
-/* Fluxo (nós e conexões) */
-.flow { position: relative; height: 100%; background-color: #f5f5f7; background-image: radial-gradient(#d8d8de 1px, transparent 1px); background-size: 20px 20px; overflow: hidden; }
-.node { position: absolute; width: 220px; background: #fff; border: 1px solid var(--s-line); border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 6px 16px -8px rgba(0,0,0,0.12); }
-.node__head { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--s-line); font-size: 12px; font-weight: 600; }
-.node__head .step__num { width: 20px; height: 20px; font-size: 11px; }
-.node__body { padding: 10px 12px; font-size: 12px; color: var(--s-muted); }
-.node__opt { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; border: 1px solid var(--s-line); border-radius: 6px; margin-top: 6px; font-size: 12px; color: var(--s-ink); background: #fff; }
-.node__port { width: 10px; height: 10px; border-radius: 999px; background: #fff; border: 2px solid var(--s-primary); position: absolute; right: -6px; top: 50%; transform: translateY(-50%); }
-.node__in { width: 10px; height: 10px; border-radius: 999px; background: var(--s-primary); position: absolute; left: -6px; top: 22px; }
-.node--sel { border-color: var(--s-primary); box-shadow: 0 0 0 3px rgba(107,38,217,0.15); }
-.node--rand .node__head { color: var(--s-primary); }
-.flow__svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.flow__svg path { fill: none; stroke: #a78bfa; stroke-width: 2; }
-.flow__svg .pulse { stroke: #6b26d9; stroke-width: 2.5; stroke-dasharray: 22 400; stroke-linecap: round; }
 
 /* Preview publicado (quiz mobile) */
 .qz { height: 100%; display: flex; flex-direction: column; background: #fff; padding-bottom: 30px; }

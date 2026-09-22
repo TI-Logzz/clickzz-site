@@ -135,13 +135,12 @@
 .ai__item--on { opacity: 1; transform: none; border-color: var(--violet-200); }
 .ai__item--on .dot { background: var(--violet-400); box-shadow: 0 0 0 4px var(--violet-200); }
 .ai .demo-note { color: var(--muted); }
-.ai__monitor { position: relative; perspective: 1600px; min-height: 0; }
-.ai__monitor .device { transform: rotateX(2deg); }
+.ai__monitor { position: relative; min-height: 0; }
 @media (min-width: 961px) {
-  /* container de tamanho: a largura do monitor deriva da altura que sobra (16:10 + barra do navegador) */
+  /* container de tamanho: a largura da ilustração deriva da altura que sobra (16:10) */
   .ai__monitor { container-type: size; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; }
-  /* reserva a altura da legenda (≈ 28px) abaixo da moldura */
-  .ai__monitor .device { width: min(100%, calc((100cqh - 44px - 28px) * 1.6)); }
+  /* reserva a altura da legenda (≈ 28px) abaixo da ilustração */
+  .ai__monitor .aiart { width: min(100%, calc((100cqh - 28px) * 1.6)); }
   .ai__monitor .demo-note { margin: 0; flex: 0 0 auto; }
 }
 /* viewports baixas (notebooks): coluna de copy compacta para o palco inteiro caber em 100svh,
@@ -189,8 +188,7 @@
     margin-inline: calc(-1 * var(--gutter)); padding: 0.5rem var(--gutter) 0.6rem;
     background: var(--bg); perspective: none;
   }
-  .ai__monitor .device { transform: none; }
-  .ai__monitor .device__viewport { border-radius: 12px; }
+  .ai__monitor .aiart__canvas { border-radius: 14px; }
   .ai__monitor::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 26px; background: linear-gradient(180deg, var(--bg), transparent); pointer-events: none; }
   .ai .demo-note { margin-top: 0.5rem; font-size: 0.68rem; }
   .ai__copy { padding-top: 1.25rem; }

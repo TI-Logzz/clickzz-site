@@ -2,13 +2,12 @@ import { useLayoutEffect, useRef, type PointerEvent as RPointerEvent } from 'rea
 import { Waypoints, LayoutTemplate } from 'lucide-react';
 import { formats } from '../content/copy';
 import { CtaLink, SectionHead } from '../components/ui';
-import { Device } from '../screens/Device';
+import { PageArt } from '../components/PageArt';
 import { FlowArt } from '../components/FlowArt';
-import { PageBuilderScreen } from '../screens/PageBuilderScreen';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
-/** S03 — Quiz e Página lado a lado: o Quiz com um fluxo ilustrado (não é print do editor), a Página com o builder em loop. */
+/** S03 — Quiz e Página lado a lado, cada um com uma composição ilustrada em loop (não são capturas do editor). */
 export function Formats() {
   const root = useRef<HTMLElement>(null);
   const reduced = useUI((s) => s.reducedMotion);
@@ -24,7 +23,7 @@ export function Formats() {
         gsap.fromTo(p, { strokeDashoffset: 1.05 }, { strokeDashoffset: -0.06, duration: 2.2 + (i % 5) * 0.3, repeat: -1, ease: 'none', delay: (i % 7) * 0.3 });
       });
       // Página: seções se empilham em loop
-      const secs = el.querySelectorAll<HTMLElement>('.format-card--page [data-bsec]');
+      const secs = el.querySelectorAll<HTMLElement>('.format-card--page [data-pg-sec]');
       const tl = gsap.timeline({ repeat: -1, repeatDelay: 1.4 });
       tl.set(secs, { opacity: 0, y: 24 });
       secs.forEach((s, i) => tl.to(s, { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' }, i * 0.35));
@@ -69,8 +68,8 @@ export function Formats() {
           </article>
           <article className="format-card format-card--page" id="paginas-card" onPointerMove={tilt} onPointerLeave={untilt} data-reveal aria-labelledby="fmt-page">
             <span className="format-card__glow" aria-hidden="true" />
-            <div className="format-card__screen">
-              <Device bare><PageBuilderScreen chrome={false} activeSection={-1} /></Device>
+            <div className="format-card__screen format-card__screen--art">
+              <PageArt compact />
             </div>
             <div className="format-card__body">
               <div className="format-card__title"><span className="icon-tile"><LayoutTemplate size={20} /></span><h3 id="fmt-page" className="h4">{formats.page.title}</h3></div>

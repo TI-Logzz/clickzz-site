@@ -1,8 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { pages } from '../content/copy';
 import { CtaLink, SectionHead } from '../components/ui';
-import { Device } from '../screens/Device';
-import { PageBuilderScreen } from '../screens/PageBuilderScreen';
+import { PageArt } from '../components/PageArt';
 import { gsap, useReveal, useSectionProgress, useIsMobile, stageWindow } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
@@ -24,23 +23,16 @@ export function PagesSection() {
     if (!el || !st || reduced) return;
     const ctx = gsap.context(() => {
       const blocks = el.querySelectorAll<HTMLElement>('.pages__block');
-      const secs = st.querySelectorAll<HTMLElement>('[data-bsec]');
-      const items = st.querySelectorAll<HTMLElement>('[data-sec-item]');
-      const doc = st.querySelector<HTMLElement>('[data-pgdoc]');
+      const secs = st.querySelectorAll<HTMLElement>('[data-pg-sec]');
       gsap.set(blocks, { y: -40, opacity: 0, rotate: (i) => (i % 2 ? 6 : -6) });
-      gsap.set(secs, { opacity: 0, y: 24 });
-      gsap.set(items, { opacity: 0, x: -10 });
+      gsap.set(secs, { opacity: 0, y: 18 });
       const blocksEl = el.querySelector<HTMLElement>('.pages__blocks')!;
       const split = el.querySelector<HTMLElement>('.split')!;
       // 1) o builder monta a página enquanto o visitante lê a coluna de texto:
       //    começa quando o palco entra e termina quando a lista de blocos aparece
       // no mobile o palco fica acima do texto: a montagem precisa terminar enquanto ele ainda está na tela
       const tlA = gsap.timeline({ scrollTrigger: mobile ? stageWindow(st, 0.5) : { trigger: split, start: 'top 70%', endTrigger: blocksEl, end: 'top 70%', scrub: 0.6 }, defaults: { ease: 'none' } });
-      secs.forEach((sec, i) => {
-        tlA.to(sec, { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out' }, i * 0.3);
-        if (items[i]) tlA.to(items[i], { opacity: 1, x: 0, duration: 0.3 }, i * 0.3);
-      });
-      if (doc) tlA.to(doc, { y: -520, duration: secs.length * 0.3, ease: 'none' }, 0.5);
+      secs.forEach((sec, i) => tlA.to(sec, { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out' }, i * 0.3));
       // 2) os blocos "Hero … CTAs" caem quando a lista entra na tela; o fecho aparece no fim
       const tlB = gsap.timeline({ scrollTrigger: { trigger: blocksEl, start: 'top 92%', end: mobile ? 'top 55%' : 'top 45%', scrub: 0.6 }, defaults: { ease: 'none' } });
       blocks.forEach((b, i) => tlB.to(b, { y: 0, opacity: 1, rotate: 0, duration: 0.4, ease: 'back.out(1.8)' }, i * 0.25));
@@ -52,10 +44,8 @@ export function PagesSection() {
   return (
     <section ref={root} className="section" id="paginas" aria-labelledby="pages-title">
       <div className="container split split--rev">
-        <div ref={stage} className="pages__stage" aria-label="Builder de página montando seções: Hero, Oferta, Benefícios, Prova, Comparações, Bônus, Garantia, FAQ, CTAs">
-          <Device url="app.quizmaker.com.br/dashboard/projects/…/builder">
-            <PageBuilderScreen activeSection={-1} />
-          </Device>
+        <div ref={stage} className="pages__stage" aria-label="Uma página de conversão se montando por seções: Hero, Oferta, Benefícios, Prova, FAQ e CTA final">
+          <PageArt />
         </div>
         <div>
           <SectionHead eyebrow={pages.eyebrow} title={<span id="pages-title">{pages.title1}<br />{pages.title2}</span>} lead={pages.body1} />
