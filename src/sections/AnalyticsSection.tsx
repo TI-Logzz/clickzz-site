@@ -35,7 +35,12 @@ export function AnalyticsSection() {
 
   return (
     <section ref={root} className="section" id="dados" aria-labelledby="analytics-title">
-      <div className="container split split--media-left">
+      <div className="container--wide split split--media-left analytics__split">
+        <div>
+          <SectionHead eyebrow={analytics.eyebrow} title={<span id="analytics-title">{analytics.title}</span>} lead={analytics.body1}>
+            <p className="body-lg" data-reveal style={{ marginTop: '1rem' }}>{analytics.body2}</p>
+          </SectionHead>
+        </div>
         <div className="analytics__stage">
           <div ref={screen} data-reveal>
             <Device url="app.quizmaker.com.br/dashboard/funnels/…/analytics">
@@ -43,11 +48,6 @@ export function AnalyticsSection() {
             </Device>
           </div>
           <p className="demo-note" aria-hidden="true">Tela de demonstração com dados ilustrativos.</p>
-        </div>
-        <div>
-          <SectionHead eyebrow={analytics.eyebrow} title={<span id="analytics-title">{analytics.title}</span>} lead={analytics.body1}>
-            <p className="body-lg" data-reveal style={{ marginTop: '1rem' }}>{analytics.body2}</p>
-          </SectionHead>
         </div>
       </div>
       <div className="container">

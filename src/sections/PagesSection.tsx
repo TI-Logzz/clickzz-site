@@ -43,10 +43,7 @@ export function PagesSection() {
 
   return (
     <section ref={root} className="section" id="paginas" aria-labelledby="pages-title">
-      <div className="container split split--rev">
-        <div ref={stage} className="pages__stage" aria-label="Uma página de conversão se montando por seções: Hero, Oferta, Benefícios, Prova, FAQ e CTA final">
-          <PageArt />
-        </div>
+      <div className="container split">
         <div>
           <SectionHead eyebrow={pages.eyebrow} title={<span id="pages-title">{pages.title1}<br />{pages.title2}</span>} lead={pages.body1} />
           <p className="body-lg" data-reveal style={{ marginTop: '1rem' }}>{pages.body2}</p>
@@ -55,6 +52,9 @@ export function PagesSection() {
           </div>
           <p className="pages__close" style={reduced ? undefined : { opacity: 0 }}>{pages.close}</p>
           <div style={{ marginTop: '1.5rem' }} data-reveal><CtaLink>{pages.cta}</CtaLink></div>
+        </div>
+        <div ref={stage} className="pages__stage" aria-label="Uma página de conversão se montando por seções: Hero, Oferta, Benefícios, Prova, FAQ e CTA final">
+          <PageArt />
         </div>
       </div>
     </section>

@@ -58,6 +58,11 @@ export function Positioning() {
   return (
     <section ref={root} className="section" id="plataforma" aria-labelledby="positioning-title">
       <div className="container split split--media-left">
+        <div>
+          <SectionHead eyebrow={positioning.eyebrow} title={<span id="positioning-title">{positioning.title}</span>} lead={positioning.body1} />
+          <p className="body-lg positioning__body" data-reveal>{positioning.body2}</p>
+          <div style={{ marginTop: '2rem' }} data-reveal><CtaLink>{positioning.cta}</CtaLink></div>
+        </div>
         <div ref={cluster} className="positioning__cluster" aria-hidden="true">
           <div className="orbit">
             <div className="orbit__core"><Logo height={26} /></div>
@@ -65,11 +70,6 @@ export function Positioning() {
               <span key={c.label} className="orbit__chip"><c.icon /> {c.label}</span>
             ))}
           </div>
-        </div>
-        <div>
-          <SectionHead eyebrow={positioning.eyebrow} title={<span id="positioning-title">{positioning.title}</span>} lead={positioning.body1} />
-          <p className="body-lg positioning__body" data-reveal>{positioning.body2}</p>
-          <div style={{ marginTop: '2rem' }} data-reveal><CtaLink>{positioning.cta}</CtaLink></div>
         </div>
       </div>
     </section>

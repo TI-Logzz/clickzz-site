@@ -6,8 +6,17 @@ import { AiArt, AI_BRIEF } from '../components/AiArt';
 import { gsap, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
-/** Um ícone por item da copy, com a mesma massa óptica: etapas, linhas de texto, blocos e caminhos. */
-const ITEM_ICONS = [ListTree, AlignLeft, LayoutGrid, Split];
+/**
+ * Um ícone por item da copy. Tamanho e traço são ajustados por glifo, não compartilhados:
+ * na mesma caixa de 22px o AlignLeft (três fios) lê muito mais leve e o Split (setas nos
+ * cantos) muito mais pesado que os demais.
+ */
+const ITEM_ICONS = [
+  { Icon: ListTree, size: 22, stroke: 1.8 },
+  { Icon: AlignLeft, size: 21, stroke: 2.1 },
+  { Icon: LayoutGrid, size: 20, stroke: 1.95 },
+  { Icon: Split, size: 20, stroke: 1.85 },
+];
 
 /**
  * S04 — Clickzz AI. A demonstração é uma **ilustração** do que a IA faz (não uma captura do app):
@@ -124,10 +133,10 @@ export function AiSection() {
             <p className="ai__lead">{ai.lead}</p>
             <ul className="ai__items">
               {ai.items.map((it, i) => {
-                const Icon = ITEM_ICONS[i];
+                const { Icon, size, stroke } = ITEM_ICONS[i];
                 return (
                   <li key={it.title} className="ai__item">
-                    <span className="ai__item-icon" aria-hidden="true"><Icon size={22} strokeWidth={1.75} /></span>
+                    <span className="ai__item-icon" aria-hidden="true"><Icon size={size} strokeWidth={stroke} /></span>
                     <div className="ai__item-text"><b>{it.title}</b><span>{it.body}</span></div>
                   </li>
                 );

@@ -86,7 +86,9 @@
 .device__bar { height: 34px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: linear-gradient(#fbfbfc, #f4f4f6); border-bottom: 1px solid #e6e6ea; }
 .device__dots { display: flex; gap: 6px; }
 .device__dots i { width: 10px; height: 10px; border-radius: 999px; background: #d9d9de; display: block; }
-.device__url { margin-left: 8px; flex: 1; height: 22px; border-radius: 6px; background: #fff; border: 1px solid #e6e6ea; font-size: 11px; color: #6b7280; display: flex; align-items: center; padding: 0 10px; gap: 6px; font-family: var(--font-app); }
+.device__url { margin-left: 8px; flex: 1 1 auto; min-width: 0; height: 22px; border-radius: 6px; background: #fff; border: 1px solid #e6e6ea; font-size: 11px; color: #6b7280; display: flex; align-items: center; padding: 0 10px; gap: 6px; font-family: var(--font-app); overflow: hidden; }
+.device__url span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.device__url svg { flex: 0 0 auto; }
 .device__url b { color: #282c34; font-weight: 500; }
 .device__scale { transform-origin: top left; position: absolute; left: 0; top: 0; }
 .device--mobile { width: 100%; max-width: 390px; }

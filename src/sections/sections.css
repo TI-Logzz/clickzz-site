@@ -7,8 +7,11 @@
 .split > *, .hero__grid > *, .ai__body > *, .formats__grid > *, .compare__grid > * { min-width: 0; }
 .split--even { grid-template-columns: 1fr 1fr; }
 .split--rev > :first-child { order: 2; }
-/* mídia larga na primeira coluna: inverte as proporções em vez da ordem */
+/* mídia larga à esquerda no desktop SEM inverter a ordem do HTML: o título continua
+   sendo o primeiro elemento da seção (é ele que abre a seção no mobile e para leitores
+   de tela); só acima de 961px o CSS troca as colunas. */
 .split--media-left { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+@media (min-width: 961px) { .split--media-left > :first-child { order: 2; } }
 @media (max-width: 960px) {
   .split, .split--media-left { grid-template-columns: 1fr; }
   .split--rev > :first-child { order: 0; }
@@ -161,7 +164,7 @@
 .ai .demo-note { color: var(--muted); }
 
 /* a ilustração acompanha a leitura */
-.ai__monitor { position: sticky; top: 104px; align-self: start; }
+.ai__monitor { position: sticky; top: 96px; align-self: start; }
 @media (max-width: 960px) {
   .ai.section--dark { background: var(--bg); }
   .ai__title { font-size: var(--text-3xl); }
@@ -181,7 +184,7 @@
 /* ---------- Builder ---------- */
 .builder__title { display: flex; flex-direction: column; }
 .builder__title .word { display: block; line-height: 1; }
-.builder__title .word--dim { color: var(--line); transition: color var(--dur-slow) ease; }
+.builder__title .word--dim { color: rgba(24, 24, 27, 0.26); transition: color var(--dur-slow) ease; }
 .builder__title .word--on { color: var(--ink); }
 .builder__cards { padding-block: calc(var(--section-y) * 0.7) var(--section-y); position: relative; z-index: 2; background: var(--bg); }
 @media (max-width: 960px) { .builder__cards { padding-top: 1.5rem; } }
@@ -210,7 +213,8 @@
 /* ---------- Analytics ---------- */
 .analytics__cards { margin-top: clamp(2.5rem, 4vw, 3.5rem); }
 .analytics__stage { position: relative; }
-@media (min-width: 961px) { .analytics__stage { position: sticky; top: 104px; } }
+.analytics__split { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
+@media (min-width: 961px) { .analytics__stage { position: sticky; top: 96px; } }
 
 /* ---------- Comparação ---------- */
 .compare__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
