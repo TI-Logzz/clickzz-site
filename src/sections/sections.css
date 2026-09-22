@@ -7,8 +7,10 @@
 .split > *, .hero__grid > *, .ai__body > *, .formats__grid > *, .compare__grid > * { min-width: 0; }
 .split--even { grid-template-columns: 1fr 1fr; }
 .split--rev > :first-child { order: 2; }
+/* mídia larga na primeira coluna: inverte as proporções em vez da ordem */
+.split--media-left { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
 @media (max-width: 960px) {
-  .split { grid-template-columns: 1fr; }
+  .split, .split--media-left { grid-template-columns: 1fr; }
   .split--rev > :first-child { order: 0; }
 }
 
@@ -114,109 +116,66 @@
 .format-card__ideal b { color: var(--ink-2); font-weight: 600; }
 @media (max-width: 900px) { .formats__grid { grid-template-columns: 1fr; } }
 
-/* ---------- IA (protagonista) ---------- */
+/* ---------- IA (protagonista) ----------
+   A ilustração fica presa na coluna enquanto a copy rola: a seção cresce com o conteúdo
+   em vez de espremer tudo em 100svh (era isso que achatava todos os espaçamentos). */
 .ai { position: relative; }
-.ai__sticky { position: sticky; top: 0; height: 100svh; display: grid; grid-template-rows: auto minmax(0, 1fr); padding-top: 84px; overflow: hidden; }
-.ai__head { text-align: center; padding-top: 0.75rem; }
-.ai__title { margin-top: 0.75rem; font-size: min(var(--text-4xl), 6.2vh); }
+.ai__sticky { position: relative; }
+.ai__head { text-align: center; }
+.ai__title { margin-top: 1.25rem; }
 .ai__title .line { display: block; }
-/* o palco ocupa exatamente o que sobra da viewport; o monitor é dimensionado pela altura disponível, nunca cortado */
-.ai__body { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 7fr); gap: clamp(1.5rem, 3vw, 4rem); align-items: center; padding-block: 1rem 1.25rem; min-height: 0; }
-.ai__copy { min-height: 0; }
-.ai__lead { position: relative; padding-left: 1rem; }
-.ai__lead::before { content: ''; position: absolute; left: 0; top: 0.3em; bottom: 0.3em; width: 3px; border-radius: 2px; background: linear-gradient(180deg, var(--violet-400), transparent); }
-.ai__close { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; }
-/* trilha ilustrada: pastilhas de ícone ligadas por um fio que acende conforme a demo avança.
-   Sem molduras de card — o que marca o estado é a pastilha, não uma caixa. */
-.ai__items { --ai-tile: 46px; --ai-gap: 1.6rem; display: flex; flex-direction: column; gap: var(--ai-gap); }
-.ai__item { position: relative; display: grid; grid-template-columns: var(--ai-tile) 1fr; gap: 1.1rem; align-items: start; }
-/* o fio liga a pastilha deste item à do próximo (a altura acompanha o texto, que varia) */
+.ai__body { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2.5rem, 5vw, 6rem); align-items: start; margin-top: clamp(3rem, 5vw, 5rem); }
+.ai__copy { padding-bottom: clamp(2rem, 6vw, 6rem); }
+.ai__copy > .body + .body { margin-top: 1rem; }
+
+/* rótulo da trilha: mais espaço acima do que abaixo */
+.ai__lead { margin-top: 3rem; font-size: var(--text-base); font-weight: 600; color: var(--ink); }
+
+/* trilha ilustrada: pastilha de ícone ligada à próxima por um fio que acende com a demo */
+.ai__items { --ai-tile: 44px; --ai-gap: 2rem; display: flex; flex-direction: column; gap: var(--ai-gap); margin-top: 1.5rem; }
+.ai__item { position: relative; display: grid; grid-template-columns: var(--ai-tile) 1fr; gap: 1.25rem; align-items: start; }
 .ai__item::after {
-  content: ''; position: absolute; left: calc(var(--ai-tile) / 2 - 1px); top: calc(var(--ai-tile) + 7px);
-  width: 2px; height: calc(100% - var(--ai-tile) + var(--ai-gap) - 14px); border-radius: 2px;
+  content: ''; position: absolute; left: calc(var(--ai-tile) / 2 - 1px); top: calc(var(--ai-tile) + 8px);
+  width: 2px; height: calc(100% - var(--ai-tile) + var(--ai-gap) - 16px); border-radius: 2px;
   background: var(--line); transition: background var(--dur-slow) ease;
 }
 .ai__item:last-child::after { display: none; }
-.ai__item--on::after { background: linear-gradient(180deg, rgba(170, 72, 255, 0.55), var(--line)); }
+.ai__item--on::after { background: linear-gradient(180deg, rgba(170, 72, 255, 0.5), var(--line)); }
 .ai__item-icon {
-  position: relative; width: var(--ai-tile); height: var(--ai-tile); border-radius: 16px;
+  width: var(--ai-tile); height: var(--ai-tile); border-radius: 14px;
   display: grid; place-items: center; color: var(--muted);
   background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line);
-  transition: background var(--dur) ease, border-color var(--dur) ease, color var(--dur) ease, box-shadow var(--dur) ease, transform var(--dur) var(--ease-out);
+  transition: background var(--dur) ease, border-color var(--dur) ease, color var(--dur) ease, box-shadow var(--dur) ease;
 }
-.ai__item b { display: block; font-size: var(--text-lg); font-weight: 600; line-height: 1.25; color: var(--muted); transition: color var(--dur) ease; }
-.ai__item span { display: block; margin-top: 0.4rem; font-size: var(--text-sm); line-height: 1.5; color: var(--muted); transition: color var(--dur) ease; }
+.ai__item-text b { display: block; font-size: var(--text-lg); font-weight: 600; line-height: 1.3; color: var(--muted); transition: color var(--dur) ease; }
+.ai__item-text span { display: block; margin-top: 0.5rem; font-size: var(--text-sm); line-height: 1.55; color: var(--muted); transition: color var(--dur) ease; }
 .ai__item--on .ai__item-icon {
-  color: #fff; border-color: rgba(196, 140, 255, 0.5); transform: translateY(-1px);
+  color: #fff; border-color: rgba(196, 140, 255, 0.45);
   background: linear-gradient(145deg, #8b3fe0, #5b21b6);
-  box-shadow: 0 10px 22px -10px rgba(117, 36, 205, 0.9), 0 0 0 4px rgba(170, 72, 255, 0.12);
+  box-shadow: 0 10px 22px -10px rgba(117, 36, 205, 0.9);
 }
-.ai__item--on b { color: var(--ink); }
-.ai__item--on span { color: var(--ink-2); }
+.ai__item--on .ai__item-text b { color: var(--ink); }
+.ai__item--on .ai__item-text span { color: var(--ink-2); }
+
+.ai__close { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 1.25rem; align-items: flex-start; }
 .ai .demo-note { color: var(--muted); }
-.ai__monitor { position: relative; min-height: 0; }
-@media (min-width: 961px) {
-  /* container de tamanho: a largura da ilustração deriva da altura que sobra (16:10) */
-  .ai__monitor { container-type: size; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; }
-  /* reserva a altura da legenda (≈ 28px) abaixo da ilustração */
-  .ai__monitor .aiart { width: min(100%, calc((100cqh - 28px) * 1.6)); }
-  .ai__monitor .demo-note { margin: 0; flex: 0 0 auto; }
-}
-/* viewports baixas (notebooks): coluna de copy compacta para o palco inteiro caber em 100svh,
-   sempre com folga entre o último botão e a borda da seção */
-@media (min-width: 961px) and (max-height: 980px) {
-  .ai__sticky { padding-top: 78px; }
-  .ai__head { padding-top: 0.25rem; }
-  .ai__title { font-size: min(var(--text-4xl), 5.4vh); margin-top: 0.4rem; }
-  .ai__body { padding-block: 0.5rem 2rem; }
-  .ai__copy .body { font-size: 0.9rem; line-height: 1.45; }
-  .ai__copy > .body + .body { margin-top: 0.5rem !important; }
-  .ai__lead { margin-top: 1.25rem !important; }
-  .ai__items { margin-top: 0.9rem !important; }
-  .ai__items { --ai-tile: 40px; --ai-gap: 1.05rem; }
-  .ai__item { gap: 0.9rem; }
-  .ai__item b { font-size: var(--text-base); }
-  .ai__item span { margin-top: 0.25rem; font-size: 0.84rem; line-height: 1.4; }
-  .ai__close { margin-top: 0.7rem; gap: 0.5rem; }
-  .ai__close .btn { height: 2.6rem; padding-inline: 1.2rem; font-size: var(--text-sm); }
-}
-/* telas bem baixas: ainda mais enxuto */
-@media (min-width: 961px) and (max-height: 800px) {
-  .ai__sticky { padding-top: 70px; }
-  .ai__head .eyebrow { padding-block: 0.25rem; }
-  .ai__title { font-size: min(var(--text-4xl), 4.7vh); }
-  .ai__body { padding-block: 0.4rem 1.5rem; }
-  .ai__copy .body { font-size: 0.84rem; line-height: 1.4; }
-  .ai__copy > .body + .body { margin-top: 0.3rem !important; }
-  .ai__lead { margin-top: 0.9rem !important; padding-left: 0.75rem; }
-  .ai__items { --ai-tile: 34px; --ai-gap: 0.8rem; margin-top: 0.5rem !important; }
-  .ai__item-icon { border-radius: 12px; }
-  .ai__item b { font-size: 0.95rem; }
-  .ai__item span { margin-top: 0.15rem; font-size: 0.78rem; }
-  .ai__close { margin-top: 0.5rem; gap: 0.4rem; }
-  .ai__close .btn { height: 2.4rem; }
-}
-/* Mobile: a demonstração vem primeiro e fica presa ao topo; a copy rola por baixo dela em coluna
-   única e é ela que dirige a timeline (o visitante lê cada item enquanto a tela faz aquilo). */
+
+/* a ilustração acompanha a leitura */
+.ai__monitor { position: sticky; top: 104px; align-self: start; }
 @media (max-width: 960px) {
   .ai.section--dark { background: var(--bg); }
-  /* overflow visível: com hidden (regra do desktop) o sticky do monitor não funciona */
-  .ai__sticky { height: auto; position: relative; overflow: visible; padding-top: 3rem; }
-  .ai .ai__sticky[style] { padding-top: 1.5rem !important; padding-bottom: 0 !important; }
   .ai__title { font-size: var(--text-3xl); }
-  .ai__body { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding-block: 0.75rem 1.5rem; }
+  .ai__body { display: flex; flex-direction: column; gap: 0; margin-top: 1.5rem; }
   .ai__monitor {
-    order: -1; position: sticky; top: 62px; z-index: 3;
+    order: -1; top: 62px; z-index: 3;
     margin-inline: calc(-1 * var(--gutter)); padding: 0.5rem var(--gutter) 0.6rem;
-    background: var(--bg); perspective: none;
+    background: var(--bg);
   }
   .ai__monitor .aiart__canvas { border-radius: 14px; }
   .ai__monitor::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 26px; background: linear-gradient(180deg, var(--bg), transparent); pointer-events: none; }
   .ai .demo-note { margin-top: 0.5rem; font-size: 0.68rem; }
-  .ai__copy { padding-top: 1.25rem; }
-  .ai__copy .body { font-size: var(--text-base); }
-  .ai__items { --ai-tile: 44px; --ai-gap: 1.4rem; }
-  .ai__close { margin-top: 1.75rem; }
+  .ai__copy { padding-top: 2rem; padding-bottom: 0; }
+  .ai__items { --ai-gap: 1.75rem; }
 }
 
 /* ---------- Builder ---------- */
@@ -249,7 +208,9 @@
 .publish__browser .device__url [data-url] { color: var(--primary); font-weight: 600; }
 
 /* ---------- Analytics ---------- */
-.analytics__cards { margin-top: 3rem; }
+.analytics__cards { margin-top: clamp(2.5rem, 4vw, 3.5rem); }
+.analytics__stage { position: relative; }
+@media (min-width: 961px) { .analytics__stage { position: sticky; top: 104px; } }
 
 /* ---------- Comparação ---------- */
 .compare__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
@@ -332,12 +293,11 @@
 
 /* ---------- Planos ---------- */
 .plans__toggle { position: relative; display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.3rem; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm); margin-top: 2rem; }
-.plans__toggle button { position: relative; z-index: 1; height: 2.5rem; padding-inline: 1.1rem; border-radius: 999px; font-weight: 600; font-size: var(--text-sm); color: var(--muted); transition: color var(--dur) ease; }
+.plans__toggle button { position: relative; z-index: 1; min-width: 5.5rem; height: 2.5rem; padding-inline: 1.1rem; border-radius: 999px; font-weight: 600; font-size: var(--text-sm); color: var(--muted); transition: color var(--dur) ease; }
 .plans__toggle button[aria-pressed="true"] { color: #fff; }
-/* o "polegar" escuro desliza entre Mensal e Anual */
-.plans__thumb { position: absolute; top: 0.3rem; bottom: 0.3rem; left: 0.3rem; width: var(--thumb-w, 5.2rem); border-radius: 999px; background: var(--ink); transition: transform var(--dur) var(--ease-out), width var(--dur) var(--ease-out); }
-.plans__toggle[data-billing="monthly"] .plans__thumb { --thumb-w: 5.1rem; transform: translateX(0); }
-.plans__toggle[data-billing="yearly"] .plans__thumb { --thumb-w: 4.7rem; transform: translateX(5.35rem); }
+/* o "polegar" escuro desliza entre Mensal e Anual (só transform: nada de animar largura) */
+.plans__thumb { position: absolute; top: 0.3rem; bottom: 0.3rem; left: 0.3rem; width: 5.5rem; border-radius: 999px; background: var(--ink); transition: transform var(--dur) var(--ease-out); }
+.plans__toggle[data-billing="yearly"] .plans__thumb { transform: translateX(5.75rem); }
 .plans__save { font-size: 0.7rem; font-weight: 700; padding: 0.35rem 0.6rem; border-radius: 999px; background: var(--primary); color: #fff; margin-left: 0.25rem; }
 .plans__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; align-items: stretch; perspective: 1600px; }
 .plan { position: relative; border-radius: var(--radius-xl); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: transform var(--dur-slow) var(--ease-out), box-shadow var(--dur-slow) var(--ease-out), border-color var(--dur) ease; overflow: hidden; }

@@ -35,16 +35,22 @@ export function AnalyticsSection() {
 
   return (
     <section ref={root} className="section" id="dados" aria-labelledby="analytics-title">
-      <div className="container">
-        <SectionHead eyebrow={analytics.eyebrow} title={<span id="analytics-title">{analytics.title}</span>} lead={analytics.body1} align="center">
-          <p className="body-lg" data-reveal style={{ marginTop: '1rem', marginInline: 'auto', maxWidth: '58ch' }}>{analytics.body2}</p>
-        </SectionHead>
-        <div ref={screen} style={{ marginTop: '3rem', maxWidth: 1040, marginInline: 'auto' }} data-reveal>
-          <Device url="app.quizmaker.com.br/dashboard/funnels/…/analytics">
-            <AnalyticsScreen />
-          </Device>
+      <div className="container split split--media-left">
+        <div className="analytics__stage">
+          <div ref={screen} data-reveal>
+            <Device url="app.quizmaker.com.br/dashboard/funnels/…/analytics">
+              <AnalyticsScreen />
+            </Device>
+          </div>
+          <p className="demo-note" aria-hidden="true">Tela de demonstração com dados ilustrativos.</p>
         </div>
-        <p className="demo-note" aria-hidden="true">Tela de demonstração com dados ilustrativos.</p>
+        <div>
+          <SectionHead eyebrow={analytics.eyebrow} title={<span id="analytics-title">{analytics.title}</span>} lead={analytics.body1}>
+            <p className="body-lg" data-reveal style={{ marginTop: '1rem' }}>{analytics.body2}</p>
+          </SectionHead>
+        </div>
+      </div>
+      <div className="container">
         <ul className="rule-list analytics__cards">
           {analytics.cards.map((c, i) => {
             const Icon = icons[i];

@@ -58,7 +58,7 @@ export function Formats() {
           <article className="format-card format-card--quiz" id="quiz-card" onPointerMove={tilt} onPointerLeave={untilt} data-reveal aria-labelledby="fmt-quiz">
             <span className="format-card__glow" aria-hidden="true" />
             <div className="format-card__screen format-card__screen--art">
-              <FlowArt compact />
+              <FlowArt variant="teaser" />
             </div>
             <div className="format-card__body">
               <div className="format-card__title"><span className="icon-tile"><Waypoints size={20} /></span><h3 id="fmt-quiz" className="h4">{formats.quiz.title}</h3></div>

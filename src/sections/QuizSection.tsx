@@ -47,7 +47,7 @@ export function QuizSection() {
         <SectionHead eyebrow={quizzes.eyebrow} title={<span id="quiz-title">{quizzes.title}</span>} lead={quizzes.body} align="center" />
       </div>
       <div ref={stage} className="container quiz__stage" aria-label="Fluxo de um quiz: etapas conectadas por caminhos, com condição e randomizador">
-        <FlowArt compact={mobile} />
+        <FlowArt variant={mobile ? 'logic' : 'full'} />
       </div>
       <div className="container">
         <div className="feature-grid quiz__cards">

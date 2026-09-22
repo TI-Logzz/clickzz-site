@@ -1,13 +1,13 @@
 import { useLayoutEffect, useRef } from 'react';
-import { Layers, Type, Blocks, GitBranch } from 'lucide-react';
+import { ListTree, AlignLeft, LayoutGrid, Split } from 'lucide-react';
 import { ai } from '../content/copy';
 import { CtaLink, Eyebrow, StarGem } from '../components/ui';
 import { AiArt, AI_BRIEF } from '../components/AiArt';
-import { gsap, useSectionProgress, usePinned } from '../lib/scroll';
+import { gsap, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
-/** Um ícone por item da copy: estrutura, conteúdo, elementos e lógica. */
-const ITEM_ICONS = [Layers, Type, Blocks, GitBranch];
+/** Um ícone por item da copy, com a mesma massa óptica: etapas, linhas de texto, blocos e caminhos. */
+const ITEM_ICONS = [ListTree, AlignLeft, LayoutGrid, Split];
 
 /**
  * S04 — Clickzz AI. A demonstração é uma **ilustração** do que a IA faz (não uma captura do app):
@@ -19,8 +19,7 @@ export function AiSection() {
   const root = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const reduced = useUI((s) => s.reducedMotion);
-  const pinned = usePinned();
-  useSectionProgress('ai', root, { start: 'top top', end: 'bottom bottom' });
+  useSectionProgress('ai', root);
 
   useLayoutEffect(() => {
     const el = root.current;
@@ -61,11 +60,10 @@ export function AiSection() {
       gsap.set(rail, { scaleX: 0 });
       gsap.set([beam, ...Array.from(wires)], { strokeDasharray: 1, strokeDashoffset: 1 });
 
+      // a coluna de texto dirige a demonstração: ela começa quando o texto entra e termina
+      // quando o fecho chega ao alto da tela, com a ilustração presa ao lado o tempo todo
       const tl = gsap.timeline({
-        scrollTrigger: pinned
-          ? { trigger: el, start: 'top top', end: 'bottom bottom', scrub: 0.25 }
-          // mobile: a copy dirige a demo, que fica presa ao topo enquanto os itens passam
-          : { trigger: copy ?? st, start: 'top 96%', end: 'bottom 96%', scrub: 0.2 },
+        scrollTrigger: { trigger: copy ?? st, start: 'top 82%', end: 'bottom 62%', scrub: 0.25 },
         defaults: { ease: 'none' },
       });
       const light = (i: number, at: number) => tl.add(() => items.forEach((it, k) => it.classList.toggle('ai__item--on', k <= i)), at);
@@ -104,14 +102,14 @@ export function AiSection() {
 
       // 7. pronto
       tl.fromTo(done, { opacity: 0, scale: 0.85, transformOrigin: 'right center' }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)' }, 6.2);
-      if (pinned) tl.to({}, { duration: 0.7 });
+      tl.to({}, { duration: 0.6 });
     }, el);
     return () => ctx.revert();
-  }, [reduced, pinned]);
+  }, [reduced]);
 
   return (
-    <section ref={root} className="section section--dark ai" id="ia" aria-labelledby="ai-title" style={{ height: pinned ? '300vh' : 'auto', paddingBlock: 0 }}>
-      <div className="ai__sticky" style={pinned ? undefined : { position: 'relative', height: 'auto', paddingTop: '4rem', paddingBottom: '2rem' }}>
+    <section ref={root} className="section section--dark ai" id="ia" aria-labelledby="ai-title">
+      <div className="ai__sticky">
         <div className="container ai__head">
           <Eyebrow>{ai.eyebrow}</Eyebrow>
           <h2 id="ai-title" className="display h2 ai__title">
@@ -122,15 +120,15 @@ export function AiSection() {
         <div className="container--wide ai__body">
           <div className="ai__copy">
             <p className="body">{ai.body1}</p>
-            <p className="body" style={{ marginTop: '0.75rem' }}>{ai.body2}</p>
-            <p className="body ai__lead" style={{ marginTop: '2rem', fontWeight: 600, color: 'var(--ink)' }}>{ai.lead}</p>
-            <ul className="ai__items" style={{ marginTop: '1.25rem' }}>
+            <p className="body">{ai.body2}</p>
+            <p className="ai__lead">{ai.lead}</p>
+            <ul className="ai__items">
               {ai.items.map((it, i) => {
                 const Icon = ITEM_ICONS[i];
                 return (
                   <li key={it.title} className="ai__item">
-                    <span className="ai__item-icon" aria-hidden="true"><Icon size={19} strokeWidth={1.8} /></span>
-                    <div><b>{it.title}</b><span>{it.body}</span></div>
+                    <span className="ai__item-icon" aria-hidden="true"><Icon size={22} strokeWidth={1.75} /></span>
+                    <div className="ai__item-text"><b>{it.title}</b><span>{it.body}</span></div>
                   </li>
                 );
               })}

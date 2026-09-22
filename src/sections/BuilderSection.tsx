@@ -99,15 +99,7 @@ export function BuilderSection() {
   return (
     <section ref={root} className="section" id="builder" aria-labelledby="builder-title" style={{ height: pinned ? '290vh' : 'auto', paddingBlock: 0 }}>
       <div className="stage__sticky" style={pinned ? { paddingTop: 72 } : { position: 'relative', height: 'auto', padding: '4rem 0 1rem' }}>
-        <div className="container--wide split">
-          <div>
-            <Eyebrow>{builder.eyebrow}</Eyebrow>
-            <h2 id="builder-title" className="display h2 builder__title" style={{ marginTop: '1.25rem' }} aria-label={builder.title}>
-              {builder.titleWords.map((w) => <span key={w} className="word word--dim" aria-hidden="true">{w}</span>)}
-            </h2>
-            <h3 className="h4" style={{ marginTop: '1.5rem' }}>{builder.subtitle}</h3>
-            <p className="body-lg" style={{ marginTop: '1rem' }}>{builder.body}</p>
-          </div>
+        <div className="container--wide split split--media-left">
           <div ref={stage} aria-label="Demonstração do builder visual: criar, personalizar e publicar uma página">
             <Device url="app.quizmaker.com.br/dashboard/projects/…/builder">
               <div style={{ position: 'relative', width: 1440, height: 900 }}>
@@ -118,6 +110,14 @@ export function BuilderSection() {
                 <div data-screen="done" style={{ position: 'absolute', inset: 0 }}><PageBuilderScreen theme="brand" activeSection={-1} toast="Página publicada! 🎉" /></div>
               </div>
             </Device>
+          </div>
+          <div>
+            <Eyebrow>{builder.eyebrow}</Eyebrow>
+            <h2 id="builder-title" className="display h2 builder__title" style={{ marginTop: '1.25rem' }} aria-label={builder.title}>
+              {builder.titleWords.map((w) => <span key={w} className="word word--dim" aria-hidden="true">{w}</span>)}
+            </h2>
+            <h3 className="h4" style={{ marginTop: '1.5rem' }}>{builder.subtitle}</h3>
+            <p className="body-lg" style={{ marginTop: '1rem' }}>{builder.body}</p>
           </div>
         </div>
       </div>

@@ -5,7 +5,11 @@ import './flowart.css';
 /**
  * Composição ilustrada de um fluxo de quiz (não é uma captura do editor):
  * etapas grandes e legíveis, fios roxos, uma condição e um randomizador.
- * `compact` = três etapas (card "Quiz" em Seus projetos); completo = mesa de lógica (Quizzes interativos).
+ * Três recortes, um por lugar da página — nenhum se repete:
+ *   'teaser' → card "Quiz" em Seus projetos: a jornada (boas-vindas → pergunta → resultado);
+ *   'full'   → Quizzes interativos no desktop: a mesa de lógica inteira;
+ *   'logic'  → Quizzes interativos no mobile: o recorte da lógica (condição e randomizador),
+ *              com os nós maiores para continuarem legíveis em 390px.
  * Atributos data-node / data-edge / data-pulse / data-rand-pct alimentam as timelines das seções.
  */
 type Kind = 'welcome' | 'options' | 'form' | 'result' | 'rand';
@@ -34,7 +38,18 @@ const FULL: { size: [number, number]; nodes: Node[]; edges: Edge[] } = {
   ],
 };
 
-const COMPACT: typeof FULL = {
+/** Recorte da lógica: uma pergunta que bifurca entre um randomizador e um caminho condicional. */
+const LOGIC: typeof FULL = {
+  size: [520, 430],
+  nodes: [
+    { id: 'q', n: 2, name: 'Pergunta', x: 12, y: 118, kind: 'options', q: 'Qual é a sua maior preocupação hoje?', opts: ['Manchas', 'Linhas finas', 'Acne'], sel: 0 },
+    { id: 'r', name: 'Randomizador', x: 300, y: 30, kind: 'rand' },
+    { id: 'res', n: 5, name: 'Resultado', x: 300, y: 252, kind: 'result' },
+  ],
+  edges: [['q', 0, 'r'], ['q', 1, 'r'], ['q', 2, 'res', 'Condição']],
+};
+
+const TEASER: typeof FULL = {
   size: [720, 380],
   nodes: [
     { id: 'c1', n: 1, name: 'Boas-vindas', x: 16, y: 130, kind: 'welcome', q: 'Descubra o tratamento ideal para você' },
@@ -60,8 +75,8 @@ function path(from: Node, port: number, to: Node) {
   return { d: `M ${a.x} ${a.y} C ${a.x + dx} ${a.y}, ${b.x - dx} ${b.y}, ${b.x} ${b.y}`, mid: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 } };
 }
 
-export function FlowArt({ compact = false }: { compact?: boolean }) {
-  const { size, nodes, edges } = compact ? COMPACT : FULL;
+export function FlowArt({ variant = 'full' }: { variant?: 'full' | 'teaser' | 'logic' }) {
+  const { size, nodes, edges } = variant === 'teaser' ? TEASER : variant === 'logic' ? LOGIC : FULL;
   const byId = Object.fromEntries(nodes.map((n) => [n.id, n]));
   return (
     <Scaled width={size[0]} height={size[1]} className="fa">
