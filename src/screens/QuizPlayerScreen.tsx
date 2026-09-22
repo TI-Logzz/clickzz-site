@@ -17,9 +17,18 @@ export function QuizPlayerScreen() {
   const N = steps.length;
   return (
     <div className="scr scr--mobile" style={{ position: 'relative' }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#6b26d9', zIndex: 2 }}>
+      {/* barra de status do iOS ocupa a faixa da ilha: nenhum conteúdo fica atrás dela */}
+      <div className="ios-status" aria-hidden="true">
+        <span>9:41</span>
+        <span className="ios-status__right">
+          <span className="ios-status__bars"><i style={{ height: 4 }} /><i style={{ height: 6 }} /><i style={{ height: 8.5 }} /><i style={{ height: 11 }} /></span>
+          <span className="ios-status__bat"><i /></span>
+        </span>
+      </div>
+      <div className="qz__head">
         <span style={{ width: 8, height: 8, borderRadius: 999, background: '#6b26d9' }} /> Clínica Lumen
       </div>
+      <div className="ios-home" aria-hidden="true" />
       <div data-qtrack style={{ position: 'absolute', inset: 0, display: 'flex', width: `${N * 100}%` }}>
         {steps.map((s, i) => (
           <div key={i} data-qstep={i} className="qz" style={{ width: `${100 / N}%`, flex: '0 0 auto' }}>

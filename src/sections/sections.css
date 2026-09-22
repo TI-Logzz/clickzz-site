@@ -65,7 +65,7 @@
 .hero__plane--desktop { left: 0; top: 14%; width: 82%; transform: translateZ(-60px) rotateY(-10deg) rotateX(4deg); }
 .hero__plane--mobile { right: 0; bottom: 0; width: 27%; transform: translateZ(120px) rotateY(-16deg) rotateX(3deg); }
 @media (max-width: 960px) { .hero__stage { overflow: hidden; border-radius: 24px; } .hero__plane--mobile { right: 3%; bottom: 3%; transform: translateZ(60px) rotateY(-8deg) rotateX(2deg); } }
-.hero__plane .device__viewport { box-shadow: 0 40px 80px -24px rgba(46, 16, 101, 0.28), 0 12px 24px -12px rgba(24, 24, 27, 0.12); }
+.hero__plane--builder .device__viewport, .hero__plane--desktop .device__viewport { box-shadow: 0 40px 80px -24px rgba(46, 16, 101, 0.28), 0 12px 24px -12px rgba(24, 24, 27, 0.12); }
 @media (max-width: 1100px) {
   .hero__grid { grid-template-columns: 1fr; }
   .hero__stage { height: auto; aspect-ratio: 16 / 11; perspective: 1400px; }

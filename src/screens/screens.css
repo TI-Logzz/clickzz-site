@@ -116,10 +116,40 @@
 .device__url b { color: #282c34; font-weight: 500; }
 .device__scale { transform-origin: top left; position: absolute; left: 0; top: 0; }
 .device--mobile { width: 100%; max-width: 390px; }
-/* proporções medidas em uma tela de 390 pt: moldura ~8, cantos 40, ilha 92×22 a 9 do topo */
-.device--mobile .device__viewport { border-radius: calc(40px * var(--dscale, 1)); border: calc(8px * var(--dscale, 1)) solid #1c1a22; background: #000; box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.25); }
-.device--mobile .device__notch { position: absolute; top: calc(9px * var(--dscale, 1)); left: 50%; transform: translateX(-50%); width: calc(92px * var(--dscale, 1)); height: calc(22px * var(--dscale, 1)); border-radius: 999px; background: #1c1a22; z-index: 5; }
-.device--mobile .device__screen { border-radius: calc(32px * var(--dscale, 1)); overflow: hidden; background: #fff; }
+/* Celular em 3D (CSS puro). Proporções medidas em uma tela de 390 pt: moldura 9, cantos 46,
+   ilha 92×22 a 9 do topo, espessura 12. Tudo escala com --dscale (a escala aplicada à tela). */
+.device--mobile {
+  --ds: var(--dscale, 1);
+  --thick: calc(18px * var(--ds));
+  --rad: calc(46px * var(--ds));
+  transform-style: preserve-3d;
+}
+.device--mobile .device__viewport {
+  border-radius: var(--rad);
+  border: calc(9px * var(--ds)) solid transparent;
+  /* moldura de titânio: gradiente na borda, tela preta por dentro */
+  background: linear-gradient(#000, #000) padding-box, linear-gradient(155deg, #55515f 0%, #2b2833 22%, #1a1820 48%, #1f1d25 70%, #3d3a46 100%) border-box;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.1), -18px 34px 60px -20px rgba(24, 24, 27, 0.5), -6px 12px 22px -10px rgba(24, 24, 27, 0.35);
+  transform: translateZ(0.01px);
+}
+.device--mobile .device__notch { position: absolute; top: calc(9px * var(--ds)); left: 50%; transform: translateX(-50%); width: calc(92px * var(--ds)); height: calc(22px * var(--ds)); border-radius: 999px; background: #0d0c10; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04); z-index: 5; }
+.device--mobile .device__screen { border-radius: calc(37px * var(--ds)); overflow: hidden; background: #fff; }
+/* faces do corpo: cada uma vira 90° a partir da própria borda e recua a espessura do aparelho */
+.device__body { position: absolute; inset: 0; pointer-events: none; transform-style: preserve-3d; }
+.device__side { position: absolute; background: linear-gradient(180deg, #8f8b9a 0%, #5b5765 18%, #3f3c48 50%, #55515f 82%, #8a8695 100%); box-shadow: inset 1px 0 0 rgba(255,255,255,0.28), inset -1px 0 0 rgba(0,0,0,0.5); backface-visibility: hidden; }
+.device__side--l, .device__side--r { top: var(--rad); bottom: var(--rad); width: var(--thick); }
+.device__side--l { left: 0; transform-origin: left center; transform: rotateY(90deg); }
+.device__side--r { right: 0; transform-origin: right center; transform: rotateY(-90deg); }
+.device__side--t, .device__side--b { left: var(--rad); right: var(--rad); height: var(--thick); background: linear-gradient(90deg, #8a8695, #4a4653 25%, #3f3c48 75%, #8a8695); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25); }
+.device__side--t { top: 0; transform-origin: center top; transform: rotateX(-90deg); }
+.device__side--b { bottom: 0; transform-origin: center bottom; transform: rotateX(90deg); }
+.device__back { position: absolute; inset: 0; border-radius: var(--rad); background: linear-gradient(155deg, #2b2833, #17151d 60%, #221f29); transform: translateZ(calc(-1 * var(--thick))); }
+/* botões físicos (volume e mudo à esquerda, ligar à direita), em relevo sobre a face lateral */
+.device__key { position: absolute; left: 12%; width: 76%; border-radius: 2px; background: linear-gradient(180deg, #5a5664, #33303b); box-shadow: 0 0 0 1px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.18); }
+.device__key--mute { top: calc(84px * var(--ds)); height: calc(26px * var(--ds)); }
+.device__key--vol { top: calc(140px * var(--ds)); height: calc(52px * var(--ds)); }
+.device__key--vol2 { top: calc(206px * var(--ds)); height: calc(52px * var(--ds)); }
+.device__key--power { top: calc(160px * var(--ds)); height: calc(80px * var(--ds)); }
 .device__glare { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 40%); mix-blend-mode: screen; }
 
 /* ---------- Builder (comum) ---------- */
@@ -183,8 +213,18 @@
 .flow__svg .pulse { stroke: #6b26d9; stroke-width: 2.5; stroke-dasharray: 22 400; stroke-linecap: round; }
 
 /* Preview publicado (quiz mobile) */
-.qz { height: 100%; display: flex; flex-direction: column; background: #fff; }
-.qz__bar { height: 4px; background: #ede4fb; margin: 56px 20px 0; border-radius: 2px; overflow: hidden; }
+.qz { height: 100%; display: flex; flex-direction: column; background: #fff; padding-bottom: 30px; }
+/* status bar do iOS convive com a ilha: hora à esquerda, sinal e bateria à direita; nada passa por baixo dela */
+.ios-status { position: absolute; top: 0; left: 0; right: 0; height: 54px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px 0 34px; font-size: 15px; font-weight: 600; color: #282c34; z-index: 3; pointer-events: none; }
+.ios-status__right { display: flex; align-items: center; gap: 6px; }
+.ios-status__bars { display: flex; align-items: flex-end; gap: 1.5px; height: 11px; }
+.ios-status__bars i { width: 3px; background: #282c34; border-radius: 1px; }
+.ios-status__bat { position: relative; width: 25px; height: 12px; border: 1.5px solid rgba(40,44,52,0.4); border-radius: 4px; padding: 1.5px; }
+.ios-status__bat i { display: block; width: 78%; height: 100%; background: #282c34; border-radius: 2px; }
+.ios-status__bat::after { content: ''; position: absolute; right: -4px; top: 3px; width: 2px; height: 4px; background: rgba(40,44,52,0.4); border-radius: 0 2px 2px 0; }
+.ios-home { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: #1c1a22; opacity: 0.9; z-index: 3; }
+.qz__head { position: absolute; top: 54px; left: 0; right: 0; height: 36px; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: 700; color: #6b26d9; z-index: 2; }
+.qz__bar { height: 4px; background: #ede4fb; margin: 94px 20px 0; border-radius: 2px; overflow: hidden; }
 .qz__bar i { display: block; height: 100%; background: var(--s-primary); width: 40%; }
 .qz__body { padding: 28px 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
 .qz__q { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }

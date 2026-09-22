@@ -63,6 +63,16 @@ export function Device({ children, kind = 'desktop', url, nativeWidth, nativeHei
         </div>
         <div className="device__glare" aria-hidden="true" />
       </div>
+      {kind === 'mobile' && (
+        // corpo do aparelho: faces laterais rotacionadas em 3D dão espessura real à moldura
+        <div className="device__body" aria-hidden="true">
+          <div className="device__side device__side--l"><i className="device__key device__key--mute" /><i className="device__key device__key--vol" /><i className="device__key device__key--vol2" /></div>
+          <div className="device__side device__side--r"><i className="device__key device__key--power" /></div>
+          <div className="device__side device__side--t" />
+          <div className="device__side device__side--b" />
+          <div className="device__back" />
+        </div>
+      )}
     </div>
   );
 }
