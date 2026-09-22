@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { Hourglass, Sparkles, Waypoints, LayoutTemplate, Globe } from 'lucide-react';
 import { compare } from '../content/copy';
 import { CheckItem, CrossItem, CtaLink, SectionHead } from '../components/ui';
-import { LogoMark } from '../components/Logo';
+import { Logo } from '../components/Logo';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
@@ -37,7 +37,7 @@ export function CompareSection() {
             <OldArt />
           </div>
           <div className="compare__col compare__col--new" data-reveal>
-            <h3 className="h4 compare__title"><span className="compare__logo" aria-hidden="true"><LogoMark size={22} /></span>{compare.newTitle} <span className="star">{compare.newTitleStar}</span></h3>
+            <h3 className="h4 compare__title"><span className="compare__logo" aria-hidden="true"><Logo height={22} /></span>{compare.newTitle} <span className="star">{compare.newTitleStar}</span></h3>
             <ul className="check-list">
               {compare.newItems.map((i) => <CheckItem key={i}>{i}</CheckItem>)}
             </ul>

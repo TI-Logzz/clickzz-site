@@ -42,7 +42,9 @@ export function Device({ children, kind = 'desktop', url, nativeWidth, nativeHei
   }, [w]);
 
   return (
-    <div className={`device device--${kind} ${className}`} style={style}>
+    // --dscale: a escala aplicada à tela; a moldura do celular (entalhe, borda, cantos)
+    // é desenhada em proporção a ela, senão o entalhe fica gigante nos aparelhos pequenos.
+    <div className={`device device--${kind} ${className}`} style={{ ...style, ['--dscale' as string]: scale }}>
       <div className="device__viewport">
         {kind === 'desktop' && !bare && (
           <div className="device__bar">

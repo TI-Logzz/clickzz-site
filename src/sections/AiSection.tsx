@@ -40,8 +40,8 @@ export function AiSection() {
       gsap.set(s('new'), { opacity: 1 });
       const tl = gsap.timeline({
         scrollTrigger: pinned
-          ? { trigger: el, start: 'top top', end: 'bottom bottom', scrub: 0.5 }
-          : stageWindow(st, 0.4),
+          ? { trigger: el, start: 'top top', end: 'bottom bottom', scrub: 0.25 }
+          : stageWindow(st, 0.25),
         defaults: { ease: 'none' },
       });
       const light = (i: number, at: number) => tl.add(() => items.forEach((it, k) => it.classList.toggle('ai__item--on', k <= i)), at);
@@ -121,13 +121,13 @@ export function AiSection() {
       light(3, 12.3); // Lógica
       nodes.forEach((n, i) => tl.to(n, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)' }, 12.4 + i * 0.25));
       edges.forEach((e, i) => tl.to(e, { strokeDashoffset: 0, duration: 0.5 }, 12.8 + i * 0.12));
-      if (pinned) tl.to({}, { duration: 1.2 }); // respiro final (só no palco pinado)
+      if (pinned) tl.to({}, { duration: 0.8 }); // respiro final (só no palco pinado)
     }, el);
     return () => ctx.revert();
   }, [reduced, pinned]);
 
   return (
-    <section ref={root} className="section section--dark ai" id="ia" aria-labelledby="ai-title" style={{ height: pinned ? '460vh' : 'auto', paddingBlock: 0 }}>
+    <section ref={root} className="section section--dark ai" id="ia" aria-labelledby="ai-title" style={{ height: pinned ? '330vh' : 'auto', paddingBlock: 0 }}>
       <div className="ai__sticky" style={pinned ? undefined : { position: 'relative', height: 'auto', paddingTop: '4rem', paddingBottom: '2rem' }}>
         <div className="container ai__head">
           <Eyebrow>{ai.eyebrow}</Eyebrow>

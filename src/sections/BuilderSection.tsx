@@ -37,8 +37,8 @@ export function BuilderSection() {
       gsap.set(s('build'), { opacity: 1 });
       const tl = gsap.timeline({
         scrollTrigger: pinned
-          ? { trigger: el, start: 'top top', end: 'bottom bottom', scrub: 0.5 }
-          : stageWindow(st, 0.4),
+          ? { trigger: el, start: 'top top', end: 'bottom bottom', scrub: 0.25 }
+          : stageWindow(st, 0.25),
         defaults: { ease: 'none' },
       });
       const lit = (i: number, at: number) => tl.add(() => words.forEach((w, k) => w.classList.toggle('word--on', k <= i)), at);
@@ -97,7 +97,7 @@ export function BuilderSection() {
   }, [reduced, pinned]);
 
   return (
-    <section ref={root} className="section" id="builder" aria-labelledby="builder-title" style={{ height: pinned ? '380vh' : 'auto', paddingBlock: 0 }}>
+    <section ref={root} className="section" id="builder" aria-labelledby="builder-title" style={{ height: pinned ? '290vh' : 'auto', paddingBlock: 0 }}>
       <div className="stage__sticky" style={pinned ? { paddingTop: 72 } : { position: 'relative', height: 'auto', padding: '4rem 0 1rem' }}>
         <div className="container--wide split">
           <div>

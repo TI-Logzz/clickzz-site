@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { Sparkles, Blocks, Waypoints, Palette, Webhook, BarChart3 } from 'lucide-react';
 import { allInOne } from '../content/copy';
 import { CtaLink, SectionHead } from '../components/ui';
-import { LogoMark } from '../components/Logo';
+import { Logo } from '../components/Logo';
 import { useReveal, useSectionProgress } from '../lib/scroll';
 
 const icons = [Sparkles, Blocks, Waypoints, Palette, Webhook, BarChart3];
@@ -38,7 +38,7 @@ export function AllInOneSection() {
             const Icon = icons[i];
             return <div key={l} className="allinone__brick" data-reveal><i><Icon size={13} /></i>{l.replace(/\.$/, '')}</div>;
           })}
-          <div className="allinone__brick allinone__brick--core" data-reveal><LogoMark size={22} /> Clickzz</div>
+          <div className="allinone__brick allinone__brick--core" data-reveal><Logo height={20} light /></div>
         </div>
       </div>
     </section>

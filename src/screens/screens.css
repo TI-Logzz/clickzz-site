@@ -116,9 +116,10 @@
 .device__url b { color: #282c34; font-weight: 500; }
 .device__scale { transform-origin: top left; position: absolute; left: 0; top: 0; }
 .device--mobile { width: 100%; max-width: 390px; }
-.device--mobile .device__viewport { border-radius: 40px; border: 8px solid #1c1a22; background: #000; box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.25); }
-.device--mobile .device__notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 96px; height: 26px; border-radius: 999px; background: #1c1a22; z-index: 5; }
-.device--mobile .device__screen { border-radius: 32px; overflow: hidden; background: #fff; }
+/* proporções medidas em uma tela de 390 pt: moldura ~8, cantos 40, ilha 92×22 a 9 do topo */
+.device--mobile .device__viewport { border-radius: calc(40px * var(--dscale, 1)); border: calc(8px * var(--dscale, 1)) solid #1c1a22; background: #000; box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.25); }
+.device--mobile .device__notch { position: absolute; top: calc(9px * var(--dscale, 1)); left: 50%; transform: translateX(-50%); width: calc(92px * var(--dscale, 1)); height: calc(22px * var(--dscale, 1)); border-radius: 999px; background: #1c1a22; z-index: 5; }
+.device--mobile .device__screen { border-radius: calc(32px * var(--dscale, 1)); overflow: hidden; background: #fff; }
 .device__glare { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 40%); mix-blend-mode: screen; }
 
 /* ---------- Builder (comum) ---------- */

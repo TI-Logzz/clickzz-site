@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { Sparkles, LayoutTemplate, Waypoints, Palette, Globe, BarChart3, Webhook, Users, FlaskConical } from 'lucide-react';
 import { positioning } from '../content/copy';
 import { CtaLink, SectionHead } from '../components/ui';
-import { LogoMark } from '../components/Logo';
+import { Logo } from '../components/Logo';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
@@ -65,7 +65,7 @@ export function Positioning() {
         </div>
         <div ref={cluster} className="positioning__cluster" aria-hidden="true">
           <div className="orbit">
-            <div className="orbit__core"><LogoMark size={56} /></div>
+            <div className="orbit__core"><Logo height={26} /></div>
             {chips.map((c) => (
               <span key={c.label} className="orbit__chip"><c.icon /> {c.label}</span>
             ))}
