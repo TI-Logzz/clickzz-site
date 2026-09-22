@@ -7,7 +7,7 @@ import { QuizStartScreen, QUIZ_BRIEF } from '../screens/QuizStartScreen';
 import { QuizBuilderScreen } from '../screens/QuizBuilderScreen';
 import { FlowCanvasScreen } from '../screens/FlowCanvasScreen';
 import { cursorTo } from '../screens/GhostCursor';
-import { gsap, useSectionProgress, usePinned, stageWindow } from '../lib/scroll';
+import { gsap, useSectionProgress, usePinned } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
 /**
@@ -29,6 +29,7 @@ export function AiSection() {
     if (!el || !st) return;
     const screens = st.querySelectorAll<HTMLElement>('[data-screen]');
     const items = el.querySelectorAll<HTMLElement>('.ai__item');
+    const copy = el.querySelector<HTMLElement>('.ai__copy');
     const s = (name: string) => st.querySelector<HTMLElement>(`[data-screen="${name}"]`)!;
     const ctx = gsap.context(() => {
       if (reduced) {
@@ -41,7 +42,9 @@ export function AiSection() {
       const tl = gsap.timeline({
         scrollTrigger: pinned
           ? { trigger: el, start: 'top top', end: 'bottom bottom', scrub: 0.25 }
-          : stageWindow(st, 0.25),
+          // mobile: o monitor fica preso ao topo e a copy passa por baixo — é a copy que dirige a demo,
+          // do momento em que entra até o botão final chegar à base da tela
+          : { trigger: copy ?? st, start: 'top 96%', end: 'bottom 96%', scrub: 0.2 },
         defaults: { ease: 'none' },
       });
       const light = (i: number, at: number) => tl.add(() => items.forEach((it, k) => it.classList.toggle('ai__item--on', k <= i)), at);

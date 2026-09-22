@@ -27,24 +27,33 @@ interface DeviceProps {
 export function Device({ children, kind = 'desktop', url, nativeWidth, nativeHeight, className = '', style, bare = false }: DeviceProps) {
   const w = nativeWidth ?? (kind === 'desktop' ? 1440 : 390);
   const h = nativeHeight ?? (kind === 'desktop' ? 900 : 844);
-  const ref = useRef<HTMLDivElement>(null);
+  const outer = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.5);
 
+  // A escala é medida na LARGURA EXTERNA da moldura, que só depende do contêiner.
+  // Medir o miolo (largura menos a borda) criava um ciclo: a borda do celular escala com
+  // --dscale, a escala dependia do miolo, o miolo dependia da borda... em 390px o valor
+  // nunca convergia (ResizeObserver disparando sem parar) e o React não montava o resto da página.
   useLayoutEffect(() => {
-    const el = ref.current;
+    const el = outer.current;
     if (!el) return;
     const ro = new ResizeObserver(([e]) => {
       const cw = e.contentRect.width;
-      if (cw > 0) { setScale(cw / w); scheduleRefresh(); }
+      if (cw <= 0) return;
+      // mobile: moldura de 9 px nativos de cada lado escala junto → externo = (w + 18) × escala
+      // desktop: borda fixa de 1 px de cada lado → externo = w × escala + 2
+      const next = kind === 'mobile' ? cw / (w + 18) : (cw - 2) / w;
+      setScale((prev) => (Math.abs(prev - next) < 0.0005 ? prev : next));
+      scheduleRefresh();
     });
     ro.observe(el);
     return () => ro.disconnect();
-  }, [w]);
+  }, [w, kind]);
 
   return (
     // --dscale: a escala aplicada à tela; a moldura do celular (entalhe, borda, cantos)
     // é desenhada em proporção a ela, senão o entalhe fica gigante nos aparelhos pequenos.
-    <div className={`device device--${kind} ${className}`} style={{ ...style, ['--dscale' as string]: scale }}>
+    <div ref={outer} className={`device device--${kind} ${className}`} style={{ ...style, ['--dscale' as string]: scale }}>
       <div className="device__viewport">
         {kind === 'desktop' && !bare && (
           <div className="device__bar">
@@ -56,7 +65,7 @@ export function Device({ children, kind = 'desktop', url, nativeWidth, nativeHei
           </div>
         )}
         {kind === 'mobile' && <div className="device__notch" />}
-        <div ref={ref} className={kind === 'mobile' ? 'device__screen' : ''} style={{ width: '100%', height: h * scale, position: 'relative' }}>
+        <div className={kind === 'mobile' ? 'device__screen' : ''} style={{ width: '100%', height: h * scale, position: 'relative' }}>
           <div className="device__scale" style={{ transform: `scale(${scale})`, width: w, height: h }}>
             {children}
           </div>

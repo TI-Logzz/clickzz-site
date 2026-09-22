@@ -175,12 +175,29 @@
   .ai__close { margin-top: 0.5rem; gap: 0.4rem; }
   .ai__close .btn { height: 2.4rem; }
 }
+/* Mobile: a demonstração vem primeiro e fica presa ao topo; a copy rola por baixo dela em coluna
+   única e é ela que dirige a timeline (o visitante lê cada item enquanto a tela faz aquilo). */
 @media (max-width: 960px) {
-  .ai__sticky { height: auto; position: relative; padding-top: 3rem; }
-  .ai .ai__sticky[style] { padding-top: 1rem !important; padding-bottom: 0 !important; }
-  .ai__body { grid-template-columns: 1fr; }
-  .ai__items { flex-direction: row; flex-wrap: wrap; }
-  .ai__item { flex: 1 1 45%; }
+  .ai.section--dark { background: var(--bg); }
+  /* overflow visível: com hidden (regra do desktop) o sticky do monitor não funciona */
+  .ai__sticky { height: auto; position: relative; overflow: visible; padding-top: 3rem; }
+  .ai .ai__sticky[style] { padding-top: 1.5rem !important; padding-bottom: 0 !important; }
+  .ai__title { font-size: var(--text-3xl); }
+  .ai__body { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding-block: 0.75rem 1.5rem; }
+  .ai__monitor {
+    order: -1; position: sticky; top: 62px; z-index: 3;
+    margin-inline: calc(-1 * var(--gutter)); padding: 0.5rem var(--gutter) 0.6rem;
+    background: var(--bg); perspective: none;
+  }
+  .ai__monitor .device { transform: none; }
+  .ai__monitor .device__viewport { border-radius: 12px; }
+  .ai__monitor::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 26px; background: linear-gradient(180deg, var(--bg), transparent); pointer-events: none; }
+  .ai .demo-note { margin-top: 0.5rem; font-size: 0.68rem; }
+  .ai__copy { padding-top: 1.25rem; }
+  .ai__copy .body { font-size: var(--text-base); }
+  .ai__items { flex-direction: column; gap: 0.5rem; }
+  .ai__item { flex: none; transform: none; }
+  .ai__close { margin-top: 1.25rem; }
 }
 
 /* ---------- Builder ---------- */
