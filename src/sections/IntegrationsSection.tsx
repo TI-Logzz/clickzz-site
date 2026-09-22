@@ -34,9 +34,12 @@ export function IntegrationsSection() {
         {mobile ? (
           <>
             {head}
-            <ul className="integrations__grid" aria-label="Ferramentas integráveis">
-              {BRANDS.map((b) => <li key={b.id} data-reveal><BrandTile brand={b} size={56} /></li>)}
-            </ul>
+            <div className="integrations__panel" data-reveal>
+              <h3>Conecte com</h3>
+              <ul className="integrations__grid" aria-label="Ferramentas integráveis">
+                {BRANDS.map((b) => <li key={b.id}><BrandTile brand={b} size={52} /></li>)}
+              </ul>
+            </div>
           </>
         ) : (
           <div className="integrations__field" aria-label="Ferramentas integráveis ao redor da Clickzz">

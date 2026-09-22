@@ -5,7 +5,7 @@ import { CtaLink, Eyebrow } from '../components/ui';
 import { Device } from '../screens/Device';
 import { PageBuilderScreen } from '../screens/PageBuilderScreen';
 import { cursorTo } from '../screens/GhostCursor';
-import { gsap, useReveal, useSectionProgress, usePinned } from '../lib/scroll';
+import { gsap, useReveal, useSectionProgress, usePinned, stageWindow } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
 const icons = [Blocks, LayoutPanelTop, Palette];
@@ -38,7 +38,7 @@ export function BuilderSection() {
       const tl = gsap.timeline({
         scrollTrigger: pinned
           ? { trigger: el, start: 'top top', end: 'bottom bottom', scrub: 0.5 }
-          : { trigger: st, start: 'top 85%', end: 'bottom 15%', scrub: 0.5 },
+          : stageWindow(st, 0.4),
         defaults: { ease: 'none' },
       });
       const lit = (i: number, at: number) => tl.add(() => words.forEach((w, k) => w.classList.toggle('word--on', k <= i)), at);
@@ -91,7 +91,7 @@ export function BuilderSection() {
       tl.to(pub, { opacity: 0, duration: 0.2 }, 8.0).to(s('done'), { opacity: 1, duration: 0.2 }, 8.0);
       const done = s('done');
       tl.fromTo(done.querySelector('[data-toast]'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3 }, 8.1);
-      tl.to({}, { duration: 1 });
+      if (pinned) tl.to({}, { duration: 1 });
     }, el);
     return () => ctx.revert();
   }, [reduced, pinned]);

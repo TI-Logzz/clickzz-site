@@ -12,15 +12,15 @@
   height: 60px;
   padding: 0 0.5rem 0 1.25rem;
   border-radius: 16px;
-  background: #0b0a10;
+  background: linear-gradient(180deg, #221a3d, #17122b);
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 32px -12px rgba(11, 10, 16, 0.55);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 12px 32px -12px rgba(29, 23, 51, 0.5);
   display: flex; align-items: center; justify-content: space-between; gap: 2rem;
   overflow: hidden;
   transition: box-shadow var(--dur) ease;
 }
-.nav--scrolled .nav__bar { box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px -14px rgba(11, 10, 16, 0.7); }
+.nav--scrolled .nav__bar { box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 18px 40px -14px rgba(29, 23, 51, 0.65); }
 .nav__progress {
   position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
   background: linear-gradient(90deg, var(--primary), var(--violet-500));
@@ -43,9 +43,9 @@
   margin: 8px auto 0;
   padding: 0.5rem 1.25rem 1.25rem;
   border-radius: 16px;
-  background: #0b0a10; color: #fff;
+  background: linear-gradient(180deg, #221a3d, #17122b); color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 24px 48px -12px rgba(11, 10, 16, 0.6);
+  box-shadow: 0 24px 48px -12px rgba(29, 23, 51, 0.6);
 }
 .nav__sheet a { padding: 0.9rem 0.25rem; font-weight: 500; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.85); }
 .nav__sheet a.btn { margin-top: 0.75rem; border-bottom: 0; justify-content: center; }

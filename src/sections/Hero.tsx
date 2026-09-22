@@ -6,7 +6,7 @@ import { Device } from '../screens/Device';
 import { PagePreviewScreen } from '../screens/PagePreviewScreen';
 import { QuizPlayerScreen, QUIZ_FORM_VALUES } from '../screens/QuizPlayerScreen';
 import { PageBuilderScreen } from '../screens/PageBuilderScreen';
-import { gsap, ScrollTrigger, useSectionProgress, usePinned, useIsMobile } from '../lib/scroll';
+import { gsap, ScrollTrigger, useSectionProgress, usePinned, useIsMobile, stageWindow } from '../lib/scroll';
 import { useUI } from '../lib/store';
 import '../screens/screens.css';
 
@@ -46,7 +46,7 @@ export function Hero() {
       const tl = gsap.timeline({
         scrollTrigger: pinned
           ? { trigger: el, start: 'top top', end: 'bottom bottom', scrub: 0.35 }
-          : { trigger: st, start: 'top 80%', end: 'bottom 10%', scrub: reduced ? false : 0.35 },
+          : stageWindow(st, reduced ? 0 : 0.3),
         defaults: { ease: 'none' },
       });
       // Toda a ação acontece nos primeiros 3/4 do trecho fixo; o último quarto é uma pausa
@@ -84,8 +84,9 @@ export function Hero() {
       }
       // parallax leve de profundidade nos planos, ao longo de toda a ação
       if (!mobile) tl.to('.hero__plane--builder', { y: -50, duration: 3 }, 0).to('.hero__plane--mobile', { y: 30, duration: 3 }, 0);
-      // pausa final (25% do trecho): nada muda, o visitante absorve o resultado
-      tl.to({}, { duration: 1 }, 3.4);
+      // pausa final (25% do trecho): nada muda, o visitante absorve o resultado.
+      // Só faz sentido com a seção pinada; no mobile roubaria scroll do final da animação.
+      if (pinned) tl.to({}, { duration: 1 }, 3.4);
     }, el);
     ScrollTrigger.refresh();
     return () => ctx.revert();

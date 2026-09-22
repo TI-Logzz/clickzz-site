@@ -7,7 +7,7 @@ import { QuizStartScreen, QUIZ_BRIEF } from '../screens/QuizStartScreen';
 import { QuizBuilderScreen } from '../screens/QuizBuilderScreen';
 import { FlowCanvasScreen } from '../screens/FlowCanvasScreen';
 import { cursorTo } from '../screens/GhostCursor';
-import { gsap, useSectionProgress, usePinned } from '../lib/scroll';
+import { gsap, useSectionProgress, usePinned, stageWindow } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
 /**
@@ -41,7 +41,7 @@ export function AiSection() {
       const tl = gsap.timeline({
         scrollTrigger: pinned
           ? { trigger: el, start: 'top top', end: 'bottom bottom', scrub: 0.5 }
-          : { trigger: st, start: 'top 85%', end: 'bottom 15%', scrub: 0.5 },
+          : stageWindow(st, 0.4),
         defaults: { ease: 'none' },
       });
       const light = (i: number, at: number) => tl.add(() => items.forEach((it, k) => it.classList.toggle('ai__item--on', k <= i)), at);
@@ -121,7 +121,7 @@ export function AiSection() {
       light(3, 12.3); // Lógica
       nodes.forEach((n, i) => tl.to(n, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)' }, 12.4 + i * 0.25));
       edges.forEach((e, i) => tl.to(e, { strokeDashoffset: 0, duration: 0.5 }, 12.8 + i * 0.12));
-      tl.to({}, { duration: 1.2 }); // respiro final
+      if (pinned) tl.to({}, { duration: 1.2 }); // respiro final (só no palco pinado)
     }, el);
     return () => ctx.revert();
   }, [reduced, pinned]);

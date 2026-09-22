@@ -7,8 +7,8 @@
 
 :root {
   /* Paleta (QuizMaker + app Clickzz) */
-  --bg: #fafafa;
-  --bg-2: #fcfcfc;
+  --bg: #f7f5fb;
+  --bg-2: #fbfafe;
   --surface: #ffffff;
   --ink: #18181b;
   --ink-2: #3f3f46;
@@ -190,23 +190,24 @@ html { caret-color: var(--primary); }
   will-change: transform;
 }
 .btn:active { transform: translateY(1px) scale(0.99); }
+/* CTA: gradiente do roxo da plataforma, com brilho da própria cor (referência: CTAs da página antiga e da Brainzz) */
 .btn--primary {
   color: #fff;
-  background: linear-gradient(180deg, #221a33 0%, #120d1c 100%);
-  border: 1px solid rgba(170, 72, 255, 0.55);
-  box-shadow: 0 0 0 1px rgba(117, 36, 205, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -8px 16px -10px rgba(170, 72, 255, 0.55), 0 10px 24px -10px rgba(117, 36, 205, 0.6);
+  background: linear-gradient(135deg, #8b3fe0 0%, #7524cd 55%, #5f1cab 100%);
+  border: 1px solid rgba(196, 140, 255, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 10px 24px -10px rgba(117, 36, 205, 0.75);
 }
 .btn--primary:hover {
-  border-color: rgba(196, 140, 255, 0.9);
+  border-color: rgba(216, 175, 255, 0.8);
   transform: translateY(-1px);
-  box-shadow: 0 0 0 1px rgba(117, 36, 205, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -8px 16px -10px rgba(170, 72, 255, 0.75), 0 14px 30px -10px rgba(117, 36, 205, 0.7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 14px 30px -10px rgba(117, 36, 205, 0.9), 0 0 24px -6px rgba(170, 72, 255, 0.55);
 }
 .btn--primary .btn__sheen {
   position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none;
 }
 .btn--primary .btn__sheen::after {
   content: ''; position: absolute; top: -40%; bottom: -40%; width: 40%; left: -60%;
-  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%);
+  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
   transform: skewX(-20deg);
   transition: left 0.8s var(--ease-out);
 }
@@ -229,14 +230,17 @@ html { caret-color: var(--primary); }
 .card--hover { transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) ease; }
 .card--hover:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--violet-200); }
 
-/* ---------- Seções escuras (alternância de fundos) ---------- */
+/* ---------- Seções escuras (alternância de fundos) ----------
+   Referência: app.brainzz.com.br — o escuro é um tom da marca dessaturado, com
+   brilho e bordas mais claras, nunca preto chapado contra o branco. */
 .section--dark {
-  --bg: #0b0a10;
-  --bg-2: #100e17;
-  --surface: #17141f;
+  --bg: #1d1733;
+  --bg-edge: #2a2149;
+  --bg-2: #241d3e;
+  --surface: #262046;
   --ink: #f7f5fb;
-  --ink-2: #c9c3d6;
-  --muted: #8f88a1;
+  --ink-2: #cdc6de;
+  --muted: #9c95b2;
   --line: rgba(255, 255, 255, 0.1);
   --line-2: rgba(255, 255, 255, 0.07);
   --violet-100: rgba(170, 72, 255, 0.14);
@@ -245,10 +249,32 @@ html { caret-color: var(--primary); }
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.35), 0 12px 32px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.35), 0 32px 64px -12px rgba(0, 0, 0, 0.5);
-  background: var(--bg);
+  position: relative;
   color: var(--ink);
   color-scheme: dark;
+  /* bordas superiores/inferiores mais claras + brilho roxo: a emenda com as seções claras fica macia */
+  background:
+    radial-gradient(90% 55% at 50% 0%, rgba(170, 72, 255, 0.22), transparent 70%),
+    radial-gradient(70% 45% at 50% 100%, rgba(117, 36, 205, 0.18), transparent 70%),
+    linear-gradient(180deg, var(--bg-edge) 0%, var(--bg) 22%, var(--bg) 78%, var(--bg-edge) 100%);
 }
+/* véu de transição: o topo e a base recebem um degradê saindo do claro vizinho */
+.section--dark::before,
+.section--dark::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: clamp(56px, 6vw, 110px);
+  pointer-events: none;
+  z-index: 0;
+}
+.section--dark::before { top: 0; background: linear-gradient(180deg, rgba(240, 235, 250, 0.42), rgba(240, 235, 250, 0)); }
+.section--dark::after { bottom: 0; background: linear-gradient(0deg, rgba(240, 235, 250, 0.3), rgba(240, 235, 250, 0)); }
+.section--dark > * { position: relative; z-index: 1; }
+/* seções escuras encostadas (CTA final + rodapé): sem véu entre elas */
+.section--dark + .section--dark::before,
+.section--dark:has(+ .footer)::after { display: none; }
 .section--dark .eyebrow { color: var(--violet-300); }
 .section--dark .btn--ghost { background: rgba(255, 255, 255, 0.06); color: #fff; border-color: rgba(255, 255, 255, 0.14); }
 .section--dark .btn--ghost:hover { border-color: rgba(196, 140, 255, 0.6); }

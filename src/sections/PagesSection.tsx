@@ -3,7 +3,7 @@ import { pages } from '../content/copy';
 import { CtaLink, SectionHead } from '../components/ui';
 import { Device } from '../screens/Device';
 import { PageBuilderScreen } from '../screens/PageBuilderScreen';
-import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
+import { gsap, useReveal, useSectionProgress, useIsMobile, stageWindow } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
 /**
@@ -14,6 +14,7 @@ export function PagesSection() {
   const root = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const reduced = useUI((s) => s.reducedMotion);
+  const mobile = useIsMobile();
   useSectionProgress('pages', root);
   useReveal(root);
 
@@ -33,19 +34,20 @@ export function PagesSection() {
       const split = el.querySelector<HTMLElement>('.split')!;
       // 1) o builder monta a página enquanto o visitante lê a coluna de texto:
       //    começa quando o palco entra e termina quando a lista de blocos aparece
-      const tlA = gsap.timeline({ scrollTrigger: { trigger: split, start: 'top 70%', endTrigger: blocksEl, end: 'top 70%', scrub: 0.6 }, defaults: { ease: 'none' } });
+      // no mobile o palco fica acima do texto: a montagem precisa terminar enquanto ele ainda está na tela
+      const tlA = gsap.timeline({ scrollTrigger: mobile ? stageWindow(st, 0.5) : { trigger: split, start: 'top 70%', endTrigger: blocksEl, end: 'top 70%', scrub: 0.6 }, defaults: { ease: 'none' } });
       secs.forEach((sec, i) => {
         tlA.to(sec, { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out' }, i * 0.3);
         if (items[i]) tlA.to(items[i], { opacity: 1, x: 0, duration: 0.3 }, i * 0.3);
       });
       if (doc) tlA.to(doc, { y: -520, duration: secs.length * 0.3, ease: 'none' }, 0.5);
       // 2) os blocos "Hero … CTAs" caem quando a lista entra na tela; o fecho aparece no fim
-      const tlB = gsap.timeline({ scrollTrigger: { trigger: blocksEl, start: 'top 92%', end: 'top 45%', scrub: 0.6 }, defaults: { ease: 'none' } });
+      const tlB = gsap.timeline({ scrollTrigger: { trigger: blocksEl, start: 'top 92%', end: mobile ? 'top 55%' : 'top 45%', scrub: 0.6 }, defaults: { ease: 'none' } });
       blocks.forEach((b, i) => tlB.to(b, { y: 0, opacity: 1, rotate: 0, duration: 0.4, ease: 'back.out(1.8)' }, i * 0.25));
       tlB.fromTo('.pages__close', { opacity: 0 }, { opacity: 1, duration: 0.3 }, blocks.length * 0.25);
     }, el);
     return () => ctx.revert();
-  }, [reduced]);
+  }, [reduced, mobile]);
 
   return (
     <section ref={root} className="section" id="paginas" aria-labelledby="pages-title">

@@ -123,6 +123,15 @@ export function useIsMobile() {
   return mobile;
 }
 
+/**
+ * Janela de scrub das demonstrações no mobile (onde não há pin): a animação começa assim que o
+ * palco entra na tela e **termina com ele ainda inteiro à vista** — antes usava `bottom 15%`,
+ * que só concluía quando o palco já estava saindo por cima e o visitante não via o final.
+ */
+export function stageWindow(trigger: Element | null, scrub: number = 0.4) {
+  return { trigger, start: 'top 88%', end: 'bottom 62%', scrub };
+}
+
 /** Uma seção "pina" (fica presa enquanto a timeline roda) só no desktop e sem reduced-motion. */
 export function usePinned() {
   const reduced = useUI((s) => s.reducedMotion);

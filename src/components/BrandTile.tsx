@@ -21,22 +21,26 @@ export const BRANDS: Brand[] = [
   { id: 'hubspot', name: 'HubSpot', icon: siHubspot },
   { id: 'mailchimp', name: 'Mailchimp', icon: siMailchimp },
   { id: 'shopify', name: 'Shopify', icon: siShopify },
-  { id: 'woo', name: 'WooCommerce', icon: siWoocommerce, wide: true },
+  { id: 'woo', name: 'WooCommerce', icon: siWoocommerce },
   { id: 'telegram', name: 'Telegram', icon: siTelegram },
   { id: 'logzz', name: 'Logzz', img: `${BASE}brand/partners/logzz.svg`, wide: true },
   { id: 'coinzz', name: 'Coinzz', img: `${BASE}brand/partners/coinzz.svg`, wide: true },
 ];
 
 export function BrandTile({ brand, size = 64 }: { brand: Brand; size?: number }) {
-  const w = brand.wide ? Math.round(size * 1.7) : size;
+  // ícone: pastilha quadrada; wordmark (Logzz, Coinzz): mesma altura, largura pelo conteúdo
   return (
-    <span className={`brand ${brand.wide ? 'brand--wide' : ''}`} title={brand.name} style={{ width: w, height: size }}>
+    <span
+      className={`brand ${brand.wide ? 'brand--wide' : ''}`}
+      title={brand.name}
+      style={{ width: brand.wide ? 'auto' : size, height: size, paddingInline: brand.wide ? size * 0.34 : 0, borderRadius: size * 0.28 }}
+    >
       {brand.icon ? (
-        <svg viewBox="0 0 24 24" width={size * (brand.wide ? 0.8 : 0.44)} height={size * (brand.wide ? 0.8 : 0.44)} role="img" aria-label={brand.name}>
+        <svg viewBox="0 0 24 24" width={size * 0.44} height={size * 0.44} role="img" aria-label={brand.name}>
           <path d={brand.icon.path} fill={`#${brand.icon.hex === '000000' ? '111111' : brand.icon.hex}`} />
         </svg>
       ) : (
-        <img src={brand.img} alt={brand.name} style={{ height: size * 0.34, width: 'auto' }} decoding="async" />
+        <img src={brand.img} alt={brand.name} style={{ height: size * 0.32, width: 'auto' }} decoding="async" />
       )}
     </span>
   );
