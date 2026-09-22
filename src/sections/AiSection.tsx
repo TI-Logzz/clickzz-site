@@ -1,9 +1,13 @@
 import { useLayoutEffect, useRef } from 'react';
+import { Layers, Type, Blocks, GitBranch } from 'lucide-react';
 import { ai } from '../content/copy';
 import { CtaLink, Eyebrow, StarGem } from '../components/ui';
 import { AiArt, AI_BRIEF } from '../components/AiArt';
 import { gsap, useSectionProgress, usePinned } from '../lib/scroll';
 import { useUI } from '../lib/store';
+
+/** Um ícone por item da copy: estrutura, conteúdo, elementos e lógica. */
+const ITEM_ICONS = [Layers, Type, Blocks, GitBranch];
 
 /**
  * S04 — Clickzz AI. A demonstração é uma **ilustração** do que a IA faz (não uma captura do app):
@@ -118,12 +122,18 @@ export function AiSection() {
         <div className="container--wide ai__body">
           <div className="ai__copy">
             <p className="body">{ai.body1}</p>
-            <p className="body" style={{ marginTop: '0.5rem' }}>{ai.body2}</p>
-            <p className="body" style={{ marginTop: '1rem', fontWeight: 600, color: 'var(--ink)' }}>{ai.lead}</p>
-            <ul className="ai__items" style={{ marginTop: '0.6rem' }}>
-              {ai.items.map((it) => (
-                <li key={it.title} className="ai__item"><b><span className="dot" aria-hidden="true" />{it.title}</b><span>{it.body}</span></li>
-              ))}
+            <p className="body" style={{ marginTop: '0.75rem' }}>{ai.body2}</p>
+            <p className="body ai__lead" style={{ marginTop: '2rem', fontWeight: 600, color: 'var(--ink)' }}>{ai.lead}</p>
+            <ul className="ai__items" style={{ marginTop: '1.25rem' }}>
+              {ai.items.map((it, i) => {
+                const Icon = ITEM_ICONS[i];
+                return (
+                  <li key={it.title} className="ai__item">
+                    <span className="ai__item-icon" aria-hidden="true"><Icon size={19} strokeWidth={1.8} /></span>
+                    <div><b>{it.title}</b><span>{it.body}</span></div>
+                  </li>
+                );
+              })}
             </ul>
             <div className="ai__close">
               <p className="body">{ai.close}</p>
