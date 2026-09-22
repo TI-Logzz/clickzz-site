@@ -34,10 +34,10 @@ export function Nav() {
 
   return (
     <header className={`nav ${scrolled ? 'nav--scrolled' : ''} ${open ? 'nav--open' : ''}`}>
-      <div className="nav__progress" aria-hidden="true" style={{ transform: `scaleX(${pct})` }} />
-      <div className="nav__inner container--wide">
+      <div className="nav__bar">
+        <div className="nav__progress" aria-hidden="true" style={{ transform: `scaleX(${pct})` }} />
         <a href="#" className="nav__brand" onClick={go('#top')} aria-label="Clickzz — início">
-          <Logo height={30} />
+          <Logo height={26} light />
         </a>
         <nav className="nav__links" aria-label="Seções da página">
           {nav.links.map((l) => (

@@ -38,7 +38,7 @@ export function FinalCta() {
   }, [reduced]);
 
   return (
-    <section ref={root} className="section cta" aria-labelledby="cta-title">
+    <section ref={root} className="section section--dark cta" aria-labelledby="cta-title">
       <div className="cta__bg" aria-hidden="true" />
       <div className="container cta__inner">
         <div data-reveal><Eyebrow>{finalCta.eyebrow} <span className="star">{finalCta.eyebrowStar}</span></Eyebrow></div>

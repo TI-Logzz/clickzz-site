@@ -127,7 +127,7 @@ export function AiSection() {
   }, [reduced, pinned]);
 
   return (
-    <section ref={root} className="section ai" id="ia" aria-labelledby="ai-title" style={{ height: pinned ? '460vh' : 'auto', paddingBlock: 0 }}>
+    <section ref={root} className="section section--dark ai" id="ia" aria-labelledby="ai-title" style={{ height: pinned ? '460vh' : 'auto', paddingBlock: 0 }}>
       <div className="ai__sticky" style={pinned ? undefined : { position: 'relative', height: 'auto', paddingTop: '4rem', paddingBottom: '2rem' }}>
         <div className="container ai__head">
           <Eyebrow>{ai.eyebrow}</Eyebrow>
@@ -148,7 +148,7 @@ export function AiSection() {
             </ul>
             <div className="ai__close">
               <p className="body">{ai.close}</p>
-              <CtaLink>{ai.cta} <span className="star" style={{ color: '#fff' }}>{ai.ctaStar}</span></CtaLink>
+              <CtaLink>{ai.cta} <span className="star" style={{ color: '#d4b3ff' }}>{ai.ctaStar}</span></CtaLink>
             </div>
           </div>
           <div ref={stage} className="ai__monitor" aria-label="Demonstração: a IA transforma uma descrição em um quiz completo dentro do builder">

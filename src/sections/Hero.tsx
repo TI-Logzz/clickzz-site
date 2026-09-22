@@ -83,8 +83,7 @@ export function Hero() {
           .to(track, { xPercent: step(3), duration: 0.4, ease: 'power2.inOut' }, 2.9);
       }
       // parallax leve de profundidade nos planos, ao longo de toda a ação
-      tl.to('.hero__plane--builder', { y: -50, duration: 3 }, 0)
-        .to('.hero__plane--mobile', { y: 30, duration: 3 }, 0);
+      if (!mobile) tl.to('.hero__plane--builder', { y: -50, duration: 3 }, 0).to('.hero__plane--mobile', { y: 30, duration: 3 }, 0);
       // pausa final (25% do trecho): nada muda, o visitante absorve o resultado
       tl.to({}, { duration: 1 }, 3.4);
     }, el);

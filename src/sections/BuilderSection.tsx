@@ -121,13 +121,15 @@ export function BuilderSection() {
           </div>
         </div>
       </div>
-      <BuilderCards />
     </section>
   );
 }
 
-/** Cards de recurso + CTA, renderizados logo após o palco pinado. */
-function BuilderCards() {
+/**
+ * Cards de recurso + CTA. Ficam em um bloco próprio, depois da seção pinada, para nunca
+ * passarem por cima do título e do builder enquanto o palco está preso (revisão 21/09, C13).
+ */
+export function BuilderCards() {
   const ref = useRef<HTMLDivElement>(null);
   useReveal(ref);
   return (

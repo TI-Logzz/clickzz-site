@@ -1,44 +1,32 @@
 import { lazy, Suspense } from 'react';
 import { Nav } from './components/Nav';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { useSmoothScroll, usePointer, useIsMobile } from './lib/scroll';
-import { useUI } from './lib/store';
+import { useSmoothScroll } from './lib/scroll';
 import { Hero } from './sections/Hero';
 // Tudo abaixo do hero vem em um único chunk, depois da primeira pintura
 const Below = lazy(() => import('./sections/Below'));
 
 import './sections/sections.css';
 
-const Scene = lazy(() => import('./three/Scene'));
-
+/**
+ * A página é 100% DOM: a camada decorativa 3D (cristal, blocos, fios, partículas)
+ * foi removida na revisão de 21/09 — as únicas animações são as demonstrações do produto
+ * e as microinterações de cada seção.
+ */
 export default function App() {
   useSmoothScroll();
-  usePointer();
-  const webgl = useUI((s) => s.webgl);
-  const reduced = useUI((s) => s.reducedMotion);
-  const mobile = useIsMobile();
 
   return (
-    <>
-      {mobile && <div className="mobile-glow" aria-hidden="true" />}
-      {webgl && !reduced && !mobile && (
-        <ErrorBoundary name="cena 3D">
-          <Suspense fallback={null}>
-            <Scene />
+    <div className="page-root" id="top">
+      <Nav />
+      <main>
+        <ErrorBoundary name="hero"><Hero /></ErrorBoundary>
+        <ErrorBoundary name="seções">
+          <Suspense fallback={<div style={{ minHeight: 1200 }} aria-hidden="true" />}>
+            <Below />
           </Suspense>
         </ErrorBoundary>
-      )}
-      <div className="page-root" id="top">
-        <Nav />
-        <main>
-          <ErrorBoundary name="hero"><Hero /></ErrorBoundary>
-          <ErrorBoundary name="seções">
-            <Suspense fallback={<div style={{ minHeight: 1200 }} aria-hidden="true" />}>
-              <Below />
-            </Suspense>
-          </ErrorBoundary>
-        </main>
-      </div>
-    </>
+      </main>
+    </div>
   );
 }

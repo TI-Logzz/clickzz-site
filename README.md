@@ -11,12 +11,12 @@ npm run build      # gera dist/
 npm run preview
 ```
 
-`--legacy-peer-deps` é necessário porque `@react-three/fiber` declara peers opcionais do Expo que conflitam com React 19.
+`--legacy-peer-deps` continua no `vercel.json` por compatibilidade; já não há dependência que exija a flag.
 
 ## Stack
 
 - Vite 8 + React 19 + TypeScript
-- Three.js via `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing` (canvas persistente atrás do DOM)
+- 100% DOM: a camada 3D decorativa (cristal, blocos, fios) foi removida na revisão de 21/09; `simple-icons` para os logos das integrações
 - GSAP 3 + ScrollTrigger (timelines por seção, scrub) e Lenis (scroll suave no ticker do GSAP)
 - Zustand (relógio único: progresso das seções, velocidade do scroll, ponteiro)
 - Lucide (ícones), Inter (página), Plus Jakarta Sans e Sora (telas reproduzidas do app)
@@ -26,9 +26,9 @@ npm run preview
 ```
 src/
   content/copy.ts        copy literal do docx (única fonte de texto da página)
-  lib/store.ts           relógio compartilhado DOM ↔ canvas
+  lib/store.ts           relógio compartilhado (progresso das seções, preferências)
   lib/scroll.ts          Lenis + ScrollTrigger, useSectionProgress, useReveal, usePinned
-  three/                 Scene (canvas fixo), Crystal (✦ de vidro), Blocks, Wires, Particles, Wash (shader), choreography (posições por seção)
+  components/FlowArt.tsx fluxo de quiz ilustrado (cards Quiz e Quizzes interativos), BrandTile.tsx (logos das integrações), Scaled.tsx
   screens/               "telas vivas": reprodução em HTML/CSS do app Clickzz (dashboard, novo projeto, briefing, builder de quiz, Conexões, builder de página, analytics, publicar), Device (moldura escalada) e GhostCursor
   sections/              as 14 seções da copy + sections.css
   components/            Nav, Footer, Logo, ui (botões, eyebrow, checks)
@@ -52,9 +52,8 @@ A logo oficial (fornecida pelo cliente) está em `public/brand/`: `clickzz-logo.
 
 ## Fallbacks e performance
 
-- `prefers-reduced-motion`: sem scrub, sem canvas, telas no estado final, reveals instantâneos.
-- Sem WebGL: `html.no-webgl` esconde o canvas; a página é 100% DOM.
-- ≤ 960 px (mobile): a cena 3D não é carregada (um brilho em CSS faz o fundo), os reveals não usam blur, as seções pinadas viram fluxo normal e o plano do builder do hero não é renderizado.
+- `prefers-reduced-motion`: sem scrub, telas no estado final, reveals instantâneos.
+- ≤ 960 px (mobile): os reveals não usam blur, as seções pinadas viram fluxo normal, o plano do builder do hero não é renderizado e a mesa de lógica usa a variante compacta.
 - Abaixo do hero, tudo vem em um chunk separado (`sections/Below.tsx`) montado em levas depois da primeira pintura (`components/Deferred.tsx`).
 - A fonte principal (Inter latina, variável) é auto-hospedada em `public/fonts` e pré-carregada no `index.html`.
 

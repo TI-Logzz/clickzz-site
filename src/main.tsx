@@ -8,7 +8,7 @@ import '@fontsource/sora/700.css';
 import '@fontsource/sora/800.css';
 import './index.css';
 import App from './App.tsx';
-import { detectWebGL, useUI } from './lib/store';
+import { useUI } from './lib/store';
 
 // Relatório visível de erros: nunca deixar a página em branco sem dizer o motivo.
 const report = (msg: string) => {
@@ -29,9 +29,7 @@ window.addEventListener('unhandledrejection', (e) => report(`promise: ${String((
 const safe = <T,>(fn: () => T, fallback: T): T => { try { return fn(); } catch { return fallback; } };
 const reducedMotion = safe(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, false);
 const isTouch = safe(() => window.matchMedia('(hover: none), (pointer: coarse)').matches, false);
-const webgl = safe(() => detectWebGL(), false);
-useUI.getState().setEnv({ reducedMotion, isTouch, webgl });
-if (!webgl) document.documentElement.classList.add('no-webgl');
+useUI.getState().setEnv({ reducedMotion, isTouch });
 if (reducedMotion) document.documentElement.classList.add('reduced-motion');
 
 // Chunks carregados depois (seções abaixo do hero, cena 3D) podem sumir após um deploy: recarrega uma vez.

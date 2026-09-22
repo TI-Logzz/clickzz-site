@@ -37,7 +37,7 @@ export function PublishSection() {
   }, [reduced]);
 
   return (
-    <section ref={root} className="section" id="publicar" aria-labelledby="publish-title">
+    <section ref={root} className="section section--dark" id="publicar" aria-labelledby="publish-title">
       <div className="container">
         <SectionHead eyebrow={publish.eyebrow} title={<span id="publish-title">{publish.title}</span>} lead={publish.body} align="center" />
         <div ref={stage} className="publish__stage" style={{ marginTop: '3rem', perspective: 1600 }} aria-label="Página publicada no domínio próprio, com teste A/B dividindo o tráfego">

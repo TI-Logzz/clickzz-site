@@ -3,12 +3,12 @@ import { Waypoints, LayoutTemplate } from 'lucide-react';
 import { formats } from '../content/copy';
 import { CtaLink, SectionHead } from '../components/ui';
 import { Device } from '../screens/Device';
-import { FlowCanvasScreen } from '../screens/FlowCanvasScreen';
+import { FlowArt } from '../components/FlowArt';
 import { PageBuilderScreen } from '../screens/PageBuilderScreen';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
-/** S03 — Quiz e Página lado a lado, cada um com uma tela viva em loop. */
+/** S03 — Quiz e Página lado a lado: o Quiz com um fluxo ilustrado (não é print do editor), a Página com o builder em loop. */
 export function Formats() {
   const root = useRef<HTMLElement>(null);
   const reduced = useUI((s) => s.reducedMotion);
@@ -58,8 +58,8 @@ export function Formats() {
         <div className="formats__grid" style={{ perspective: 1600 }}>
           <article className="format-card format-card--quiz" id="quiz-card" onPointerMove={tilt} onPointerLeave={untilt} data-reveal aria-labelledby="fmt-quiz">
             <span className="format-card__glow" aria-hidden="true" />
-            <div className="format-card__screen">
-              <Device bare><FlowCanvasScreen chrome={false} offsetY={-80} /></Device>
+            <div className="format-card__screen format-card__screen--art">
+              <FlowArt compact />
             </div>
             <div className="format-card__body">
               <div className="format-card__title"><span className="icon-tile"><Waypoints size={20} /></span><h3 id="fmt-quiz" className="h4">{formats.quiz.title}</h3></div>

@@ -1,6 +1,6 @@
 # Mapa de movimento
 
-Um relógio: Lenis roda no `gsap.ticker`; cada seção registra um ScrollTrigger de progresso (`useSectionProgress`) que escreve em `lib/store.ts`; o canvas 3D lê `clock.active` e interpola a coreografia de `three/choreography.ts` (cristal, blocos, fios, partículas, wash).
+Um relógio: Lenis roda no `gsap.ticker`; cada seção registra um ScrollTrigger de progresso (`useSectionProgress`) que escreve em `lib/store.ts`. Revisão 21/09: a camada 3D decorativa foi removida — a coluna “Uniforms / 3D” abaixo é histórica; hoje só as demonstrações do produto e as microinterações animam. Mudanças da revisão: cards do builder fora do trecho pinado; Quiz e Quizzes interativos usam `FlowArt` (ilustração, não captura); Integrações é uma composição fixa (sem órbita); Tudo em um só lugar sem revelação progressiva; Planos com transição no toggle e faixa de economia no Anual.
 
 | Seção | Trigger (desktop) | Pin | O que anima | Uniforms / 3D |
 |---|---|---|---|---|

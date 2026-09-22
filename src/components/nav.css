@@ -1,42 +1,58 @@
+/* Cabeçalho: bloco preto, com largura contida e centralizado (referência: QuizMaker). */
 .nav {
-  position: fixed; inset: 0 0 auto 0; z-index: 50;
-  height: 72px;
-  transition: background-color var(--dur) ease, box-shadow var(--dur) ease, backdrop-filter var(--dur) ease;
+  position: fixed; left: 0; right: 0; top: 0; z-index: 50;
+  padding: 14px var(--gutter) 0;
+  pointer-events: none;
 }
-.nav--scrolled {
-  background: rgba(250, 250, 250, 0.72);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
-  box-shadow: 0 1px 0 var(--line), 0 8px 24px -12px rgba(24, 24, 27, 0.08);
+.nav__bar {
+  pointer-events: auto;
+  position: relative;
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  height: 60px;
+  padding: 0 0.5rem 0 1.25rem;
+  border-radius: 16px;
+  background: #0b0a10;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 32px -12px rgba(11, 10, 16, 0.55);
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  overflow: hidden;
+  transition: box-shadow var(--dur) ease;
 }
+.nav--scrolled .nav__bar { box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px -14px rgba(11, 10, 16, 0.7); }
 .nav__progress {
-  position: absolute; left: 0; top: 0; height: 2px; width: 100%;
+  position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
   background: linear-gradient(90deg, var(--primary), var(--violet-500));
   transform-origin: left; transform: scaleX(0);
 }
-.nav__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
 .nav__brand { display: inline-flex; align-items: center; }
-.nav__links { display: flex; gap: 2rem; }
-.nav__links a { font-size: var(--text-sm); font-weight: 500; color: var(--ink-2); position: relative; padding-block: 0.25rem; }
-.nav__links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform var(--dur) var(--ease-out); }
-.nav__links a:hover { color: var(--ink); }
+.nav__links { display: flex; gap: 1.75rem; }
+.nav__links a { font-size: var(--text-sm); font-weight: 500; color: rgba(255, 255, 255, 0.72); position: relative; padding-block: 0.25rem; transition: color var(--dur-fast) ease; }
+.nav__links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--violet-400); transform: scaleX(0); transform-origin: left; transition: transform var(--dur) var(--ease-out); }
+.nav__links a:hover { color: #fff; }
 .nav__links a:hover::after { transform: scaleX(1); }
 .nav__actions { display: flex; align-items: center; gap: 1rem; }
-.nav__login { font-size: var(--text-sm); font-weight: 500; color: var(--ink-2); }
-.nav__login:hover { color: var(--ink); }
-.nav__burger { display: none; width: 44px; height: 44px; border-radius: 999px; place-items: center; color: var(--ink); }
+.nav__login { font-size: var(--text-sm); font-weight: 500; color: rgba(255, 255, 255, 0.72); }
+.nav__login:hover { color: #fff; }
+.nav__burger { display: none; width: 44px; height: 44px; border-radius: 12px; place-items: center; color: #fff; }
 .nav__sheet {
+  pointer-events: auto;
   display: none; flex-direction: column; gap: 0.25rem;
-  position: absolute; top: 100%; left: 0; right: 0;
-  padding: 1rem var(--gutter) 1.5rem;
-  background: rgba(250, 250, 250, 0.96); backdrop-filter: blur(20px);
-  box-shadow: 0 1px 0 var(--line), 0 24px 48px -12px rgba(24, 24, 27, 0.12);
+  width: min(100%, var(--container));
+  margin: 8px auto 0;
+  padding: 0.5rem 1.25rem 1.25rem;
+  border-radius: 16px;
+  background: #0b0a10; color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 48px -12px rgba(11, 10, 16, 0.6);
 }
-.nav__sheet a { padding: 0.9rem 0.25rem; font-weight: 500; border-bottom: 1px solid var(--line-2); }
+.nav__sheet a { padding: 0.9rem 0.25rem; font-weight: 500; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.85); }
 .nav__sheet a.btn { margin-top: 0.75rem; border-bottom: 0; justify-content: center; }
 .nav--open .nav__sheet { display: flex; }
-.nav--open { background: rgba(250, 250, 250, 0.96); }
 @media (max-width: 900px) {
+  .nav { padding-top: 10px; }
+  .nav__bar { height: 56px; padding-left: 1rem; }
   .nav__links, .nav__login { display: none; }
   .nav__burger { display: grid; }
   .nav__actions .btn { display: none; }

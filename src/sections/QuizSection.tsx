@@ -2,18 +2,18 @@ import { useLayoutEffect, useRef } from 'react';
 import { Variable, Split, Shuffle } from 'lucide-react';
 import { quizzes } from '../content/copy';
 import { SectionHead } from '../components/ui';
-import { Device } from '../screens/Device';
-import { FlowCanvasScreen } from '../screens/FlowCanvasScreen';
-import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
+import { FlowArt } from '../components/FlowArt';
+import { gsap, useReveal, useSectionProgress, useIsMobile } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
 const icons = [Variable, Split, Shuffle];
 
-/** S06 — "Mesa de lógica": a aba Conexões em perspectiva; nós surgem, fios se desenham, o Randomizador divide o tráfego. */
+/** S06 — "Mesa de lógica" ilustrada: as etapas surgem, os fios se desenham e o Randomizador divide o tráfego. */
 export function QuizSection() {
   const root = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const reduced = useUI((s) => s.reducedMotion);
+  const mobile = useIsMobile();
   useSectionProgress('quiz', root);
   useReveal(root);
 
@@ -37,21 +37,17 @@ export function QuizSection() {
       tl.to(split, { a: 62, duration: 0.6, onUpdate: () => { if (pct[0]) pct[0].textContent = `${Math.round(split.a)}%`; if (pct[1]) pct[1].textContent = `${100 - Math.round(split.a)}%`; } }, 2.4);
       // pulsos correndo (loop independente do scroll)
       pulses.forEach((p, i) => gsap.fromTo(p, { strokeDashoffset: 1.05 }, { strokeDashoffset: -0.06, duration: 2.4 + (i % 5) * 0.3, repeat: -1, ease: 'none', delay: (i % 7) * 0.3 }));
-      // a mesa inclina levemente conforme o scroll
-      gsap.fromTo(st.querySelector('.device'), { rotateX: 14 }, { rotateX: 4, ease: 'none', scrollTrigger: { trigger: st, start: 'top 90%', end: 'top 18%', scrub: true } });
     }, st);
     return () => ctx.revert();
-  }, [reduced]);
+  }, [reduced, mobile]);
 
   return (
     <section ref={root} className="section" id="quiz" aria-labelledby="quiz-title">
       <div className="container">
         <SectionHead eyebrow={quizzes.eyebrow} title={<span id="quiz-title">{quizzes.title}</span>} lead={quizzes.body} align="center" />
       </div>
-      <div ref={stage} className="container quiz__stage" aria-label="Aba Conexões do builder de quiz: etapas conectadas por caminhos, com condição e randomizador">
-        <Device url="app.quizmaker.com.br/dashboard/funnels/…/builder">
-          <FlowCanvasScreen />
-        </Device>
+      <div ref={stage} className="container quiz__stage" aria-label="Fluxo de um quiz: etapas conectadas por caminhos, com condição e randomizador">
+        <FlowArt compact={mobile} />
       </div>
       <div className="container">
         <div className="feature-grid quiz__cards">

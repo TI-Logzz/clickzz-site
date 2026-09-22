@@ -4,7 +4,7 @@ import { Footer } from '../components/Footer';
 import { Positioning } from './Positioning';
 import { Formats } from './Formats';
 import { AiSection } from './AiSection';
-import { BuilderSection } from './BuilderSection';
+import { BuilderSection, BuilderCards } from './BuilderSection';
 import { QuizSection } from './QuizSection';
 import { PagesSection } from './PagesSection';
 import { PublishSection } from './PublishSection';
@@ -20,7 +20,7 @@ export default function Below() {
   return (
     <>
       <Deferred stage={0}><ErrorBoundary name="plataforma"><Positioning /></ErrorBoundary><ErrorBoundary name="formatos"><Formats /></ErrorBoundary></Deferred>
-      <Deferred stage={1}><ErrorBoundary name="ia"><AiSection /></ErrorBoundary><ErrorBoundary name="builder"><BuilderSection /></ErrorBoundary></Deferred>
+      <Deferred stage={1}><ErrorBoundary name="ia"><AiSection /></ErrorBoundary><ErrorBoundary name="builder"><BuilderSection /><BuilderCards /></ErrorBoundary></Deferred>
       <Deferred stage={2}><ErrorBoundary name="quiz"><QuizSection /></ErrorBoundary><ErrorBoundary name="páginas"><PagesSection /></ErrorBoundary><ErrorBoundary name="publicação"><PublishSection /></ErrorBoundary></Deferred>
       <Deferred stage={3}><ErrorBoundary name="dados"><AnalyticsSection /></ErrorBoundary><ErrorBoundary name="benefícios"><CompareSection /></ErrorBoundary><ErrorBoundary name="integrações"><IntegrationsSection /></ErrorBoundary></Deferred>
       <Deferred stage={4}><ErrorBoundary name="planos"><PlansSection /></ErrorBoundary><ErrorBoundary name="tudo em um só lugar"><AllInOneSection /></ErrorBoundary><ErrorBoundary name="cta"><FinalCta /></ErrorBoundary></Deferred>

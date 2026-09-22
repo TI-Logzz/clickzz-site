@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react';
+import { useEffect, useLayoutEffect, useState, type RefObject } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -39,7 +39,7 @@ export function useSmoothScroll() {
   }, [reduced]);
 }
 
-export function scrollTo(target: string | number, offset = -72) {
+export function scrollTo(target: string | number, offset = -96) {
   if (lenis) lenis.scrollTo(target, { offset, duration: 1.4 });
   else if (typeof target === 'string') document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
 }
@@ -128,28 +128,6 @@ export function usePinned() {
   const reduced = useUI((s) => s.reducedMotion);
   const mobile = useIsMobile();
   return !reduced && !mobile;
-}
-
-/** Rastreia o ponteiro normalizado para parallax. */
-export function usePointer() {
-  const raf = useRef(0);
-  useEffect(() => {
-    const onMove = (e: PointerEvent) => {
-      clock.pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
-      clock.pointer.y = -((e.clientY / window.innerHeight) * 2 - 1);
-    };
-    window.addEventListener('pointermove', onMove, { passive: true });
-    const loop = () => {
-      clock.pointerSmooth.x += (clock.pointer.x - clock.pointerSmooth.x) * 0.06;
-      clock.pointerSmooth.y += (clock.pointer.y - clock.pointerSmooth.y) * 0.06;
-      raf.current = requestAnimationFrame(loop);
-    };
-    raf.current = requestAnimationFrame(loop);
-    return () => {
-      window.removeEventListener('pointermove', onMove);
-      cancelAnimationFrame(raf.current);
-    };
-  }, []);
 }
 
 export { gsap, ScrollTrigger };
