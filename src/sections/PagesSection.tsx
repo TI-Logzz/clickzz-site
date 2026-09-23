@@ -24,15 +24,21 @@ export function PagesSection() {
     const ctx = gsap.context(() => {
       const blocks = el.querySelectorAll<HTMLElement>('.pages__block');
       const secs = st.querySelectorAll<HTMLElement>('[data-pg-sec]');
+      const rows = st.querySelectorAll<HTMLElement>('[data-pg-row]');
       gsap.set(blocks, { y: -40, opacity: 0, rotate: (i) => (i % 2 ? 6 : -6) });
       gsap.set(secs, { opacity: 0, y: 18 });
+      gsap.set(rows, { opacity: 0, x: -10 });
       const blocksEl = el.querySelector<HTMLElement>('.pages__blocks')!;
       const split = el.querySelector<HTMLElement>('.split')!;
       // 1) o builder monta a página enquanto o visitante lê a coluna de texto:
       //    começa quando o palco entra e termina quando a lista de blocos aparece
       // no mobile o palco fica acima do texto: a montagem precisa terminar enquanto ele ainda está na tela
       const tlA = gsap.timeline({ scrollTrigger: mobile ? stageWindow(st, 0.5) : { trigger: split, start: 'top 70%', endTrigger: blocksEl, end: 'top 70%', scrub: 0.6 }, defaults: { ease: 'none' } });
-      secs.forEach((sec, i) => tlA.to(sec, { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out' }, i * 0.3));
+      // a seção aparece na coluna de estrutura e no mesmo instante no corpo da página
+      secs.forEach((sec, i) => {
+        tlA.to(sec, { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out' }, i * 0.26);
+        if (rows[i]) tlA.to(rows[i], { opacity: 1, x: 0, duration: 0.3, ease: 'expo.out' }, i * 0.26);
+      });
       // 2) os blocos "Hero … CTAs" caem quando a lista entra na tela; o fecho aparece no fim
       const tlB = gsap.timeline({ scrollTrigger: { trigger: blocksEl, start: 'top 92%', end: mobile ? 'top 55%' : 'top 45%', scrub: 0.6 }, defaults: { ease: 'none' } });
       blocks.forEach((b, i) => tlB.to(b, { y: 0, opacity: 1, rotate: 0, duration: 0.4, ease: 'back.out(1.8)' }, i * 0.25));
