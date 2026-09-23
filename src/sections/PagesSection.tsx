@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { pages } from '../content/copy';
 import { CtaLink, SectionHead } from '../components/ui';
-import { PageArt } from '../components/PageArt';
+import { PageArt, DRAG_FROM, DRAG_TO, ROW_STEP } from '../components/PageArt';
 import { gsap, useReveal, useSectionProgress, useIsMobile, stageWindow } from '../lib/scroll';
 import { useUI } from '../lib/store';
 
@@ -25,9 +25,13 @@ export function PagesSection() {
       const blocks = el.querySelectorAll<HTMLElement>('.pages__block');
       const secs = st.querySelectorAll<HTMLElement>('[data-pg-sec]');
       const rows = st.querySelectorAll<HTMLElement>('[data-pg-row]');
+      const drag = st.querySelector<HTMLElement>('[data-pg-drag]');
+      const shift = st.querySelectorAll<HTMLElement>('[data-pg-shift]');
+      const tag = st.querySelector<HTMLElement>('[data-pg-tag]');
       gsap.set(blocks, { y: -40, opacity: 0, rotate: (i) => (i % 2 ? 6 : -6) });
       gsap.set(secs, { opacity: 0, y: 18 });
       gsap.set(rows, { opacity: 0, x: -10 });
+      gsap.set(tag, { opacity: 0, scale: 0.9 });
       const blocksEl = el.querySelector<HTMLElement>('.pages__blocks')!;
       const split = el.querySelector<HTMLElement>('.split')!;
       // 1) o builder monta a página enquanto o visitante lê a coluna de texto:
@@ -39,6 +43,16 @@ export function PagesSection() {
         tlA.to(sec, { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out' }, i * 0.26);
         if (rows[i]) tlA.to(rows[i], { opacity: 1, x: 0, duration: 0.3, ease: 'expo.out' }, i * 0.26);
       });
+      // a etiqueta do último CTA só entra depois que o bloco dele existe
+      const fim = (secs.length - 1) * 0.26 + 0.3;
+      tlA.to(tag, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)' }, fim);
+      // e então a estrutura é reorganizada: "Bônus" sobe dois lugares e pousa reta
+      if (drag) {
+        const sobe = -(DRAG_FROM - DRAG_TO) * ROW_STEP;
+        tlA.to(drag, { y: sobe * 0.5, rotate: -1.6, scale: 1.03, boxShadow: '0 14px 26px -10px rgba(46,16,101,0.45)', duration: 0.5, ease: 'power2.out' }, fim + 0.25)
+          .to(drag, { y: sobe, rotate: 0, scale: 1, boxShadow: '0 1px 2px rgba(24,24,27,0.03)', duration: 0.5, ease: 'power2.inOut' }, fim + 0.75)
+          .to(shift, { y: ROW_STEP, duration: 0.5, ease: 'power2.inOut' }, fim + 0.75);
+      }
       // 2) os blocos "Hero … CTAs" caem quando a lista entra na tela; o fecho aparece no fim
       const tlB = gsap.timeline({ scrollTrigger: { trigger: blocksEl, start: 'top 92%', end: mobile ? 'top 55%' : 'top 45%', scrub: 0.6 }, defaults: { ease: 'none' } });
       blocks.forEach((b, i) => tlB.to(b, { y: 0, opacity: 1, rotate: 0, duration: 0.4, ease: 'back.out(1.8)' }, i * 0.25));

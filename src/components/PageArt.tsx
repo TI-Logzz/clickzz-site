@@ -16,9 +16,14 @@ import './pageart.css';
 const BLOCKS = ['Hero', 'Oferta', 'Benefícios', 'Prova', 'Comparações', 'Bônus', 'Garantia', 'FAQ', 'CTAs'] as const;
 type Block = (typeof BLOCKS)[number];
 
-/** A seção que está sendo arrastada na ilustração (sai de Bônus, entra acima de Prova). */
-const DRAG_FROM = 5;
-const DRAG_TO = 3;
+/**
+ * "Reorganize seções": no scroll, a linha "Bônus" sobe dois lugares e pousa logo abaixo de
+ * "Benefícios", enquanto "Prova" e "Comparações" descem para abrir espaço. É um movimento,
+ * não um estado: no fim todas as linhas ficam retas e alinhadas.
+ */
+export const DRAG_FROM = 5;
+export const DRAG_TO = 3;
+export const ROW_STEP = 40; // altura da linha (34) + respiro (6)
 
 function BlockBody({ name, compact = false }: { name: Block; compact?: boolean }) {
   switch (name) {
@@ -132,29 +137,23 @@ export function PageArt({ compact = false }: { compact?: boolean }) {
     );
   }
 
-  // a coluna mostra as demais seções e um vão tracejado no destino, onde a arrastada pousa
-  const rail = BLOCKS.filter((_, i) => i !== DRAG_FROM);
-  const withSlot: (Block | null)[] = [...rail.slice(0, DRAG_TO), null, ...rail.slice(DRAG_TO)];
-
   return (
     <Scaled width={720} height={660} className="pgart">
       <div className="pgart__canvas pgart__canvas--full" style={{ width: 720, height: 660 }}>
         {/* coluna de seções: criar a estrutura e reorganizar */}
         <div className="pgart__rail" aria-hidden="true">
           <div className="pgart__rail-head">Seções</div>
-          {withSlot.map((name) =>
-            name === null ? (
-              <div key="slot" className="pgart__row pgart__row--slot" />
-            ) : (
-              <div key={name} className="pgart__row" data-pg-row={rail.indexOf(name)}>
-                <GripVertical size={11} />{name}
-              </div>
-            ),
-          )}
-          {/* a seção sendo arrastada, pousando no vão */}
-          <div className="pgart__row pgart__row--drag" style={{ top: `calc(var(--rail-head) + ${DRAG_TO} * (var(--row-h) + var(--row-gap)))` }}>
-            <GripVertical size={11} />{BLOCKS[DRAG_FROM]}
-          </div>
+          {BLOCKS.map((name, i) => (
+            <div
+              key={name}
+              className={`pgart__row ${i === DRAG_FROM ? 'pgart__row--drag' : ''}`}
+              data-pg-row={i}
+              {...(i === DRAG_FROM ? { 'data-pg-drag': '' } : {})}
+              {...(i > DRAG_TO - 1 && i < DRAG_FROM ? { 'data-pg-shift': '' } : {})}
+            >
+              <GripVertical size={11} />{name}
+            </div>
+          ))}
         </div>
 
         {/* a página inteira: da primeira dobra ao último CTA, sem corte */}
@@ -167,7 +166,7 @@ export function PageArt({ compact = false }: { compact?: boolean }) {
               </div>
             ))}
           </div>
-          <span className="pgart__tag pgart__tag--last">último CTA</span>
+          <span className="pgart__tag pgart__tag--last" data-pg-tag>último CTA</span>
         </div>
       </div>
     </Scaled>
