@@ -8,7 +8,7 @@ import './aiart.css';
  * da copy: estrutura (etapas), conteúdo (linhas de texto), elementos (chips) e lógica (caminhos).
  * Os data-* são os ganchos da timeline da seção.
  */
-export const AI_BRIEF = 'Quiz de diagnóstico para uma clínica de estética que recomenda o tratamento ideal e captura o WhatsApp.';
+export const AI_BRIEF = 'Quiz de diagnóstico de pele para uma marca de skincare que recomenda o kit ideal e captura o WhatsApp.';
 
 const STEPS = ['Boas-vindas', 'Preocupação', 'Rotina', 'Cadastro', 'Resultado'];
 const ELEMENTS = [

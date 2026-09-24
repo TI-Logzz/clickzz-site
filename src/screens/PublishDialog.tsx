@@ -1,7 +1,7 @@
 import { Globe, X, CircleCheck } from 'lucide-react';
 
 /** Diálogo "Publicar funil / Publicar página", reproduzido da captura real. */
-export function PublishDialog({ kind = 'funil', slug = 'diagnostico-de-pele-clinica-lumen', domain = 'app.quizmaker.com.br/' }: { kind?: 'funil' | 'página'; slug?: string; domain?: string }) {
+export function PublishDialog({ kind = 'funil', slug = 'diagnostico-de-pele-lumen-skin', domain = 'app.quizmaker.com.br/' }: { kind?: 'funil' | 'página'; slug?: string; domain?: string }) {
   return (
     <div className="pub" data-publish-dialog>
       <div className="pub__dlg" style={{ width: 448, padding: 24 }}>

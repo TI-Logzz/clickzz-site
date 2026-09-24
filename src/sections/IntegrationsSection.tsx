@@ -3,6 +3,7 @@ import { integrations } from '../content/copy';
 import { Eyebrow } from '../components/ui';
 import { BRANDS, BrandTile } from '../components/BrandTile';
 import { useReveal, useSectionProgress, useIsMobile } from '../lib/scroll';
+import { Traces } from '../components/Traces';
 
 /** Posição (em % do campo) de cada marca ao redor do título — composição fixa, sem órbita. */
 const SPOTS: [number, number][] = [
@@ -30,6 +31,7 @@ export function IntegrationsSection() {
 
   return (
     <section ref={root} className="section section--dark" id="integracoes" aria-labelledby="integrations-title">
+      <Traces corners={['bl']} />
       <div className="container">
         {mobile ? (
           <>

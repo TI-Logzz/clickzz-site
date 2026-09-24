@@ -31,7 +31,7 @@ function BlockBody({ name, compact = false }: { name: Block; compact?: boolean }
       return (
         <div className="pgart__hero">
           <div>
-            <span className="pgart__eyebrow">Turma 12 · vagas abertas</span>
+            <span className="pgart__eyebrow">Frete grátis · pague na entrega</span>
             <div className="pgart__h1" />
             <div className="pgart__h1 pgart__h1--2" />
             <div className="pgart__text" />
@@ -49,9 +49,9 @@ function BlockBody({ name, compact = false }: { name: Block; compact?: boolean }
         <div className="pgart__offer">
           <div>
             <div className="pgart__text pgart__text--mid" />
-            <div className="pgart__price"><b>R$ 297</b><span>ou 12× de R$ 29,70</span></div>
+            <div className="pgart__price"><b>R$ 197</b><span>ou 12× de R$ 19,70</span></div>
           </div>
-          <span className="pgart__badge"><ShieldCheck size={11} /> Garantia de 7 dias</span>
+          <span className="pgart__badge"><ShieldCheck size={11} /> Garantia de 30 dias</span>
         </div>
       );
     case 'Benefícios':
@@ -116,7 +116,7 @@ function BlockBody({ name, compact = false }: { name: Block; compact?: boolean }
       return (
         <div className="pgart__final">
           <div className="pgart__h1 pgart__h1--center" />
-          <span className="pgart__cta pgart__cta--wide">Garantir minha vaga</span>
+          <span className="pgart__cta pgart__cta--wide">Quero o meu kit</span>
         </div>
       );
   }

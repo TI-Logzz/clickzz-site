@@ -5,6 +5,7 @@ import { CtaLink, Eyebrow, StarGem } from '../components/ui';
 import { AiArt, AI_BRIEF } from '../components/AiArt';
 import { gsap, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
+import { Traces } from '../components/Traces';
 
 /**
  * Um ícone por item da copy. Tamanho e traço são ajustados por glifo, não compartilhados:
@@ -118,6 +119,7 @@ export function AiSection() {
 
   return (
     <section ref={root} className="section section--dark ai" id="ia" aria-labelledby="ai-title">
+      <Traces corners={['tl', 'br']} />
       <div className="ai__sticky">
         <div className="container ai__head">
           <Eyebrow>{ai.eyebrow}</Eyebrow>

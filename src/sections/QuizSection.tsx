@@ -5,6 +5,7 @@ import { SectionHead } from '../components/ui';
 import { FlowArt } from '../components/FlowArt';
 import { gsap, useReveal, useSectionProgress, useIsMobile } from '../lib/scroll';
 import { useUI } from '../lib/store';
+import { Traces } from '../components/Traces';
 
 const icons = [Variable, Split, Shuffle];
 
@@ -43,6 +44,7 @@ export function QuizSection() {
 
   return (
     <section ref={root} className="section" id="quiz" aria-labelledby="quiz-title">
+      <Traces corners={['tl']} />
       <div className="container">
         <SectionHead eyebrow={quizzes.eyebrow} title={<span id="quiz-title">{quizzes.title}</span>} lead={quizzes.body} align="center" />
       </div>

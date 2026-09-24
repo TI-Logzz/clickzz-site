@@ -3,11 +3,12 @@ import { finalCta } from '../content/copy';
 import { CtaLink, Eyebrow } from '../components/ui';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
+import { Traces } from '../components/Traces';
 
 const SAMPLES = [
-  'Quiz de diagnóstico para clínica de estética que recomenda o tratamento ideal…',
-  'Página de vendas para curso de confeitaria com bônus e garantia de 7 dias…',
-  'Quiz de qualificação para mentoria de renda extra com captura de WhatsApp…',
+  'Quiz de diagnóstico de pele que recomenda o kit de skincare ideal…',
+  'Página de vendas para fone bluetooth com frete grátis e pagamento na entrega…',
+  'Quiz que descobre o tamanho certo da cinta modeladora e captura o WhatsApp…',
 ];
 
 /** S14 — CTA final com o cristal grande e o campo "descreva o projeto" digitando sozinho. */
@@ -39,6 +40,7 @@ export function FinalCta() {
 
   return (
     <section ref={root} className="section section--dark cta" aria-labelledby="cta-title">
+      <Traces corners={['tl', 'br']} />
       <div className="cta__bg" aria-hidden="true" />
       <div className="container cta__inner">
         <div data-reveal><Eyebrow>{finalCta.eyebrow} <span className="star">{finalCta.eyebrowStar}</span></Eyebrow></div>

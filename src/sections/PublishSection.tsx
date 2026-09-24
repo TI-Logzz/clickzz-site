@@ -6,9 +6,10 @@ import { Device } from '../screens/Device';
 import { PagePreviewScreen } from '../screens/PagePreviewScreen';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
+import { Traces } from '../components/Traces';
 
 const icons = [Globe, Target, FlaskConical, Link];
-const DOMAIN = 'confeitarialucrativa.com.br';
+const DOMAIN = 'lumenskin.com.br';
 
 /** S08 — Publicação: a página "pousa" num navegador enquanto o domínio próprio é digitado; A/B divide o tráfego. */
 export function PublishSection() {
@@ -38,6 +39,7 @@ export function PublishSection() {
 
   return (
     <section ref={root} className="section section--dark" id="publicar" aria-labelledby="publish-title">
+      <Traces corners={['tr', 'bl']} />
       <div className="container">
         <SectionHead eyebrow={publish.eyebrow} title={<span id="publish-title">{publish.title}</span>} lead={publish.body} align="center" />
         <div ref={stage} className="publish__stage" style={{ marginTop: '3rem', perspective: 1600 }} aria-label="Página publicada no domínio próprio, com teste A/B dividindo o tráfego">

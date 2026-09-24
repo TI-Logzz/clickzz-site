@@ -3,6 +3,7 @@ import { plans } from '../content/copy';
 import { CheckItem, CtaLink, SectionHead } from '../components/ui';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
+import { Traces } from '../components/Traces';
 
 function money(n: number) {
   return n.toLocaleString('pt-BR');
@@ -48,6 +49,7 @@ export function PlansSection() {
 
   return (
     <section ref={root} className="section" id="prices" aria-labelledby="plans-title">
+      <Traces corners={['tl', 'br']} />
       <div className="container">
         <SectionHead eyebrow={plans.eyebrow} title={<span id="plans-title">{plans.title}</span>} lead={plans.body} align="center">
           <div className="plans__toggle" role="group" aria-label="Periodicidade" data-reveal data-billing={billing}>

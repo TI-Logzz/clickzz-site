@@ -6,6 +6,7 @@ import { PageArt } from '../components/PageArt';
 import { FlowArt } from '../components/FlowArt';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
+import { Traces } from '../components/Traces';
 
 /** S03 — Quiz e Página lado a lado, cada um com uma composição ilustrada em loop (não são capturas do editor). */
 export function Formats() {
@@ -47,6 +48,7 @@ export function Formats() {
 
   return (
     <section ref={root} className="section" id="formatos" aria-labelledby="formats-title">
+      <Traces corners={['tr']} />
       <div className="container">
         <SectionHead
           eyebrow={formats.eyebrow}

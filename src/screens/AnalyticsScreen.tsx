@@ -15,8 +15,8 @@ export function AnalyticsScreen() {
       <div className="an">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <div className="stitle">Diagnóstico de Pele — Clínica Lumen</div>
-            <div className="smuted" style={{ fontSize: 13 }}>Últimos 14 dias · quiz publicado em clinicalumen.com.br/diagnostico</div>
+            <div className="stitle">Diagnóstico de Pele — Lumen Skin</div>
+            <div className="smuted" style={{ fontSize: 13 }}>Últimos 14 dias · quiz publicado em lumenskin.com.br/diagnostico</div>
           </div>
           <div className="stabs"><span className="stab stab--active">Visão geral</span><span className="stab">Etapas</span><span className="stab">Leads</span><span className="stab">Teste A/B</span></div>
         </div>

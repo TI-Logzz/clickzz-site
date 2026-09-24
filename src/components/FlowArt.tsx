@@ -22,7 +22,7 @@ const HEAD = 34;
 const FULL: { size: [number, number]; nodes: Node[]; edges: Edge[] } = {
   size: [1040, 560],
   nodes: [
-    { id: 'n1', n: 1, name: 'Boas-vindas', x: 24, y: 200, kind: 'welcome', q: 'Descubra o tratamento ideal para a sua pele' },
+    { id: 'n1', n: 1, name: 'Boas-vindas', x: 24, y: 200, kind: 'welcome', q: 'Descubra o kit ideal para a sua pele' },
     { id: 'n2', n: 2, name: 'Preocupação', x: 290, y: 110, kind: 'options', q: 'Qual é a sua maior preocupação hoje?', opts: ['Manchas', 'Linhas finas', 'Flacidez', 'Acne'], sel: 0 },
     { id: 'r1', name: 'Randomizador', x: 560, y: 120, kind: 'rand' },
     { id: 'n3', n: 3, name: 'Rotina (acne)', x: 560, y: 340, kind: 'options', q: 'Com que frequência você cuida da pele?', opts: ['Todo dia', 'Raramente'], sel: 1 },
@@ -52,7 +52,7 @@ const LOGIC: typeof FULL = {
 const TEASER: typeof FULL = {
   size: [720, 380],
   nodes: [
-    { id: 'c1', n: 1, name: 'Boas-vindas', x: 16, y: 130, kind: 'welcome', q: 'Descubra o tratamento ideal para você' },
+    { id: 'c1', n: 1, name: 'Boas-vindas', x: 16, y: 130, kind: 'welcome', q: 'Descubra o produto ideal para você' },
     { id: 'c2', n: 2, name: 'Pergunta', x: 236, y: 36, kind: 'options', q: 'Qual é o seu maior desafio hoje?', opts: ['Manchas', 'Linhas finas', 'Acne'], sel: 0 },
     { id: 'c3', n: 3, name: 'Resultado', x: 504, y: 206, kind: 'result' },
   ],
@@ -120,7 +120,7 @@ export function FlowArt({ variant = 'full' }: { variant?: 'full' | 'teaser' | 'l
             )}
             {n.kind === 'result' && (
               <div className="fa__body">
-                <div className="fa__result"><Trophy size={16} /><div><b>Pele mista</b><span>Rotina recomendada</span></div></div>
+                <div className="fa__result"><Trophy size={16} /><div><b>Pele mista</b><span>Kit recomendado</span></div></div>
                 <div className="fa__bar"><i style={{ width: '78%' }} /></div>
                 <span className="fa__lead"><UserRound size={11} /> Lead capturado</span>
               </div>

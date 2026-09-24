@@ -4,6 +4,7 @@ import { allInOne } from '../content/copy';
 import { CtaLink, SectionHead } from '../components/ui';
 import { Logo } from '../components/Logo';
 import { useReveal, useSectionProgress } from '../lib/scroll';
+import { Traces } from '../components/Traces';
 
 const icons = [Sparkles, Blocks, Waypoints, Palette, Webhook, BarChart3];
 
@@ -19,6 +20,7 @@ export function AllInOneSection() {
 
   return (
     <section ref={root} className="section" aria-labelledby="allinone-title">
+      <Traces corners={['tr']} />
       <div className="container split split--even">
         <div>
           <SectionHead eyebrow={allInOne.eyebrow} title={<span id="allinone-title">{allInOne.title}</span>} size="h3" />

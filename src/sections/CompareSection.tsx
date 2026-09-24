@@ -5,6 +5,7 @@ import { CheckItem, CrossItem, CtaLink, SectionHead } from '../components/ui';
 import { Logo } from '../components/Logo';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
+import { Traces } from '../components/Traces';
 
 /** S10 — O jeito antigo x O jeito Clickzz (revisão 21/09: logo no cabeçalho do card e mídia de apoio abaixo das listas). */
 export function CompareSection() {
@@ -26,6 +27,7 @@ export function CompareSection() {
 
   return (
     <section ref={root} className="section" id="beneficios" aria-labelledby="compare-title">
+      <Traces corners={['tr']} />
       <div className="container">
         <SectionHead eyebrow={compare.eyebrow} title={<span id="compare-title">{compare.title}</span>} align="center" />
         <div className="compare__grid">
@@ -67,10 +69,10 @@ function OldArt() {
 /** Galeria de projetos: quiz e página gerados com IA, publicados, com identidade própria. */
 function NewArt() {
   const cards = [
-    { kind: 'quiz', title: 'Diagnóstico de pele', a: '#7524cd', b: '#d4b3ff', icon: Waypoints },
-    { kind: 'page', title: 'Confeitaria Lucrativa', a: '#f472b6', b: '#fde68a', icon: LayoutTemplate },
-    { kind: 'page', title: 'Mentoria de vendas', a: '#0ea5e9', b: '#a5f3fc', icon: LayoutTemplate },
-    { kind: 'quiz', title: 'Qualificação de leads', a: '#16a34a', b: '#bbf7d0', icon: Waypoints },
+    { kind: 'quiz', title: 'Quiz de pele', a: '#7524cd', b: '#d4b3ff', icon: Waypoints },
+    { kind: 'page', title: 'Sérum Lumen', a: '#f472b6', b: '#fde68a', icon: LayoutTemplate },
+    { kind: 'page', title: 'Fone Pulse Pro', a: '#0ea5e9', b: '#a5f3fc', icon: LayoutTemplate },
+    { kind: 'quiz', title: 'Cinta ideal', a: '#16a34a', b: '#bbf7d0', icon: Waypoints },
   ];
   return (
     <div className="cmp-art cmp-art--new" aria-hidden="true">

@@ -5,6 +5,7 @@ import { CtaLink, SectionHead } from '../components/ui';
 import { Logo } from '../components/Logo';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
+import { Traces } from '../components/Traces';
 
 const chips = [
   { label: 'IA', icon: Sparkles },
@@ -57,6 +58,7 @@ export function Positioning() {
 
   return (
     <section ref={root} className="section" id="plataforma" aria-labelledby="positioning-title">
+      <Traces corners={['bl']} />
       <div className="container split split--media-left">
         <div>
           <SectionHead eyebrow={positioning.eyebrow} title={<span id="positioning-title">{positioning.title}</span>} lead={positioning.body1} />

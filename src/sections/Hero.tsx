@@ -9,6 +9,7 @@ import { PageBuilderScreen } from '../screens/PageBuilderScreen';
 import { gsap, ScrollTrigger, useSectionProgress, usePinned, useIsMobile, stageWindow } from '../lib/scroll';
 import { useUI } from '../lib/store';
 import '../screens/screens.css';
+import { Traces } from '../components/Traces';
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -115,6 +116,7 @@ export function Hero() {
   return (
     <section ref={root} className="hero" aria-labelledby="hero-title" style={{ height: pinned ? '210vh' : 'auto' }}>
       <div className="hero__sticky" style={{ position: pinned ? 'sticky' : 'relative', top: 0 }}>
+        <Traces corners={['tl', 'br']} />
         <div className="container--wide hero__grid">
           <div className="hero__copy">
             <div className="hero__eyebrow"><Eyebrow>{hero.eyebrow}</Eyebrow></div>
@@ -143,7 +145,7 @@ export function Hero() {
               </div>
             )}
             <div className="hero__plane hero__plane--desktop">
-              <Device url="confeitarialucrativa.com.br">
+              <Device url="lumenskin.com.br">
                 <PagePreviewScreen compact />
               </Device>
             </div>

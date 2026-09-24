@@ -46,7 +46,7 @@ export function PageBuilderScreen({ panel = 'elements', theme = 'default', activ
           <div className="bld__top" style={{ gridColumn: '1 / -1' }}>
             <div className="bld__crumb" style={{ gap: 14 }}>
               <ArrowLeft size={16} />
-              <b style={{ fontSize: 15, fontWeight: 600 }}>Curso Confeitaria Lucrativa</b>
+              <b style={{ fontSize: 15, fontWeight: 600 }}>Sérum Vitamina C · Lumen Skin</b>
               <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.04em', color: '#6b26d9', background: '#ede4fb', padding: '2px 8px', borderRadius: 6 }}>PÁGINA</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -162,25 +162,25 @@ export function PageBuilderScreen({ panel = 'elements', theme = 'default', activ
           <div className="pgdoc" data-pgdoc style={{ width: '100%', maxWidth: 820, margin: '0 auto', fontFamily: 'var(--font-app)', color: theme === 'brand' ? '#1d1633' : '#282c34', borderRadius: 10 }}>
             {/* Cabeçalho flutuante */}
             <div style={{ margin: '12px 20px 0', height: 40, borderRadius: 10, boxShadow: '0 4px 14px -6px rgba(0,0,0,0.18)', border: '1px solid #f0f0f2', display: 'flex', alignItems: 'center', padding: '0 14px', gap: 16, fontSize: 9, background: '#fff', position: 'relative', zIndex: 2 }}>
-              <b style={{ fontSize: 9 }}>Confeitaria Lucrativa</b>
-              <span style={{ marginLeft: 'auto', display: 'flex', gap: 12, color: '#3f4650' }}><span>Benefícios</span><span>Curso e bônus</span><span>Dúvidas</span></span>
+              <b style={{ fontSize: 9 }}>Lumen Skin</b>
+              <span style={{ marginLeft: 'auto', display: 'flex', gap: 12, color: '#3f4650' }}><span>Benefícios</span><span>Como usar</span><span>Dúvidas</span></span>
               <span style={{ background: theme === 'brand' ? accent : '#4f7df3', color: '#fff', borderRadius: 999, padding: '5px 10px', fontWeight: 600 }}>Ver oferta</span>
             </div>
             {/* Destaque */}
             <div className={`pgsec ${activeSection === 0 ? 'pgsec--sel' : ''}`} data-bsec={0} style={{ padding: '36px 40px 30px', display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 24, alignItems: 'center' }}>
               {activeSection === 0 && <span className="pgsec__tag">Destaque · Impacto</span>}
               <div>
-                <div style={{ fontSize: 24, fontWeight: 800, lineHeight: 1.12, letterSpacing: '-0.02em', fontFamily: titleFont }} data-el-title>Confeitaria Lucrativa: dê o primeiro passo para vender bolos e doces feitos na sua cozinha.</div>
-                <div style={{ fontSize: 11, color: '#6b6480', marginTop: 10, lineHeight: 1.5 }} data-el-text>Aprenda a montar seu negócio de confeitaria em casa e buscar uma renda extra com mais organização.</div>
-                <div style={{ display: 'inline-flex', height: 32, padding: '0 16px', borderRadius: theme === 'brand' ? 999 : 6, background: accent, color: '#fff', fontSize: 11, fontWeight: 600, alignItems: 'center', marginTop: 14 }} data-el-button>Quero começar minha confeitaria</div>
-                <div style={{ fontSize: 9, color: '#6b6480', marginTop: 10 }}>R$ 297 à vista ou 12× de R$ 29,70. Garantia de 7 dias.</div>
+                <div style={{ fontSize: 24, fontWeight: 800, lineHeight: 1.12, letterSpacing: '-0.02em', fontFamily: titleFont }} data-el-title>Sérum Vitamina C: pele mais uniforme e luminosa em 4 semanas, com um frasco só.</div>
+                <div style={{ fontSize: 11, color: '#6b6480', marginTop: 10, lineHeight: 1.5 }} data-el-text>Vitamina C, ácido hialurônico e niacinamida em uma textura leve. Frete grátis e pagamento na entrega.</div>
+                <div style={{ display: 'inline-flex', height: 32, padding: '0 16px', borderRadius: theme === 'brand' ? 999 : 6, background: accent, color: '#fff', fontSize: 11, fontWeight: 600, alignItems: 'center', marginTop: 14 }} data-el-button>Quero o meu sérum</div>
+                <div style={{ fontSize: 9, color: '#6b6480', marginTop: 10 }}>Kit com 3 por R$ 197 ou 12× de R$ 19,70. Garantia de 30 dias.</div>
               </div>
               <div style={{ aspectRatio: '4/3', borderRadius: 12, background: theme === 'brand' ? 'linear-gradient(135deg,#fde7f3,#f5d0fe)' : 'linear-gradient(135deg,#ede4fb,#d6bcfa)' }} data-el-image />
             </div>
             {/* Oferta */}
             <div className={`pgsec ${activeSection === 1 ? 'pgsec--sel' : ''}`} data-bsec={1} style={{ padding: '26px 40px', display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12, borderTop: '1px solid #f0eef5' }}>
               {activeSection === 1 && <span className="pgsec__tag">Oferta</span>}
-              {['40 aulas passo a passo', 'Grupo de alunas', 'Planilha de precificação'].map((t) => (
+              {['Vitamina C 10%', 'Ácido hialurônico', 'Niacinamida'].map((t) => (
                 <div key={t} style={{ border: '1px solid #f0eef5', borderRadius: 10, padding: 12 }}><div style={{ width: 22, height: 22, borderRadius: 6, background: theme === 'brand' ? '#fdf4ff' : '#ede4fb' }} /><b style={{ display: 'block', fontSize: 10, marginTop: 8, fontFamily: titleFont }}>{t}</b></div>
               ))}
             </div>
@@ -188,46 +188,46 @@ export function PageBuilderScreen({ panel = 'elements', theme = 'default', activ
             <div className={`pgsec ${activeSection === 2 ? 'pgsec--sel' : ''}`} data-bsec={2} style={{ padding: '26px 40px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, alignItems: 'center', borderTop: '1px solid #f0eef5' }}>
               {activeSection === 2 && <span className="pgsec__tag">Benefícios</span>}
               <div style={{ aspectRatio: '4/3', borderRadius: 12, background: theme === 'brand' ? 'linear-gradient(160deg,#fff1f2,#fce7f3)' : '#f4f4f5' }} />
-              <div><div style={{ fontSize: 16, fontWeight: 700, fontFamily: titleFont }}>Renda extra sem sair de casa</div>{['Receitas testadas', 'Fotografia para vender', 'Margem de 60%'].map((t) => <div key={t} style={{ fontSize: 10, marginTop: 6, display: 'flex', gap: 6, alignItems: 'center' }}><span style={{ width: 6, height: 6, borderRadius: 999, background: accent }} />{t}</div>)}</div>
+              <div><div style={{ fontSize: 16, fontWeight: 700, fontFamily: titleFont }}>Resultado sem complicar a rotina</div>{['Textura leve', 'Não oxida no frasco', 'Todos os tipos de pele'].map((t) => <div key={t} style={{ fontSize: 10, marginTop: 6, display: 'flex', gap: 6, alignItems: 'center' }}><span style={{ width: 6, height: 6, borderRadius: 999, background: accent }} />{t}</div>)}</div>
             </div>
             {/* Prova social */}
             <div className={`pgsec ${activeSection === 3 ? 'pgsec--sel' : ''}`} data-bsec={3} style={{ padding: '26px 40px', display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12, borderTop: '1px solid #f0eef5', background: theme === 'brand' ? '#fdfaff' : '#fafafa' }}>
               {activeSection === 3 && <span className="pgsec__tag">Prova social · Depoimentos</span>}
-              {['Mariana S.', 'Cláudia R.', 'Patrícia M.'].map((n) => <div key={n} style={{ background: '#fff', border: '1px solid #f0eef5', borderRadius: 10, padding: 12, fontSize: 9 }}><div style={{ color: '#f59e0b' }}>★★★★★</div><div style={{ marginTop: 6, color: '#6b6480' }}>"Em três semanas já tinha pago o curso."</div><b style={{ display: 'block', marginTop: 6 }}>{n}</b></div>)}
+              {['Mariana S.', 'Cláudia R.', 'Patrícia M.'].map((n) => <div key={n} style={{ background: '#fff', border: '1px solid #f0eef5', borderRadius: 10, padding: 12, fontSize: 9 }}><div style={{ color: '#f59e0b' }}>★★★★★</div><div style={{ marginTop: 6, color: '#6b6480' }}>"Chegou em 3 dias e paguei na entrega."</div><b style={{ display: 'block', marginTop: 6 }}>{n}</b></div>)}
             </div>
             {/* Comparação */}
             <div className={`pgsec ${activeSection === 4 ? 'pgsec--sel' : ''}`} data-bsec={4} style={{ padding: '26px 40px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, borderTop: '1px solid #f0eef5' }}>
               {activeSection === 4 && <span className="pgsec__tag">Comparação</span>}
-              <div style={{ border: '1px solid #f0eef5', borderRadius: 10, padding: 12, fontSize: 9, color: '#6b6480' }}><b style={{ color: '#282c34' }}>Sozinha</b><div style={{ marginTop: 6 }}>✕ Receitas na tentativa e erro</div><div>✕ Preço no chute</div></div>
-              <div style={{ border: `1px solid ${accent}`, borderRadius: 10, padding: 12, fontSize: 9 }}><b>Com o curso</b><div style={{ marginTop: 6 }}>✓ Receitas testadas</div><div>✓ Planilha de precificação</div></div>
+              <div style={{ border: '1px solid #f0eef5', borderRadius: 10, padding: 12, fontSize: 9, color: '#6b6480' }}><b style={{ color: '#282c34' }}>Rotina comum</b><div style={{ marginTop: 6 }}>✕ Dez passos e produtos</div><div>✕ Vitamina C que oxida</div></div>
+              <div style={{ border: `1px solid ${accent}`, borderRadius: 10, padding: 12, fontSize: 9 }}><b>Com a Lumen</b><div style={{ marginTop: 6 }}>✓ Três ativos em um frasco</div><div>✓ Fórmula estabilizada</div></div>
             </div>
             {/* Bônus */}
             <div className={`pgsec ${activeSection === 5 ? 'pgsec--sel' : ''}`} data-bsec={5} style={{ padding: '26px 40px', borderTop: '1px solid #f0eef5' }}>
               {activeSection === 5 && <span className="pgsec__tag">Bônus</span>}
-              <div style={{ fontSize: 14, fontWeight: 700, fontFamily: titleFont }}>Bônus exclusivos</div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 8 }}>{['Aula de fotografia de doces', 'Lista de fornecedores'].map((t) => <div key={t} style={{ border: '1px dashed #d4d4d8', borderRadius: 10, padding: 10, fontSize: 10 }}>{t}</div>)}</div>
+              <div style={{ fontSize: 14, fontWeight: 700, fontFamily: titleFont }}>Brindes do kit</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 8 }}>{['Nécessaire Lumen Skin', 'Faixa de cabelo para skincare'].map((t) => <div key={t} style={{ border: '1px dashed #d4d4d8', borderRadius: 10, padding: 10, fontSize: 10 }}>{t}</div>)}</div>
             </div>
             {/* Garantia */}
             <div className={`pgsec ${activeSection === 6 ? 'pgsec--sel' : ''}`} data-bsec={6} style={{ padding: '26px 40px', borderTop: '1px solid #f0eef5' }}>
               {activeSection === 6 && <span className="pgsec__tag">Garantia</span>}
-              <div style={{ display: 'flex', gap: 14, alignItems: 'center', padding: 14, borderRadius: 12, background: theme === 'brand' ? '#fdf4ff' : '#ede4fb' }}><CheckCircle2 size={24} color={accent} /><div><b style={{ fontSize: 12, fontFamily: titleFont }}>Garantia de 7 dias</b><div style={{ fontSize: 9, color: '#6b6480' }}>Devolvemos 100% do valor. Sem perguntas.</div></div></div>
+              <div style={{ display: 'flex', gap: 14, alignItems: 'center', padding: 14, borderRadius: 12, background: theme === 'brand' ? '#fdf4ff' : '#ede4fb' }}><CheckCircle2 size={24} color={accent} /><div><b style={{ fontSize: 12, fontFamily: titleFont }}>Garantia de 30 dias</b><div style={{ fontSize: 9, color: '#6b6480' }}>Devolvemos 100% do valor. Sem perguntas.</div></div></div>
             </div>
             {/* FAQ */}
             <div className={`pgsec ${activeSection === 7 ? 'pgsec--sel' : ''}`} data-bsec={7} style={{ padding: '26px 40px', borderTop: '1px solid #f0eef5' }}>
               {activeSection === 7 && <span className="pgsec__tag">FAQ</span>}
               <div style={{ fontSize: 14, fontWeight: 700, fontFamily: titleFont }}>Perguntas frequentes</div>
-              {['Preciso ter experiência?', 'Por quanto tempo tenho acesso?'].map((q) => <div key={q} style={{ fontSize: 10, padding: '8px 0', borderBottom: '1px solid #f0eef5', display: 'flex', justifyContent: 'space-between' }}>{q}<ChevronDown size={10} /></div>)}
+              {['Como funciona o pagamento na entrega?', 'Serve para pele oleosa?'].map((q) => <div key={q} style={{ fontSize: 10, padding: '8px 0', borderBottom: '1px solid #f0eef5', display: 'flex', justifyContent: 'space-between' }}>{q}<ChevronDown size={10} /></div>)}
             </div>
             {/* CTA */}
             <div className={`pgsec ${activeSection === 8 ? 'pgsec--sel' : ''}`} data-bsec={8} style={{ padding: '30px 40px', borderTop: '1px solid #f0eef5', textAlign: 'center' }}>
               {activeSection === 8 && <span className="pgsec__tag">CTA final</span>}
-              <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '-0.02em', fontFamily: titleFont }}>Comece hoje por 12x de R$ 29,70</div>
-              <div style={{ display: 'inline-flex', height: 34, padding: '0 18px', borderRadius: theme === 'brand' ? 999 : 6, background: accent, color: '#fff', fontSize: 11, fontWeight: 600, alignItems: 'center', marginTop: 12 }}>Quero minha vaga</div>
+              <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '-0.02em', fontFamily: titleFont }}>Kit com 3 por 12x de R$ 19,70</div>
+              <div style={{ display: 'inline-flex', height: 34, padding: '0 18px', borderRadius: theme === 'brand' ? 999 : 6, background: accent, color: '#fff', fontSize: 11, fontWeight: 600, alignItems: 'center', marginTop: 12 }}>Quero o meu kit</div>
             </div>
             {/* Rodapé */}
             <div style={{ padding: '24px 40px', borderTop: '1px solid #f0eef5', display: 'flex', justifyContent: 'space-between', fontSize: 9 }}>
-              <div><b style={{ fontSize: 11 }}>Confeitaria Lucrativa</b><div style={{ color: '#6b6480', marginTop: 4, maxWidth: 220 }}>Aprendizado e ferramentas para começar a estruturar um negócio de bolos e doces em casa.</div></div>
-              <div style={{ display: 'flex', gap: 28 }}><div><b>Conheça o curso</b><div style={{ color: '#6b26d9', marginTop: 4 }}>Benefícios</div><div style={{ color: '#6b26d9' }}>Conteúdo e bônus</div></div><div><b>Sua inscrição</b><div style={{ color: '#6b26d9', marginTop: 4 }}>Oferta e garantia</div><div style={{ color: '#6b26d9' }}>Perguntas frequentes</div></div></div>
+              <div><b style={{ fontSize: 11 }}>Lumen Skin</b><div style={{ color: '#6b6480', marginTop: 4, maxWidth: 220 }}>Skincare com ativos de verdade, entregue na sua casa e pago só na entrega.</div></div>
+              <div style={{ display: 'flex', gap: 28 }}><div><b>O produto</b><div style={{ color: '#6b26d9', marginTop: 4 }}>Benefícios</div><div style={{ color: '#6b26d9' }}>Como usar</div></div><div><b>Sua compra</b><div style={{ color: '#6b26d9', marginTop: 4 }}>Kits e garantia</div><div style={{ color: '#6b26d9' }}>Perguntas frequentes</div></div></div>
             </div>
           </div>
         </div>
@@ -235,7 +235,7 @@ export function PageBuilderScreen({ panel = 'elements', theme = 'default', activ
       {activeSection >= 0 && (
         <span style={{ position: 'absolute', right: 56, top: 96, display: 'flex', gap: 6, zIndex: 3 }} aria-hidden="true"><i style={{ width: 26, height: 26, borderRadius: 6, background: '#fff', border: '1px solid #e5e7eb', display: 'grid', placeItems: 'center' }}><Trash2 size={12} color="#dc2626" /></i></span>
       )}
-      {publishing && <PublishDialog kind="página" slug="curso-confeitaria-lucrativa" domain="confeitarialucrativa.com.br/" />}
+      {publishing && <PublishDialog kind="página" slug="serum-vitamina-c" domain="lumenskin.com.br/" />}
       {toast && <div className="stoast" data-toast><CheckCircle2 size={18} /> {toast}</div>}
       <GhostCursor />
     </div>

@@ -4,6 +4,7 @@ import { CtaLink, SectionHead } from '../components/ui';
 import { PageArt, DRAG_FROM, DRAG_TO, ROW_STEP } from '../components/PageArt';
 import { gsap, useReveal, useSectionProgress, useIsMobile, stageWindow } from '../lib/scroll';
 import { useUI } from '../lib/store';
+import { Traces } from '../components/Traces';
 
 /**
  * S07 — Páginas de conversão. A lista "Hero Oferta Benefícios…" cai bloco a bloco formando
@@ -63,6 +64,7 @@ export function PagesSection() {
 
   return (
     <section ref={root} className="section" id="paginas" aria-labelledby="pages-title">
+      <Traces corners={['br']} />
       <div className="container split">
         <div>
           <SectionHead eyebrow={pages.eyebrow} title={<span id="pages-title">{pages.title1}<br />{pages.title2}</span>} lead={pages.body1} />

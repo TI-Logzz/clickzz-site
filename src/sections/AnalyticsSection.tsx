@@ -6,6 +6,7 @@ import { Device } from '../screens/Device';
 import { AnalyticsScreen } from '../screens/AnalyticsScreen';
 import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
+import { Traces } from '../components/Traces';
 
 const icons = [Eye, MousePointer2, Users, TrendingUp];
 
@@ -35,6 +36,7 @@ export function AnalyticsSection() {
 
   return (
     <section ref={root} className="section" id="dados" aria-labelledby="analytics-title">
+      <Traces corners={['tl']} />
       <div className="container--wide split split--media-left analytics__split">
         <div>
           <SectionHead eyebrow={analytics.eyebrow} title={<span id="analytics-title">{analytics.title}</span>} lead={analytics.body1}>
