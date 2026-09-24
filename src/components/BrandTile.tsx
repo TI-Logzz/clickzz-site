@@ -6,7 +6,7 @@ import {
 const BASE = import.meta.env.BASE_URL;
 
 /** Marcas exibidas na seção de integrações (ícones oficiais via simple-icons; Logzz e Coinzz com os SVGs das próprias marcas). */
-export interface Brand { id: string; name: string; icon?: SimpleIcon; img?: string; wide?: boolean; }
+export interface Brand { id: string; name: string; icon?: SimpleIcon; img?: string; ratio?: number; wide?: boolean; }
 
 export const BRANDS: Brand[] = [
   { id: 'meta', name: 'Pixel Meta', icon: siMeta },
@@ -23,8 +23,8 @@ export const BRANDS: Brand[] = [
   { id: 'shopify', name: 'Shopify', icon: siShopify },
   { id: 'woo', name: 'WooCommerce', icon: siWoocommerce },
   { id: 'telegram', name: 'Telegram', icon: siTelegram },
-  { id: 'logzz', name: 'Logzz', img: `${BASE}brand/partners/logzz.svg`, wide: true },
-  { id: 'coinzz', name: 'Coinzz', img: `${BASE}brand/partners/coinzz.svg`, wide: true },
+  { id: 'logzz', name: 'Logzz', img: `${BASE}brand/partners/logzz.svg`, ratio: 139 / 48, wide: true },
+  { id: 'coinzz', name: 'Coinzz', img: `${BASE}brand/partners/coinzz.svg`, ratio: 101 / 28, wide: true },
 ];
 
 export function BrandTile({ brand, size = 64 }: { brand: Brand; size?: number }) {
@@ -40,7 +40,7 @@ export function BrandTile({ brand, size = 64 }: { brand: Brand; size?: number })
           <path d={brand.icon.path} fill={`#${brand.icon.hex === '000000' ? '111111' : brand.icon.hex}`} />
         </svg>
       ) : (
-        <img src={brand.img} alt={brand.name} style={{ height: size * 0.32, width: 'auto' }} decoding="async" />
+        <img src={brand.img} alt={brand.name} height={Math.round(size * 0.32)} width={Math.round(size * 0.32 * (brand.ratio ?? 3))} style={{ height: size * 0.32, width: 'auto' }} decoding="async" />
       )}
     </span>
   );

@@ -17,6 +17,30 @@
         src: url('./fonts/inter-latin-wght-normal.woff2') format('woff2');
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
       }
+      /* Substituta da Inter enquanto ela carrega: Arial com as métricas corrigidas para ocupar o mesmo espaço,
+         assim o texto que já veio no HTML não muda de quebra de linha quando a Inter chega. */
+      @font-face {
+        font-family: 'Inter Fallback';
+        font-weight: 100 500;
+        src: local('Arial'), local('ArialMT'), local('Helvetica');
+        size-adjust: 107.6%;
+        ascent-override: 90.44%;
+        descent-override: 22.52%;
+        line-gap-override: 0%;
+      }
+      /* títulos (600–800): o Arial Bold já é quase tão largo quanto a Inter em negrito */
+      @font-face {
+        font-family: 'Inter Fallback';
+        font-weight: 600 900;
+        src: local('Arial Bold'), local('Arial-BoldMT'), local('Helvetica Bold');
+        size-adjust: 101.9%;
+        ascent-override: 94.7%;
+        descent-override: 23.6%;
+        line-gap-override: 0%;
+      }
+      /* Primeira dobra no HTML (hero-shell.ts): no desktop o texto do hero entra animado quando o React monta,
+         então o bloco estático fica invisível ali; no celular ele aparece de imediato. */
+      @media (min-width: 961px) and (prefers-reduced-motion: no-preference) { .hero-shell .hero__copy { visibility: hidden; } }
     </style>
     <title>Clickzz — Transforme suas ideias em projetos de conversão com IA</title>
     <meta name="description" content="Crie páginas de venda e quizzes completos a partir de uma simples descrição. A Clickzz estrutura, organiza e constrói seu projeto para você personalizar e publicar." />

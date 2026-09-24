@@ -25,15 +25,17 @@ export function Hero() {
     if (!el || !st) return;
     const words = el.querySelectorAll<HTMLElement>('.hero__title .word');
     const ctx = gsap.context(() => {
-      // Entrada: título por palavras, depois lead, CTA e checks
+      // Entrada: título por palavras, depois lead, CTA e checks. Só no desktop: no celular o texto
+      // já veio pintado no HTML (hero-shell.ts) e fica parado, sem sumir e reaparecer.
       if (!reduced) {
         const intro = gsap.timeline({ defaults: { ease: 'expo.out' } });
-        intro
+        if (pinned) intro
           .fromTo('.hero__eyebrow', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8 }, 0.1)
-          .fromTo(words, pinned ? { opacity: 0, y: 40, rotateX: -40, filter: 'blur(8px)' } : { opacity: 0, y: 24 }, pinned ? { opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)', duration: 1.2, stagger: 0.06 } : { opacity: 1, y: 0, duration: 0.9, stagger: 0.05 }, 0.2)
+          .fromTo(words, { opacity: 0, y: 40, rotateX: -40, filter: 'blur(8px)' }, { opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)', duration: 1.2, stagger: 0.06 }, 0.2)
           .fromTo('.hero__lead', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1 }, 0.7)
           .fromTo('.hero__cta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9 }, 0.85)
-          .fromTo('.hero__checks li', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 }, 1)
+          .fromTo('.hero__checks li', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 }, 1);
+        intro
           .fromTo('.hero__plane--builder', { opacity: 0, y: 60, rotateY: -30 }, { opacity: 0.85, y: 0, rotateY: -14, duration: 1.6 }, 0.5)
           .fromTo('.hero__plane--desktop', { opacity: 0, y: 80, rotateY: -24 }, { opacity: 1, y: 0, rotateY: -10, duration: 1.6 }, 0.7)
           .fromTo('.hero__plane--mobile', { opacity: 0, y: 100, rotateY: -30 }, { opacity: 1, y: 0, rotateY: -16, duration: 1.6 }, 0.9);

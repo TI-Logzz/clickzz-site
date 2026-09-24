@@ -3,7 +3,7 @@ import { Variable, Split, Shuffle } from 'lucide-react';
 import { quizzes } from '../content/copy';
 import { SectionHead } from '../components/ui';
 import { FlowArt } from '../components/FlowArt';
-import { gsap, useReveal, useSectionProgress, useIsMobile } from '../lib/scroll';
+import { gsap, playWhileVisible, useReveal, useSectionProgress, useIsMobile } from '../lib/scroll';
 import { useUI } from '../lib/store';
 import { Traces } from '../components/Traces';
 
@@ -37,7 +37,7 @@ export function QuizSection() {
       const split = { a: 50 };
       tl.to(split, { a: 62, duration: 0.6, onUpdate: () => { if (pct[0]) pct[0].textContent = `${Math.round(split.a)}%`; if (pct[1]) pct[1].textContent = `${100 - Math.round(split.a)}%`; } }, 2.4);
       // pulsos correndo (loop independente do scroll)
-      pulses.forEach((p, i) => gsap.fromTo(p, { strokeDashoffset: 1.05 }, { strokeDashoffset: -0.06, duration: 2.4 + (i % 5) * 0.3, repeat: -1, ease: 'none', delay: (i % 7) * 0.3 }));
+      playWhileVisible(st, Array.from(pulses).map((p, i) => gsap.fromTo(p, { strokeDashoffset: 1.05 }, { strokeDashoffset: -0.06, duration: 2.4 + (i % 5) * 0.3, repeat: -1, ease: 'none', delay: (i % 7) * 0.3 })));
     }, st);
     return () => ctx.revert();
   }, [reduced, mobile]);

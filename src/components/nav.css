@@ -55,5 +55,8 @@
   .nav__bar { height: 56px; padding-left: 1rem; }
   .nav__links, .nav__login { display: none; }
   .nav__burger { display: grid; }
-  .nav__actions .btn { display: none; }
+  /* no mobile o CTA continua na barra, ao lado do menu (é onde a maior parte do tráfego converte) */
+  .nav__actions { gap: 0.25rem; }
+  .nav__actions .btn { height: 2.25rem; padding-inline: 0.9rem; font-size: 0.8rem; }
 }
+@media (max-width: 330px) { .nav__actions .btn { display: none; } }

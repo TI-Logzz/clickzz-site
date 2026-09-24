@@ -1,13 +1,15 @@
 /**
  * Logo Clickzz — arquivos reais fornecidos pelo cliente (public/brand/*).
- * A proporção da logo completa é ~3.06:1 (marca quadrada + wordmark).
+ * A proporção da logo completa é ~4.05:1 (marca quadrada + wordmark).
+ * Na interface vão as versões @78 em WebP (78 px de altura = 3x a maior exibição, ~11 KB);
+ * os PNG maiores ficam como originais.
  */
-const RATIO = 3.06;
+const RATIO = 4.05;
 const BASE = import.meta.env.BASE_URL;
 
 export function Logo({ height = 28, mark = false, light = false }: { height?: number; mark?: boolean; light?: boolean }) {
   if (mark) return <LogoMark size={height} />;
-  const src = `${BASE}brand/${light ? 'clickzz-logo-white@120.png' : 'clickzz-logo@120.png'}`;
+  const src = `${BASE}brand/${light ? 'clickzz-logo-white@78.webp' : 'clickzz-logo@78.webp'}`;
   return (
     <img
       src={src}

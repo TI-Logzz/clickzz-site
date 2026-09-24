@@ -60,6 +60,9 @@ A logo oficial (fornecida pelo cliente) está em `public/brand/`: `clickzz-logo.
 - ≤ 960 px (mobile): os reveals não usam blur, as seções pinadas viram fluxo normal, o plano do builder do hero não é renderizado e a mesa de lógica usa a variante compacta.
 - Abaixo do hero, tudo vem em um chunk separado (`sections/Below.tsx`) montado em levas depois da primeira pintura (`components/Deferred.tsx`).
 - A fonte principal (Inter latina, variável) é auto-hospedada em `public/fonts` e pré-carregada no `index.html`.
+- Primeira dobra no HTML: `hero-shell.ts` (plugin do Vite) injeta menu + texto do hero dentro do `#root`, com as mesmas classes de `Nav` e `Hero`. No celular o texto pinta assim que o CSS chega, sem esperar o JS; o React substitui o bloco por um idêntico (no mobile o texto do hero não tem entrada animada). No desktop o bloco fica invisível e a entrada animada roda como antes. **Ao mudar a marcação do topo do `Nav` ou do texto do `Hero`, espelhe a mudança em `hero-shell.ts`.**
+- Enquanto a Inter carrega, o texto usa `Inter Fallback` (Arial com métricas corrigidas, no `index.html`): as quebras de linha do hero são as mesmas antes e depois da troca de fonte.
+- Animações em loop (órbita de chips, pulsos dos fios, página em loop dos Formatos) só rodam enquanto estão na tela (`playWhileVisible` em `lib/scroll.ts`).
 
 ## Verificação
 

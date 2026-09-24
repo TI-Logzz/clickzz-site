@@ -31,7 +31,10 @@ export function BuilderSection() {
     const words = el.querySelectorAll<HTMLElement>('.builder__title .word');
     const s = (n: string) => st.querySelector<HTMLElement>(`[data-screen="${n}"]`)!;
     const ctx = gsap.context(() => {
-      if (reduced) { words.forEach((w) => w.classList.add('word--on')); s('build').style.opacity = '1'; return; }
+      // Sem pin (celular) o título é lido antes de a demo aparecer: fica aceso desde o início
+      // em vez de esperar a moldura lá embaixo para acender palavra por palavra.
+      if (reduced || !pinned) words.forEach((w) => w.classList.add('word--on'));
+      if (reduced) { s('build').style.opacity = '1'; return; }
       const screens = st.querySelectorAll<HTMLElement>('[data-screen]');
       gsap.set(screens, { opacity: 0 });
       gsap.set(s('build'), { opacity: 1 });
@@ -41,8 +44,8 @@ export function BuilderSection() {
           : stageWindow(st, 0.25),
         defaults: { ease: 'none' },
       });
-      const lit = (i: number, at: number) => tl.add(() => words.forEach((w, k) => w.classList.toggle('word--on', k <= i)), at);
-      tl.add(() => words.forEach((w) => w.classList.remove('word--on')), 0);
+      const lit = (i: number, at: number) => { if (pinned) tl.add(() => words.forEach((w, k) => w.classList.toggle('word--on', k <= i)), at); };
+      if (pinned) tl.add(() => words.forEach((w) => w.classList.remove('word--on')), 0);
 
       // Crie: arrasta "Depoimentos" da paleta para a seção Prova social
       const b = s('build');

@@ -139,4 +139,16 @@ export function usePinned() {
   return !reduced && !mobile;
 }
 
+/**
+ * Animações em loop só rodam enquanto o elemento está na tela: fora dela ficam pausadas
+ * (no celular, loops invisíveis custam bateria e quadros sem mostrar nada). Chamar dentro do gsap.context.
+ */
+export function playWhileVisible(el: Element, anims: gsap.core.Animation[]) {
+  anims.forEach((a) => a.pause());
+  ScrollTrigger.create({
+    trigger: el, start: 'top bottom', end: 'bottom top',
+    onToggle: (self) => anims.forEach((a) => (self.isActive ? a.resume() : a.pause())),
+  });
+}
+
 export { gsap, ScrollTrigger };

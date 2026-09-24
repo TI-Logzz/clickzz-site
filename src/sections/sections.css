@@ -97,6 +97,12 @@
   width: 150px; height: 84px; border-radius: 20px; display: grid; place-items: center; position: relative;
   background: linear-gradient(145deg, #fff, #f3ecfd); border: 1px solid var(--violet-200); box-shadow: var(--shadow-lg);
 }
+/* celular: órbita mais alta que larga (Positioning.tsx) e chips menores, para não se atropelarem */
+@media (max-width: 960px) {
+  .positioning__cluster { min-height: 330px; }
+  .orbit__chip { padding: 0.45rem 0.7rem; font-size: 0.74rem; border-radius: 10px; }
+  .orbit__core { width: 128px; height: 72px; }
+}
 
 /* ---------- Formatos ---------- */
 .formats__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
@@ -170,7 +176,8 @@
   .ai__title { font-size: var(--text-3xl); }
   .ai__body { display: flex; flex-direction: column; gap: 0; margin-top: 1.5rem; }
   .ai__monitor {
-    order: -1; top: 62px; z-index: 3;
+    /* stretch: em coluna flex o align-self: start do desktop encolhia a ilustração para ~60% da largura */
+    order: -1; top: 62px; z-index: 3; align-self: stretch;
     margin-inline: calc(-1 * var(--gutter)); padding: 0.5rem var(--gutter) 0.6rem;
     background: var(--bg);
   }
@@ -213,8 +220,11 @@
 /* ---------- Analytics ---------- */
 .analytics__cards { margin-top: clamp(2.5rem, 4vw, 3.5rem); }
 .analytics__stage { position: relative; }
-.analytics__split { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
-@media (min-width: 961px) { .analytics__stage { position: sticky; top: 96px; } }
+/* só no desktop: no mobile vale a coluna única do .split (antes esta regra vencia e espremia o texto ao lado da tela) */
+@media (min-width: 961px) {
+  .analytics__split { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
+  .analytics__stage { position: sticky; top: 96px; }
+}
 
 /* ---------- Comparação ---------- */
 .compare__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
@@ -355,7 +365,8 @@
 @keyframes caret { 50% { opacity: 0; } }
 .cta__note { margin-top: 1.25rem; }
 .cta__bg { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 60% at 50% 0%, rgba(117, 36, 205, 0.35), transparent 70%); }
-@media (max-width: 600px) { .cta__field { flex-direction: column; border-radius: 24px; padding: 1rem; } .cta__field > span:first-child { text-align: center; white-space: normal; } .cta__field .btn { width: 100%; } }
+/* no mobile o texto digitado quebra em até duas linhas: a altura fica reservada para o campo não pular a cada frase */
+@media (max-width: 600px) { .cta__field { flex-direction: column; border-radius: 24px; padding: 1rem; } .cta__field > span:first-child { text-align: center; white-space: normal; min-height: 3.2em; } .cta__field .btn { width: 100%; } }
 
 /* ---------- Lista com régua (alternativa aos cards iguais) ---------- */
 .rule-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 3rem; border-top: 1px solid var(--line); }
@@ -363,7 +374,7 @@
 .rule-list .h5 { margin: 0; }
 .rule-list .body { margin-top: 0.35rem; }
 @media (max-width: 720px) { .rule-list { grid-template-columns: 1fr; } }
-.demo-note { margin-top: 0.9rem; text-align: center; font-size: var(--text-xs); color: var(--muted); letter-spacing: 0.02em; }
+.demo-note { margin-top: 0.9rem; text-align: center; font-size: var(--text-xs); color: #62626b; letter-spacing: 0.02em; }
 
 /* ---------- Header de seção ---------- */
 .section-head .lead { max-width: 60ch; }

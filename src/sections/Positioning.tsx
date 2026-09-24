@@ -3,7 +3,7 @@ import { Sparkles, LayoutTemplate, Waypoints, Palette, Globe, BarChart3, Webhook
 import { positioning } from '../content/copy';
 import { CtaLink, SectionHead } from '../components/ui';
 import { Logo } from '../components/Logo';
-import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
+import { gsap, ScrollTrigger, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
 import { Traces } from '../components/Traces';
 
@@ -32,25 +32,32 @@ export function Positioning() {
     if (!el || reduced) return;
     const items = el.querySelectorAll<HTMLElement>('.orbit__chip');
     const ctx = gsap.context(() => {
-      // órbita contínua
-      const R = 150;
-      items.forEach((it, i) => {
+      // órbita contínua. No celular o raio acompanha a largura (os chips não saem pelas bordas)
+      // e a elipse fica mais alta, para ocupar o bloco em vez de deixar um vão embaixo.
+      const narrow = el.clientWidth < 560;
+      const R = narrow ? Math.min(150, el.clientWidth / 2 - 72) : 150;
+      const ry = narrow ? 1.2 : 0.55;
+      const orbits = Array.from(items).map((it, i) => {
         const a0 = (i / items.length) * Math.PI * 2;
-        const ry = 0.55;
         gsap.set(it, { x: Math.cos(a0) * R, y: Math.sin(a0) * R * ry, zIndex: Math.sin(a0) > 0 ? 3 : 1 });
         const obj = { a: a0 };
-        gsap.to(obj, {
-          a: a0 + Math.PI * 2, duration: 34, repeat: -1, ease: 'none',
+        return gsap.to(obj, {
+          a: a0 + Math.PI * 2, duration: 34, repeat: -1, ease: 'none', paused: true,
           onUpdate: () => {
             const s = 0.85 + (Math.sin(obj.a) + 1) * 0.1;
             gsap.set(it, { x: Math.cos(obj.a) * R, y: Math.sin(obj.a) * R * ry, scale: s, zIndex: Math.sin(obj.a) > 0 ? 3 : 1 });
           },
         });
       });
+      // a órbita só gira enquanto está na tela (fora dela eram 9 atualizações por quadro à toa)
+      ScrollTrigger.create({
+        trigger: el, start: 'top bottom', end: 'bottom top',
+        onToggle: (self) => orbits.forEach((t) => (self.isActive ? t.resume() : t.pause())),
+      });
       // no scroll, o cluster inteiro inclina e o núcleo respira
       gsap.to(el, {
         scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
-        rotate: 6, ease: 'none',
+        rotate: narrow ? 3 : 6, ease: 'none',
       });
     }, el);
     return () => ctx.revert();

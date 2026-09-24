@@ -4,7 +4,7 @@ import { formats } from '../content/copy';
 import { CtaLink, SectionHead } from '../components/ui';
 import { PageArt } from '../components/PageArt';
 import { FlowArt } from '../components/FlowArt';
-import { gsap, useReveal, useSectionProgress } from '../lib/scroll';
+import { gsap, playWhileVisible, useReveal, useSectionProgress } from '../lib/scroll';
 import { useUI } from '../lib/store';
 import { Traces } from '../components/Traces';
 
@@ -20,9 +20,8 @@ export function Formats() {
     if (!el || reduced) return;
     const ctx = gsap.context(() => {
       // Quiz: pulsos correndo pelos fios em loop
-      el.querySelectorAll<SVGPathElement>('[data-pulse]').forEach((p, i) => {
-        gsap.fromTo(p, { strokeDashoffset: 1.05 }, { strokeDashoffset: -0.06, duration: 2.2 + (i % 5) * 0.3, repeat: -1, ease: 'none', delay: (i % 7) * 0.3 });
-      });
+      const pulses = Array.from(el.querySelectorAll<SVGPathElement>('[data-pulse]')).map((p, i) =>
+        gsap.fromTo(p, { strokeDashoffset: 1.05 }, { strokeDashoffset: -0.06, duration: 2.2 + (i % 5) * 0.3, repeat: -1, ease: 'none', delay: (i % 7) * 0.3 }));
       // Página: seções se empilham em loop
       const secs = el.querySelectorAll<HTMLElement>('.format-card--page [data-pg-sec]');
       const tl = gsap.timeline({ repeat: -1, repeatDelay: 1.4 });
@@ -30,6 +29,7 @@ export function Formats() {
       secs.forEach((s, i) => tl.to(s, { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' }, i * 0.35));
       tl.to({}, { duration: 1.2 });
       tl.to(secs, { opacity: 0, y: -16, duration: 0.4, stagger: 0.05 });
+      playWhileVisible(el, [...pulses, tl]);
     }, el);
     return () => ctx.revert();
   }, [reduced]);
