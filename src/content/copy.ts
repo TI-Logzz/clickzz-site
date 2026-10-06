@@ -170,9 +170,9 @@ export const plans = {
   included: 'O que está incluso:',
   cta: 'Escolher esse',
   items: [
-    { name: 'Gratuito', monthly: 0, yearly: 0, desc: 'Ideal para começar, testar a plataforma e publicar seus primeiros projetos.', limits: ['3 projetos', '500 contatos', '100 MB de armazenamento'] },
-    { name: 'Starter', monthly: 97, yearly: 58, desc: 'Ideal para operações que já utilizam projetos de conversão como parte da estratégia.', limits: ['5 projetos', '5.000 contatos', '250 MB de armazenamento'], featured: true },
-    { name: 'Advanced', monthly: 497, yearly: 333, desc: 'Para operações com maior volume de projetos, contatos e necessidade de escala.', limits: ['50 projetos', '50.000 contatos', '5 GB de armazenamento'] },
+    { name: 'Gratuito', monthly: 0, yearly: 0, desc: 'Ideal para começar, testar a plataforma e publicar seus primeiros projetos.', limits: ['1 projeto', '500 contatos', '100 MB de armazenamento'], href: { monthly: 'https://app.clickzz.com.br/login', yearly: 'https://app.clickzz.com.br/login' } },
+    { name: 'Starter', monthly: 97, yearly: 58, desc: 'Ideal para operações que já utilizam projetos de conversão como parte da estratégia.', limits: ['5 projetos', '5.000 contatos', '250 MB de armazenamento'], featured: true, href: { monthly: 'https://app.coinzz.com.br/checkout/starter---mensal-0%20', yearly: 'https://app.coinzz.com.br/checkout/starter---anual-0' } },
+    { name: 'Advanced', monthly: 497, yearly: 333, desc: 'Para operações com maior volume de projetos, contatos e necessidade de escala.', limits: ['50 projetos', '50.000 contatos', '5 GB de armazenamento'], href: { monthly: 'https://app.coinzz.com.br/checkout/advanced---mensal-0%20', yearly: 'https://app.coinzz.com.br/checkout/advanced---anual-0' } },
   ],
 } as const;
 

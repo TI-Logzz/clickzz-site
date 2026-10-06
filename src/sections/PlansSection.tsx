@@ -87,7 +87,7 @@ export function PlansSection() {
                     {p.limits.map((l) => <CheckItem key={l}>{l}</CheckItem>)}
                   </ul>
                   <div className="plan__cta">
-                    <CtaLink variant={featured ? 'primary' : 'ghost'}>{plans.cta}</CtaLink>
+                    <CtaLink variant={featured ? 'primary' : 'ghost'} href={p.href[billing]}>{plans.cta}</CtaLink>
                   </div>
                 </div>
               </article>
