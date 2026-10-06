@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { nav, APP_URL } from '../content/copy';
+import { nav, APP_URL, PRICES_HREF } from '../content/copy';
 import { scrollTo } from '../lib/scroll';
 import { Logo } from './Logo';
 import './nav.css';
@@ -46,7 +46,7 @@ export function Nav() {
         </nav>
         <div className="nav__actions">
           <a className="nav__login" href={`${APP_URL}/login`}>Entrar</a>
-          <a className="btn btn--primary btn--sm" href={APP_URL}>
+          <a className="btn btn--primary btn--sm" href={PRICES_HREF} onClick={go(PRICES_HREF)}>
             <span className="btn__sheen" aria-hidden="true" />
             <span style={{ position: 'relative' }}>{nav.cta}</span>
           </a>
@@ -60,7 +60,7 @@ export function Nav() {
           <a key={l.href} href={l.href} onClick={go(l.href)}>{l.label}</a>
         ))}
         <a href={`${APP_URL}/login`}>Entrar</a>
-        <a className="btn btn--primary" href={APP_URL}><span style={{ position: 'relative' }}>{nav.cta}</span></a>
+        <a className="btn btn--primary" href={PRICES_HREF} onClick={go(PRICES_HREF)}><span style={{ position: 'relative' }}>{nav.cta}</span></a>
       </div>
     </header>
   );

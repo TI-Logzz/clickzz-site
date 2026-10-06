@@ -212,3 +212,5 @@ export const footer = {
 } as const;
 
 export const APP_URL = 'https://app.quizmaker.com.br';
+/** Destino dos CTAs da página: a seção de planos (o visitante vê os preços antes de ir ao app). */
+export const PRICES_HREF = '#prices';

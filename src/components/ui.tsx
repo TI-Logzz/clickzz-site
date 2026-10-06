@@ -1,6 +1,7 @@
 import type { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
 import { Check, X } from 'lucide-react';
-import { APP_URL } from '../content/copy';
+import { PRICES_HREF } from '../content/copy';
+import { scrollTo } from '../lib/scroll';
 
 type BtnVariant = 'primary' | 'ghost' | 'dark';
 type BtnSize = 'sm' | 'md' | 'lg';
@@ -24,10 +25,16 @@ interface LinkButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   size?: BtnSize;
 }
 
-/** CTA que leva para o app. */
-export function CtaLink({ variant = 'primary', size = 'md', className = '', children, href = APP_URL, ...rest }: LinkButtonProps) {
+/** CTA: por padrão desliza até os planos; com `href` externo, leva direto ao destino. */
+export function CtaLink({ variant = 'primary', size = 'md', className = '', children, href = PRICES_HREF, onClick, ...rest }: LinkButtonProps) {
+  const onAnchor = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    onClick?.(e);
+    if (e.defaultPrevented || !href.startsWith('#')) return;
+    e.preventDefault();
+    scrollTo(href);
+  };
   return (
-    <a className={`btn btn--${variant} ${size !== 'md' ? `btn--${size}` : ''} ${className}`} href={href} {...rest}>
+    <a className={`btn btn--${variant} ${size !== 'md' ? `btn--${size}` : ''} ${className}`} href={href} onClick={onAnchor} {...rest}>
       {variant === 'primary' && <span className="btn__sheen" aria-hidden="true" />}
       <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>{children}</span>
     </a>

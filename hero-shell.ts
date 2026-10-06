@@ -1,5 +1,5 @@
 import type { Plugin } from 'vite';
-import { hero, nav, APP_URL } from './src/content/copy.ts';
+import { hero, nav, APP_URL, PRICES_HREF } from './src/content/copy.ts';
 
 /**
  * Primeira dobra no HTML: menu + texto do hero vão dentro do #root já no index.html, com as
@@ -23,12 +23,12 @@ function shell() {
   const title = words.map((w, i) => `<span class="word">${esc(w)}${i < words.length - 1 ? ' ' : ''}</span>`).join('') + `<span class="word">${GEM}</span>`;
   const links = nav.links.map((l) => `<a href="${l.href}">${esc(l.label)}</a>`).join('');
   return `<div class="page-root hero-shell" id="top">
-<header class="nav"><div class="nav__bar"><a href="#" class="nav__brand" aria-label="Clickzz — início"><img alt="Clickzz" height="26" width="105" src="./brand/clickzz-logo-white@78.webp" style="height:26px;width:auto;display:block"></a><nav class="nav__links" aria-label="Seções da página">${links}</nav><div class="nav__actions"><a class="nav__login" href="${APP_URL}/login">Entrar</a><a class="btn btn--primary btn--sm" href="${APP_URL}"><span class="btn__sheen" aria-hidden="true"></span><span style="position:relative">${esc(nav.cta)}</span></a><button class="nav__burger" aria-label="Abrir menu">${MENU}</button></div></div></header>
+<header class="nav"><div class="nav__bar"><a href="#" class="nav__brand" aria-label="Clickzz — início"><img alt="Clickzz" height="26" width="105" src="./brand/clickzz-logo-white@78.webp" style="height:26px;width:auto;display:block"></a><nav class="nav__links" aria-label="Seções da página">${links}</nav><div class="nav__actions"><a class="nav__login" href="${APP_URL}/login">Entrar</a><a class="btn btn--primary btn--sm" href="${PRICES_HREF}"><span class="btn__sheen" aria-hidden="true"></span><span style="position:relative">${esc(nav.cta)}</span></a><button class="nav__burger" aria-label="Abrir menu">${MENU}</button></div></div></header>
 <main><section class="hero" aria-labelledby="hero-title"><div class="hero__sticky" style="position:relative;top:0"><div class="container--wide hero__grid"><div class="hero__copy">
 <div class="hero__eyebrow"><span class="eyebrow">${esc(hero.eyebrow)}</span></div>
 <h1 id="hero-title" class="display h1 hero__title">${title}</h1>
 <p class="lead hero__lead">${esc(hero.body)}</p>
-<div class="hero__cta"><a class="btn btn--primary btn--lg" href="${APP_URL}"><span class="btn__sheen" aria-hidden="true"></span><span style="position:relative;display:inline-flex;align-items:center;gap:0.5rem">${esc(hero.cta)}</span></a></div>
+<div class="hero__cta"><a class="btn btn--primary btn--lg" href="${PRICES_HREF}"><span class="btn__sheen" aria-hidden="true"></span><span style="position:relative;display:inline-flex;align-items:center;gap:0.5rem">${esc(hero.cta)}</span></a></div>
 <ul class="hero__checks">${hero.checks.map((c) => `<li><span class="mark" aria-hidden="true">${CHECK}</span>${esc(c)}</li>`).join('')}</ul>
 </div><div class="hero__stage"></div></div></div></section></main>
 </div>`;
